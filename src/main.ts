@@ -9,6 +9,9 @@ import * as OrbitControls from 'three-orbitcontrols';
  */
 export default class Main {
 
+	/* フレームオブジェクト */
+	private readonly _frame;
+
 	/* キャンバスオブジェクト */
 	private readonly _canvas;
 	private _width: number;
@@ -16,6 +19,9 @@ export default class Main {
 
 	/* デバッグオブジェクト */
 	private readonly _debug;
+
+	/* ベースとなる URL */
+	private readonly _baseURL;
 
 	/* レンダラーオブジェクト */
 	private readonly _renderer: THREE.WebGLRenderer;
@@ -67,13 +73,28 @@ export default class Main {
 		this._mouseup   = this._mouseup.bind(this);
 		this._resize    = this._resize.bind(this);
 
+		// フレームを取得
+		this._frame = document.getElementById('ConstructionGuideFrame');
+
 		// キャンバスを取得
-		this._canvas = document.getElementById('app');
+		this._canvas = document.getElementById('ConstructionGuideApp');
 		this._width  = this._canvas.clientWidth;
 		this._height = this._canvas.clientHeight;
 
-		// デバッグ表示を取得
-		this._debug  = document.getElementById('dbg');
+		// デバッグを作成
+		this._debug = document.createElement('span');
+		this._debug.setAttribute('id', 'ConstructionGuideDebug');
+		this._frame.appendChild(this._debug);
+
+		// ベース URL を設定
+		// this._baseURL = 'http://127.0.0.1:8080/dist/';
+		this._baseURL = 'https://km7902.github.io/ConstructionGuide/dist/';
+
+		// スタイルシートを取得
+		const stylesheet = document.createElement('link');
+		stylesheet.setAttribute('rel', 'stylesheet');
+		stylesheet.setAttribute('href', this._baseURL + 'css/ConstructionGuide.css');
+		this._frame.appendChild(stylesheet);
 
 		// レンダラーを作成
 		this._renderer = new THREE.WebGLRenderer({
@@ -134,14 +155,14 @@ export default class Main {
 		this._grid = new Grid(this._scene);
 
 		// エンティティを作成する
-		this._entity = new Entity(this._scene, this._grid._getBlockSize(), this._grid._getBlockStep());
+		this._entity = new Entity(this._scene, this._baseURL, this._grid._getBlockSize(), this._grid._getBlockStep());
 
 		// エンティティの配置を復元
 		if (this._canvas.innerHTML != '')
 			this._entity._recover(this._canvas.innerHTML);
 
 		// インターフェースを作成する
-		this._interface = new Interface(this._scene2d, this._camera2d);
+		this._interface = new Interface(this._scene2d, this._camera2d, this._baseURL);
 
 		// 現在のアイテム ID を空気（何も持たない状態）にする
 		this._itemID = '0';

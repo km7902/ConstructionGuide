@@ -66,11 +66,12 @@ export default class Interface {
 	 * @constructor
 	 * @param {THREE.Scene} scene2d: 2D シーンオブジェクト
 	 * @param {THREE.OrthographicCamera} camera2d: 2D カメラオブジェクト
+	 * @param {string} baseURL: 外部リソースへの URL
 	 */
-	constructor(scene2d: THREE.Scene, camera2d: THREE.OrthographicCamera) {
+	constructor(scene2d: THREE.Scene, camera2d: THREE.OrthographicCamera, baseURL: string) {
 
 		// キャンバスを取得
-		this._canvas = document.getElementById('app');
+		this._canvas = document.getElementById('ConstructionGuideApp');
 		this._width = this._canvas.clientWidth;
 		this._height = this._canvas.clientHeight;
 
@@ -81,13 +82,13 @@ export default class Interface {
 		this._camera2d = camera2d;
 
 		// ウィジェットを作成
-		this._widget = new Widget(this._scene2d);
+		this._widget = new Widget(this._scene2d, baseURL);
 
 		// スライダーを作成
-		this._slider = new Slider(this._scene2d);
+		this._slider = new Slider(this._scene2d, baseURL);
 
 		// インベントリを作成
-		this._inventory = new Inventory(this._scene2d, this._widget._getWidgetSize());
+		this._inventory = new Inventory(this._scene2d, baseURL, this._widget._getWidgetSize());
 
 		// ドラッグ中に表示するアイテムの初期化
 		this._dragItem = null;

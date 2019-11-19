@@ -62,12 +62,13 @@ export default class Inventory {
 	 * コンストラクタ
 	 * @constructor
 	 * @param {THREE.Scene} scene2d: 2D シーンオブジェクト
+	 * @param {string} baseURL: 外部リソースへの URL
 	 * @param {number} widgetSize: ウィジェットの幅と高さ
 	 */
-	constructor(scene2d: THREE.Scene, widgetSize: number) {
+	constructor(scene2d: THREE.Scene, baseURL: string, widgetSize: number) {
 
 		// キャンバスを取得
-		this._canvas = document.getElementById('app');
+		this._canvas = document.getElementById('ConstructionGuideApp');
 		this._width = this._canvas.clientWidth;
 		this._height = this._canvas.clientHeight;
 
@@ -75,35 +76,35 @@ export default class Inventory {
 		this._textureList = [];
 
 		// チェストテクスチャ
-		this._textureList.push(new THREE.TextureLoader().load('img/chest.png'));
+		this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/chest.png'));
 		this._textureList[0].magFilter = THREE.NearestFilter;
 		this._textureList[0].minFilter = THREE.NearestFilter;
 		this._textureList[0].type = THREE.FloatType;
 
 		// インベントリテクスチャ
-		this._textureList.push(new THREE.TextureLoader().load('img/inventory_bg.png'));
+		this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/inventory_bg.png'));
 		this._textureList[1].magFilter = THREE.NearestFilter;
 		this._textureList[1].minFilter = THREE.NearestFilter;
 		this._textureList[1].type = THREE.FloatType;
 
-		this._textureList.push(new THREE.TextureLoader().load('img/inventory.png'));
+		this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/inventory.png'));
 		this._textureList[2].magFilter = THREE.NearestFilter;
 		this._textureList[2].minFilter = THREE.NearestFilter;
 		this._textureList[2].type = THREE.FloatType;
 
 		// インベントリストアテクスチャ
-		this._textureList.push(new THREE.TextureLoader().load('img/palette.png'));
+		this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/palette.png'));
 		this._textureList[3].magFilter = THREE.LinearFilter;
 		this._textureList[3].minFilter = THREE.LinearFilter;
 		this._textureList[3].type = THREE.FloatType;
 
 		// ナビゲーションテクスチャ
-		this._textureList.push(new THREE.TextureLoader().load('img/nav_back.png'));
+		this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/nav_back.png'));
 		this._textureList[4].magFilter = THREE.NearestFilter;
 		this._textureList[4].minFilter = THREE.NearestFilter;
 		this._textureList[4].type = THREE.FloatType;
 
-		this._textureList.push(new THREE.TextureLoader().load('img/nav_next.png'));
+		this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/nav_next.png'));
 		this._textureList[5].magFilter = THREE.NearestFilter;
 		this._textureList[5].minFilter = THREE.NearestFilter;
 		this._textureList[5].type = THREE.FloatType;

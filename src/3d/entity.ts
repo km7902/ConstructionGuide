@@ -7,6 +7,9 @@ import * as THREE from 'three';
  */
 export default class Entity {
 
+	/* ベースとなる URL */
+	private readonly _baseURL;
+
 	/* ブロックサイズと数 */
 	private _blockSize: number;
 	private _blockStep: number;
@@ -61,10 +64,14 @@ export default class Entity {
 	 * コンストラクタ
 	 * @constructor
 	 * @param {THREE.Scene} scene: 3D シーンオブジェクト
+	 * @param {string} baseURL: 外部リソースへの URL
 	 * @param {number} blockSize: エンティティブロックサイズ
 	 * @param {number} blockSize: エンティティブロックの数
 	 */
-	constructor(scene: THREE.Scene, blockSize: number, blockStep: number) {
+	constructor(scene: THREE.Scene, baseURL: string, blockSize: number, blockStep: number) {
+
+		// ベース URL を設定
+		this._baseURL = baseURL;
 
 		// エンティティブロックサイズと数を取得
 		this._blockSize = blockSize;
@@ -167,7 +174,7 @@ export default class Entity {
 					entityMaterial = new THREE.MeshPhongMaterial({
 
 						color: 0xcccccc,
-						map: this._texturemap.toBox('texture/' + item.en.replace(/ /g, '_') + '.png'),
+						map: this._texturemap.toBox(this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
 						transparent: true
 					});
 					break;
@@ -177,7 +184,7 @@ export default class Entity {
 					entityMaterial = new THREE.MeshPhongMaterial({
 
 						color: 0xcccccc,
-						map: this._texturemap.toTopBox(entityGeometry, 'texture/' + item.en.replace(/ /g, '_') + '.png'),
+						map: this._texturemap.toTopBox(entityGeometry, this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
 						transparent: true
 					});
 					break;
@@ -366,7 +373,7 @@ export default class Entity {
 							entityMaterial = new THREE.MeshPhongMaterial({
 
 								color: 0xcccccc,
-								map: this._texturemap.toBox('texture/' + item.en.replace(/ /g, '_') + '.png'),
+								map: this._texturemap.toBox(this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
 								transparent: true
 							});
 							break;
@@ -376,7 +383,7 @@ export default class Entity {
 							entityMaterial = new THREE.MeshPhongMaterial({
 
 								color: 0xcccccc,
-								map: this._texturemap.toTopBox(entityGeometry, 'texture/' + item.en.replace(/ /g, '_') + '.png'),
+								map: this._texturemap.toTopBox(entityGeometry, this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
 								transparent: true
 							});
 							break;

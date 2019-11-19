@@ -65,11 +65,12 @@ export default class Widget {
 	 * コンストラクタ
 	 * @constructor
 	 * @param {THREE.Scene} scene2d: 2D シーンオブジェクト
+	 * @param {string} baseURL: 外部リソースへの URL
 	 */
-	constructor(scene2d: THREE.Scene) {
+	constructor(scene2d: THREE.Scene, baseURL: string) {
 
 		// キャンバスを取得
-		this._canvas = document.getElementById('app');
+		this._canvas = document.getElementById('ConstructionGuideApp');
 		this._width = this._canvas.clientWidth;
 		this._height = this._canvas.clientHeight;
 
@@ -79,14 +80,14 @@ export default class Widget {
 		// ウィジェットテクスチャ
 		for (let i = 0; i < 3; i++) {
 
-			this._textureList.push(new THREE.TextureLoader().load('img/widget' + (i + 1) + '.png'));
+			this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/widget' + (i + 1) + '.png'));
 			this._textureList[i].magFilter = THREE.NearestFilter;
 			this._textureList[i].minFilter = THREE.NearestFilter;
 			this._textureList[i].type = THREE.FloatType;
 		}
 
 		// ウィジェットストアテクスチャ
-		this._textureList.push(new THREE.TextureLoader().load('img/palette.png'));
+		this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/palette.png'));
 		this._textureList[3].magFilter = THREE.LinearFilter;
 		this._textureList[3].minFilter = THREE.LinearFilter;
 		this._textureList[3].type = THREE.FloatType;

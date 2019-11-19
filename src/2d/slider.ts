@@ -36,11 +36,12 @@ export default class Slider {
 	 * コンストラクタ
 	 * @constructor
 	 * @param {THREE.Scene} scene2d: 2D シーンオブジェクト
+	 * @param {string} baseURL: 外部リソースへの URL
 	 */
-	constructor(scene2d: THREE.Scene) {
+	constructor(scene2d: THREE.Scene, baseURL: string) {
 
 		// キャンバスを取得
-		this._canvas = document.getElementById('app');
+		this._canvas = document.getElementById('ConstructionGuideApp');
 		this._width = this._canvas.clientWidth;
 		this._height = this._canvas.clientHeight;
 
@@ -48,13 +49,13 @@ export default class Slider {
 		this._textureList = [];
 
 		// スライダーバーテクスチャ
-		this._textureList.push(new THREE.TextureLoader().load('img/slider_bar.png'));
+		this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/slider_bar.png'));
 		this._textureList[0].magFilter = THREE.NearestFilter;
 		this._textureList[0].minFilter = THREE.NearestFilter;
 		this._textureList[0].type = THREE.FloatType;
 
 		// スライダーピンチテクスチャ
-		this._textureList.push(new THREE.TextureLoader().load('img/slider_pinch.png'));
+		this._textureList.push(new THREE.TextureLoader().load(baseURL + 'img/slider_pinch.png'));
 		this._textureList[1].magFilter = THREE.NearestFilter;
 		this._textureList[1].minFilter = THREE.NearestFilter;
 		this._textureList[1].type = THREE.FloatType;
