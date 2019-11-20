@@ -27,16 +27,15 @@ module.exports = {
 	},
 
 	module: {
-		rules: [
-			{
+		rules: [{
 
-				// 拡張子 .ts の場合
-				test: /\.ts$/,
-				// TypeScript をコンパイルする
-				use: "ts-loader"
+			// 拡張子 .ts の場合
+			test: /\.ts$/,
 
-			}
-		]
+			// TypeScript をコンパイルする
+			use: "ts-loader"
+
+		}]
 	},
 
 	// import で .ts .js ファイルを解決する

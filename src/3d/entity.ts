@@ -7,22 +7,26 @@ import * as THREE from 'three';
  */
 export default class Entity {
 
-	/* ベースとなる URL */
+	/* 外部リソースへの URL */
 	private readonly _baseURL;
 
 	/* ブロックサイズと数 */
 	private _blockSize: number;
 	private _blockStep: number;
 
-	/* エンティティブロック空間配列 */
-	private _blockSpace;
+	/* エンティティの配置 */
+	private _entitySpace;
 
 	/* テクスチャマップオブジェクト */
 	private readonly _texturemap: Texturemap;
 
-	/* エンティティ配列オブジェクト */
-	private _entityList: THREE.Mesh[];
-	private _entityID: number;
+	/* エンティティ制御オブジェクト */
+	private _entityControl: THREE.Mesh[];
+
+	/* エンティティメッシュ ID */
+	private _entityMeshID: number;
+
+	/* エンティティアイテム ID */
 	private _entityItemID: string;
 
 	/* 公開: デバッグ表示 */
@@ -40,19 +44,19 @@ export default class Entity {
 	/* 公開: main.ts で 3D シーンに登録してもらうため */
 	public _setEntityGroup(mesh) {
 
-		// mesh { entity: 対象のエンティティ, action: 処理内容 }
+		// mesh { entity: ターゲットエンティティ, action: 処理内容 }
 
 		switch (mesh.action) {
 
-			case 'add':
-				this._entityGroup.add(mesh.entity); // 登録の場合
+			case 'add': // 登録の場合
+				this._entityGroup.add(mesh.entity);
 				break;
 
-			case 'remove':
-				this._entityGroup.remove(mesh.entity); // 削除の場合
+			case 'remove': // 削除の場合
+				this._entityGroup.remove(mesh.entity);
 				break;
 
-			default:
+			default: // それ以外は何もしない
 				break;
 		}
 	}
@@ -65,20 +69,20 @@ export default class Entity {
 	 * @constructor
 	 * @param {THREE.Scene} scene: 3D シーンオブジェクト
 	 * @param {string} baseURL: 外部リソースへの URL
-	 * @param {number} blockSize: エンティティブロックサイズ
-	 * @param {number} blockSize: エンティティブロックの数
+	 * @param {number} blockSize: ブロックのサイズ
+	 * @param {number} blockSize: ブロックの数
 	 */
 	constructor(scene: THREE.Scene, baseURL: string, blockSize: number, blockStep: number) {
 
 		// ベース URL を設定
 		this._baseURL = baseURL;
 
-		// エンティティブロックサイズと数を取得
+		// ブロックサイズと数を取得
 		this._blockSize = blockSize;
 		this._blockStep = blockStep;
 
-		// エンティティブロック空間を初期化
-		this._blockSpace = { '63': { '0': { '0': '0' } } };
+		// エンティティの配置を初期化
+		this._entitySpace = { '63': { '0': { '0': '0' } } };
 
 		// テクスチャマップを作成する
 		this._texturemap = new Texturemap();
@@ -87,8 +91,8 @@ export default class Entity {
 		this._entityGroup = new THREE.Group();
 		scene.add(this._entityGroup);
 
-		// マウスとの交差を調べたいものは配列に格納する
-		this._entityList = [];
+		// マウスとの交差を調べたいものはエンティティ制御に格納する
+		this._entityControl = [];
 
 		// レイキャストを作成
 		this._raycaster = new THREE.Raycaster();
@@ -106,9 +110,9 @@ export default class Entity {
 		this._raycaster.setFromCamera(mouseUV, camera);
 
 		// その光線とぶつかったオブジェクトを得る
-		let intersects = this._raycaster.intersectObjects(this._entityList);
+		let intersects = this._raycaster.intersectObjects(this._entityControl);
 		this._entityItemID = '0';
-		this._entityList.map(mesh => {
+		this._entityControl.map(mesh => {
 
 			if (intersects.length > 0 && mesh === intersects[0].object && !action) {
 
@@ -118,7 +122,7 @@ export default class Entity {
 				(<any>mesh.material).color.b = 1;
 
 				// エンティティ ID を取得
-				this._entityID = mesh.id;
+				this._entityMeshID = mesh.id;
 
 				// アイテム ID を取得
 				this._entityItemID = mesh.name;
@@ -150,7 +154,7 @@ export default class Entity {
 			const posZ = position.z;
 
 			// エンティティがすでに配置されているかチェックする
-			if (!this._blockSpaceCheck(posX, posY, posZ)) {
+			if (!this._entitySpaceExist(posX, posY, posZ)) {
 
 				// キャンセルを main.ts に返す
 				return { entity: null, action: 'cancel' }
@@ -193,14 +197,14 @@ export default class Entity {
 			const entityMesh = new THREE.Mesh(entityGeometry, entityMaterial);
 			entityMesh.position.set(posX, posY, posZ);
 
-			// アイテム ID を記憶させる
+			// アイテム ID を持たせる
 			entityMesh.name = item.id;
 
-			// エンティティ配列に保存
-			this._entityList.push(entityMesh);
+			// エンティティ制御に追加
+			this._entityControl.push(entityMesh);
 
-			// エンティティブロック空間配列に登録
-			this._blockSpaceAdd(entityMesh);
+			// エンティティの配置に登録
+			this._entitySpaceAdd(entityMesh);
 
 			// エンティティを main.ts に渡す
 			return { entity: entityMesh, action: 'add' }
@@ -208,18 +212,18 @@ export default class Entity {
 		// 右クリックの場合
 		} else if (event.button == 2) {
 
-			for (let i = 0; i < this._entityList.length; i++) {
+			for (let i = 0; i < this._entityControl.length; i++) {
 
-				if (this._entityID == this._entityList[i].id) {
+				if (this._entityMeshID == this._entityControl[i].id) {
 
-					// エンティティ集合を削除するために一時保管
-					const entityMesh = this._entityList[i];
+					// エンティティ集合から削除するために一時保管
+					const entityMesh = this._entityControl[i];
 
-					// エンティティブロック空間配列から削除
-					this._blockSpaceRemove(entityMesh);
+					// エンティティの配置から削除
+					this._entitySpaceRemove(entityMesh);
 
-					// エンティティ配列から削除
-					this._entityList.splice(i, 1);
+					// エンティティ制御から削除
+					this._entityControl.splice(i, 1);
 
 					// エンティティを main.ts に渡す
 					return { entity: entityMesh, action: 'remove' }
@@ -229,84 +233,84 @@ export default class Entity {
 	}
 
 	/**
-	 * エンティティブロック空間マネージャ（登録前の検査）
+	 * エンティティの配置マネージャ（検査）
 	 * @param {number} posX: ブロックの X 座標
 	 * @param {number} posY: ブロックの Y 座標
 	 * @param {number} posZ: ブロックの Z 座標
 	 */
-	public _blockSpaceCheck(posX: number, posY: number, posZ: number) {
+	public _entitySpaceExist(posX: number, posY: number, posZ: number) {
 
-		// ブロック座標を取得
+		// 空間座標を取得
 		const x = this._getX(posX);
 		const y = this._getY(posY);
 		const z = this._getZ(posZ);
 
-		// エンティティブロック空間配列の要素が存在しなければ登録可能
+		// エンティティの配置に存在しなければ登録可能
 		let exist = false;
-		Object.keys(this._blockSpace).map(e1 => {if (e1 == y) exist = true});
+		Object.keys(this._entitySpace).map(e1 => {if (e1 == y) exist = true});
 		if (!exist) return true;
 		exist = false;
-		Object.keys(this._blockSpace[y]).map(e2 => {if (e2 == x) exist = true});
+		Object.keys(this._entitySpace[y]).map(e2 => {if (e2 == x) exist = true});
 		if (!exist) return true;
 		exist = false;
-		Object.keys(this._blockSpace[y][x]).map(e3 => {if (e3 == z) exist = true});
+		Object.keys(this._entitySpace[y][x]).map(e3 => {if (e3 == z) exist = true});
 		if (!exist) return true;
 
-		// すでに何かある場合は登録不可（Air: 0 のときは例外）
-		if (this._blockSpace[y][x][z] != '0')
+		// すでに何かある場合は登録不可（ただし Air: 0 のときは例外）
+		if (this._entitySpace[y][x][z] != '0')
 			return false;
 		else
 			return true;
 	}
 
 	/**
-	 * エンティティブロック空間マネージャ（登録）
-	 * @param {THREE.Mesh} mesh: ブロックオブジェクト
+	 * エンティティの配置マネージャ（登録）
+	 * @param {THREE.Mesh} mesh: エンティティオブジェクト
 	 */
-	public _blockSpaceAdd(mesh: THREE.Mesh) {
+	public _entitySpaceAdd(mesh: THREE.Mesh) {
 
-		// ブロック座標を取得
+		// 空間座標を取得
 		const x = this._getX(mesh.position.x);
 		const y = this._getY(mesh.position.y);
 		const z = this._getZ(mesh.position.z);
 
-		// エンティティブロック空間配列に記録
+		// エンティティの配置に登録
 		let exist = false;
-		Object.keys(this._blockSpace).map(e1 => {if (e1 == y) exist = true});
-		if (!exist) this._blockSpace[y] = {};
+		Object.keys(this._entitySpace).map(e1 => {if (e1 == y) exist = true});
+		if (!exist) this._entitySpace[y] = {};
 		exist = false;
-		Object.keys(this._blockSpace[y]).map(e2 => {if (e2 == x) exist = true});
-		if (!exist) this._blockSpace[y][x] = {};
-		this._blockSpace[y][x][z] = mesh.name;
+		Object.keys(this._entitySpace[y]).map(e2 => {if (e2 == x) exist = true});
+		if (!exist) this._entitySpace[y][x] = {};
+		this._entitySpace[y][x][z] = mesh.name;
 
 		// インターフェースができるまではコンソールログに JSON データを出力する
-		console.log(JSON.stringify(this._blockSpace));
+		console.log(JSON.stringify(this._entitySpace));
 	}
 
 	/**
-	 * エンティティブロック空間マネージャ（削除）
+	 * エンティティの配置マネージャ（削除）
 	 * @param {THREE.Mesh} mesh: ブロックオブジェクト
 	 */
-	public _blockSpaceRemove(mesh: THREE.Mesh) {
+	public _entitySpaceRemove(mesh: THREE.Mesh) {
 
-		// ブロック座標を取得
+		// 空間座標を取得
 		const x = this._getX(mesh.position.x);
 		const y = this._getY(mesh.position.y);
 		const z = this._getZ(mesh.position.z);
 
-		// エンティティブロック空間配列から削除（Air: 0 にする）
+		// エンティティの配置から削除（Air: 0 にする）
 		let exist = false;
-		Object.keys(this._blockSpace).map(e1 => {if (e1 == y) exist = true});
-		if (!exist) this._blockSpace[y] = {};
+		Object.keys(this._entitySpace).map(e1 => {if (e1 == y) exist = true});
+		if (!exist) this._entitySpace[y] = {};
 		exist = false;
-		Object.keys(this._blockSpace[y]).map(e2 => {if (e2 == x) exist = true});
-		if (!exist) this._blockSpace[y][x] = {};
-		this._blockSpace[y][x][z] = '0';
+		Object.keys(this._entitySpace[y]).map(e2 => {if (e2 == x) exist = true});
+		if (!exist) this._entitySpace[y][x] = {};
+		this._entitySpace[y][x][z] = '0';
 	}
 
 	/**
-	 * x ブロック座標を取得
-	 * @param {number} x: 3D 空間座標
+	 * x 空間座標を取得
+	 * @param {number} x: ブロックの X 座標
 	 */
 	private _getX(x: number) {
 
@@ -317,8 +321,8 @@ export default class Entity {
 	}
 
 	/**
-	 * y ブロック座標を取得
-	 * @param {number} y: 3D 空間座標
+	 * y 空間座標を取得
+	 * @param {number} y: ブロックの Y 座標
 	 */
 	private _getY(y: number) {
 
@@ -326,8 +330,8 @@ export default class Entity {
 	}
 
 	/**
-	 * z ブロック座標を取得
-	 * @param {number} z: 3D 空間座標
+	 * z 空間座標を取得
+	 * @param {number} z: ブロックの Z 座標
 	 */
 	private _getZ(z: number) {
 
@@ -341,22 +345,22 @@ export default class Entity {
 	 * エンティティの配置を復元
 	 * @param {string} json: JSON 文字列
 	 */
-	public _recover(json: string) {
+	public _entitySpaceRecover(json: string) {
 
-		// エンティティブロック空間配列に復元
-		this._blockSpace = JSON.parse(json);
+		// エンティティの配置を読み込む
+		this._entitySpace = JSON.parse(json);
 
 		// エンティティの配置を復元
-		Object.keys(this._blockSpace).map(e1 =>
-			Object.keys(this._blockSpace[e1]).map(e2 =>
-				Object.keys(this._blockSpace[e1][e2]).map(e3 => {
+		Object.keys(this._entitySpace).map(e1 =>
+			Object.keys(this._entitySpace[e1]).map(e2 =>
+				Object.keys(this._entitySpace[e1][e2]).map(e3 => {
 
 					const posX = this._setX(e2);
 					const posY = this._setY(e1);
 					const posZ = this._setZ(e3);
 
 					// 持っているアイテムによってテクスチャを切り替える
-					const item = palette.find((v) => v.id === this._blockSpace[e1][e2][e3]);
+					const item = palette.find((v) => v.id === this._entitySpace[e1][e2][e3]);
 
 					// エンティティを作成
 					const entityGeometry = new THREE.BoxGeometry(
@@ -392,13 +396,13 @@ export default class Entity {
 					const entityMesh = new THREE.Mesh(entityGeometry, entityMaterial);
 					entityMesh.position.set(posX, posY, posZ);
 
-					// アイテム ID を記憶させる
+					// アイテム ID を持たせる
 					entityMesh.name = item.id;
 
-					// エンティティ配列に保存
-					this._entityList.push(entityMesh);
+					// エンティティ制御に追加
+					this._entityControl.push(entityMesh);
 
-					// エンティティ集合に保存
+					// エンティティ集合に登録
 					this._entityGroup.add(entityMesh);
 				})
 			)
@@ -406,8 +410,8 @@ export default class Entity {
 	}
 
 	/**
-	 * x 空間座標を設定
-	 * @param {string} x: 3D ブロック座標
+	 * x ブロック座標を算出
+	 * @param {string} x: X 空間座標
 	 */
 	private _setX(x: string) {
 
@@ -415,8 +419,8 @@ export default class Entity {
 	}
 
 	/**
-	 * y 空間座標を設定
-	 * @param {string} y: 3D ブロック座標
+	 * y ブロック座標を算出
+	 * @param {string} y: Y 空間座標
 	 */
 	private _setY(y: string) {
 
@@ -424,8 +428,8 @@ export default class Entity {
 	}
 
 	/**
-	 * z 空間座標を設定
-	 * @param {string} z: 3D ブロック座標
+	 * z ブロック座標を算出
+	 * @param {string} z: Z 空間座標
 	 */
 	private _setZ(z: string) {
 

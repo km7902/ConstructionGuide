@@ -1,3 +1,4 @@
+import { WEBGL } from '../lib/WebGL';
 import Entity from './3d/entity';
 import Grid from './3d/grid';
 import Interface from './interface';
@@ -8,9 +9,6 @@ import * as OrbitControls from 'three-orbitcontrols';
  * メインクラス
  */
 export default class Main {
-
-	/* フレームオブジェクト */
-	private readonly _frame;
 
 	/* キャンバスオブジェクト */
 	private readonly _canvas;
@@ -36,10 +34,6 @@ export default class Main {
 
 	/* カメラコントローラーオブジェクト */
 	private readonly _orbitControls: OrbitControls;
-
-	/* 光源オブジェクト */
-	private readonly _ambientLight: THREE.AmbientLight;
-	private readonly _directionalLight: THREE.DirectionalLight;
 
 	/* グリッドオブジェクト */
 	private readonly _grid: Grid;
@@ -73,20 +67,28 @@ export default class Main {
 		this._mouseup   = this._mouseup.bind(this);
 		this._resize    = this._resize.bind(this);
 
-		// フレームを取得
-		this._frame = document.getElementById('ConstructionGuideFrame');
-
 		// キャンバスを取得
 		this._canvas = document.getElementById('ConstructionGuideApp');
 		this._width  = this._canvas.clientWidth;
 		this._height = this._canvas.clientHeight;
 
+		// フレームを取得
+		const frame = document.getElementById('ConstructionGuideFrame');
+
+		// WebGL に対応していないブラウザにメッセージを表示
+		if (!WEBGL.isWebGLAvailable()) {
+
+			frame.insertBefore(WEBGL.getWebGLErrorMessage(), this._canvas);
+			this._canvas.style.display = 'none';
+			return;
+		}
+
 		// デバッグを作成
 		this._debug = document.createElement('span');
 		this._debug.setAttribute('id', 'ConstructionGuideDebug');
-		this._frame.appendChild(this._debug);
+		frame.appendChild(this._debug);
 
-		// ベース URL を設定
+		// ベース URL を定義
 		// this._baseURL = 'http://127.0.0.1:8080/dist/';
 		this._baseURL = 'https://km7902.github.io/ConstructionGuide/dist/';
 
@@ -94,7 +96,7 @@ export default class Main {
 		const stylesheet = document.createElement('link');
 		stylesheet.setAttribute('rel', 'stylesheet');
 		stylesheet.setAttribute('href', this._baseURL + 'css/ConstructionGuide.css');
-		this._frame.appendChild(stylesheet);
+		frame.appendChild(stylesheet);
 
 		// レンダラーを作成
 		this._renderer = new THREE.WebGLRenderer({
@@ -143,33 +145,39 @@ export default class Main {
 
 		// 光源を作成
 		// new THREE.AmbientLight(色, 光の強さ)
-		this._ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-		this._scene.add(this._ambientLight);
+		const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+		this._scene.add(ambientLight);
 
 		// new THREE.DirectionalLight(色, 光の強さ)
-		this._directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-		this._directionalLight.position.set(0, 1200, 400);
-		this._scene.add(this._directionalLight);
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+		directionalLight.position.set(0, 1200, 400);
+		this._scene.add(directionalLight);
 
 		// グリッドを作成する
-		this._grid = new Grid(this._scene);
+		// @param {THREE.Scene} scene: 3D シーンオブジェクト
+		// @param {number} blockSize: ブロックのサイズ
+		// @param {number} blockStep: ブロックの数
+		this._grid = new Grid(this._scene, 100, 50);
 
 		// エンティティを作成する
+		// @param {THREE.Scene} scene: 3D シーンオブジェクト
+		// @param {string} baseURL: 外部リソースへの URL
+		// @param {number} blockSize: ブロックのサイズ
+		// @param {number} blockSize: ブロックの数
 		this._entity = new Entity(this._scene, this._baseURL, this._grid._getBlockSize(), this._grid._getBlockStep());
 
-		// エンティティの配置を復元
+		// JSON データがあればエンティティの配置を復元
 		if (this._canvas.innerHTML != '')
-			this._entity._recover(this._canvas.innerHTML);
+			this._entity._entitySpaceRecover(this._canvas.innerHTML);
 
 		// インターフェースを作成する
+		// @param {THREE.Scene} scene2d: 2D シーンオブジェクト
+		// @param {THREE.OrthographicCamera} camera2d: 2D カメラオブジェクト
+		// @param {string} baseURL: 外部リソースへの URL
 		this._interface = new Interface(this._scene2d, this._camera2d, this._baseURL);
 
 		// 現在のアイテム ID を空気（何も持たない状態）にする
 		this._itemID = '0';
-
-		// リサイズを一度実行してからイベントを登録
-		this._resize();
-		window.addEventListener('resize', this._resize);
 
 		// マウスイベントを登録
 		window.addEventListener('mousemove', this._mousemove);
@@ -179,6 +187,10 @@ export default class Main {
 		// マウス座標管理を初期化
 		this._mouseUV = new THREE.Vector2(this._width / 2, this._height / 2);
 		this._canvasUV = new THREE.Vector2(0, 0);
+
+		// リサイズを一度実行してからイベントを登録
+		this._resize();
+		window.addEventListener('resize', this._resize);
 
 		// フレーム毎の更新
 		this._update();
@@ -198,14 +210,18 @@ export default class Main {
 		if (!this._interface._update(this._mouseUV)) {
 
 			// グリッド側の処理
-			// 第3引数により 2D 側イベントがないことを伝える
+			// @param {THREE.Vector2} mouseUV: マウスカーソル座標
+			// @param {THREE.PerspectiveCamera} camera: 3D カメラオブジェクト
+			// @param {boolean} action: 2D 側イベントの有無
 			this._grid._update(this._mouseUV, this._camera, false);
 
 			// エンティティ側の処理
-			// 第3引数により 2D 側イベントがないことを伝える
+			// @param {THREE.Vector2} mouseUV: マウスカーソル座標
+			// @param {THREE.PerspectiveCamera} camera: 3D カメラオブジェクト
+			// @param {boolean} action: 2D 側イベントの有無
 			this._entity._update(this._mouseUV, this._camera, false);
 
-			// カメラコントローラーを再開
+			// 2D 側イベントが終了し、インベントリが開いてなければカメラコントローラーを再開
 			if (this._2dEvent && !this._interface._getInventoryVisibility()) {
 
 				this._2dEvent = false;
@@ -214,7 +230,7 @@ export default class Main {
 				this._orbitControls.enablePan = true;
 			}
 
-		// 2D 側インベントリが開いているとき
+		// インベントリが開いているとき
 		} else if (this._interface._getInventoryVisibility()) {
 
 			// インベントリが閉じられるまでカメラコントローラーを休止
@@ -243,6 +259,7 @@ export default class Main {
 		let debugText = '';
 		let debugXYZ  = { x: '0', y: '0', z: '0' };
 
+		// インベントリが開いているとき
 		if (this._interface._getInventoryVisibility()) {
 
 			debugXYZ.x = '-';
@@ -251,23 +268,27 @@ export default class Main {
 
 		} else {
 
-			debugXYZ.x = this._grid._getSelectPosX();
+			debugXYZ.x = this._grid._getPickGridX();
 			debugXYZ.y = this._interface._getSliderInfo().level;
-			debugXYZ.z = this._grid._getSelectPosZ();
+			debugXYZ.z = this._grid._getPickGridZ();
 		}
 
-		// デバッグ表示
+		// デバッグ表示用文字列を構成
 		debugText +=
 			'XYZ: ' + debugXYZ.x +
 			' / '   + debugXYZ.y +
 			'.0 / ' + debugXYZ.z +
 			'</span><br><span>';
+
+		// アイテム ID を表示
 		if (this._interface._getInventoryItemID() != '')
 			debugText += 'Block: ' + this._interface._getInventoryItemID();
 		else if (this._entity._getEntityItemID() != '')
 			debugText += 'Block: ' + this._entity._getEntityItemID();
 		else
 			debugText += 'Block: ';
+
+		// デバッグ表示
 		this._debug.innerHTML = '<span>' + debugText + '</span>';
 
 		// 描画（3D）が先
@@ -306,6 +327,7 @@ export default class Main {
 		}
 
 		// 2D 側イベント処理
+		// @param {THREE.Vector2} canvasUV: マウスカーソルのキャンバス座標
 		this._interface._mousemove(this._canvasUV);
 	}
 
@@ -315,8 +337,8 @@ export default class Main {
 	 */
 	private _mousedown(event) {
 
-		// グリッドのマス目が選択状態、インベントリが非表示でウィジェットに何か持っているとき
-		if (this._grid._getSelectMesh() &&
+		// グリッドのマス目が選択状態、インベントリが非表示、ウィジェットに何か登録されているとき
+		if (this._grid._getPickGridControl() &&
 			!this._interface._getInventoryVisibility() &&
 			(this._itemID != '0' || event.button == 2)
 		   ) {
@@ -325,19 +347,22 @@ export default class Main {
 			// グループへの登録は main.ts が処理しなければならない？
 			this._entity._setEntityGroup(
 
+				// @param {object} event: イベント情報
+				// @param {string} itemID: アイテム ID
+				// @param {THREE.Vector3} position: エンティティの登録位置
 				this._entity._mousedown(
 
 					event,
 					this._itemID,
 					new THREE.Vector3(
-						this._grid._getSelectMeshPos().x,
+						this._grid._getPickGridControlPos().x,
 						this._interface._getSliderInfo().level,
-						this._grid._getSelectMeshPos().z
+						this._grid._getPickGridControlPos().z
 					)
 				)
 			);
 
-			// クリック開放が発生するまでカメラコントローラーを休止
+			// クリック開放が発生するまではカメラコントローラーを休止
 			this._orbitControls.enableZoom = false;
 			this._orbitControls.enableRotate = false;
 			this._orbitControls.enablePan = false;
@@ -345,6 +370,9 @@ export default class Main {
 
 		// 2D 側イベント処理
 		// 現在使用中のアイテム ID を渡して変更があれば更新する
+		// @param {object} event: イベント情報
+		// @param {THREE.Vector2} canvasUV: マウスカーソルのキャンバス座標
+		// @param {string} itemID: アイテム ID
 		this._itemID = this._interface._mousedown(event, this._canvasUV, this._itemID);
 	}
 
@@ -364,6 +392,7 @@ export default class Main {
 
 		// 2D 側イベント処理
 		// 現在使用中のアイテム ID を渡して変更があれば更新する
+		// @param {string} itemID: アイテム ID
 		this._itemID = this._interface._mouseup(this._itemID);
 	}
 

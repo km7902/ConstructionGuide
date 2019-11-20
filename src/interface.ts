@@ -45,7 +45,7 @@ export default class Interface {
 	public _getInventoryItemID() {
 
 		// ドラッグ中でない場合はインベントリから取得
-		if (this._dragItem == null) {
+		if (this._dragItemMesh == null) {
 
 			this._dragItemID = this._inventory._getInventoryItemChoose();
 
@@ -58,7 +58,7 @@ export default class Interface {
 	}
 
 	/* ドラッグ中に表示するアイテム */
-	private _dragItem: THREE.Mesh;
+	private _dragItemMesh: THREE.Mesh;
 	private _dragItemID: string;
 
 	/**
@@ -82,16 +82,23 @@ export default class Interface {
 		this._camera2d = camera2d;
 
 		// ウィジェットを作成
+		// @param {THREE.Scene} scene2d: 2D シーンオブジェクト
+		// @param {string} baseURL: 外部リソースへの URL
 		this._widget = new Widget(this._scene2d, baseURL);
 
 		// スライダーを作成
+		// @param {THREE.Scene} scene2d: 2D シーンオブジェクト
+		// @param {string} baseURL: 外部リソースへの URL
 		this._slider = new Slider(this._scene2d, baseURL);
 
 		// インベントリを作成
+		// @param {THREE.Scene} scene2d: 2D シーンオブジェクト
+		// @param {string} baseURL: 外部リソースへの URL
+		// @param {number} widgetSize: ウィジェットの幅と高さ
 		this._inventory = new Inventory(this._scene2d, baseURL, this._widget._getWidgetSize());
 
 		// ドラッグ中に表示するアイテムの初期化
-		this._dragItem = null;
+		this._dragItemMesh = null;
 	}
 
 	/**
@@ -101,12 +108,18 @@ export default class Interface {
 	public _update(mouseUV: THREE.Vector2) {
 
 		// ウィジェット側の処理
+		// @param {THREE.Vector2} mouseUV: マウスカーソル座標
+		// @param {THREE.OrthographicCamera} camera2d: 2D カメラオブジェクト
 		const hoverWidget = this._widget._update(mouseUV, this._camera2d);
 
 		// スライダー側の処理
+		// @param {THREE.Vector2} mouseUV: マウスカーソル座標
+		// @param {THREE.OrthographicCamera} camera2d: 2D カメラオブジェクト
 		const hoverSlider = this._slider._update(mouseUV, this._camera2d);
 
 		// インベントリ側の処理
+		// @param {THREE.Vector2} mouseUV: マウスカーソル座標
+		// @param {THREE.OrthographicCamera} camera2d: 2D カメラオブジェクト
 		const hoverInventory = this._inventory._update(mouseUV, this._camera2d);
 
 		// main.ts にイベントの有無を通知する
@@ -120,15 +133,16 @@ export default class Interface {
 	public _mousemove(canvasUV: THREE.Vector2) {
 
 		// ドラッグ中の場合
-		if (this._dragItem != null) {
+		if (this._dragItemMesh != null) {
 
 			// ドラッグ中に表示するアイテムをマウスカーソルに追従する
-			this._dragItem.position.x = canvasUV.x - (this._width / 2);
-			this._dragItem.position.y = (this._height / 2) - canvasUV.y;
+			this._dragItemMesh.position.x = canvasUV.x - (this._width / 2);
+			this._dragItemMesh.position.y = (this._height / 2) - canvasUV.y;
 
 		} else {
 
 			// スライダー側の処理
+			// @param {THREE.Vector2} canvasUV: マウスカーソルのキャンバス座標
 			this._slider._mousemove(canvasUV);
 		}
 	}
@@ -136,25 +150,29 @@ export default class Interface {
 	/**
 	 * マウスイベント（クリック押下）
 	 * @param {object} event: イベント情報
-	 * @param {THREE.Vector2} canvasUV: マウスカーソル座標
+	 * @param {THREE.Vector2} canvasUV: マウスカーソルのキャンバス座標
 	 * @param {string} itemID: アイテム ID
 	 */
 	public _mousedown(event, canvasUV: THREE.Vector2, itemID: string) {
 
 		// ウィジェット側の処理
+		// @param {object} event: イベント情報
+		// @param {string} itemID: アイテム ID
 		itemID = this._widget._mousedown(event, itemID);
 
 		// スライダー側の処理
 		this._slider._mousedown();
 
 		// インベントリ側の処理
-		this._dragItem = this._inventory._mousedown(canvasUV, this._widget._getWidgetSize());
+		// @param {THREE.Vector2} canvasUV: マウスカーソルのキャンバス座標
+		// @param {number} widgetSize: ウィジェットの幅と高さ
+		this._dragItemMesh = this._inventory._mousedown(canvasUV, this._widget._getWidgetSize());
 
 		// ドラッグ中に表示するアイテムがあるとき
-		if (this._dragItem != null) {
+		if (this._dragItemMesh != null) {
 
 			// ドラッグ開始
-			this._scene2d.add(this._dragItem);
+			this._scene2d.add(this._dragItemMesh);
 		}
 
 		// main.ts に現在のアイテム ID を通知する
@@ -168,14 +186,16 @@ export default class Interface {
 	public _mouseup(itemID: string) {
 
 		// ドラッグ中に表示するアイテムがあるとき
-		if (this._dragItem != null) {
+		if (this._dragItemMesh != null) {
 
 			// ウィジェットにアイテムを登録
-			itemID = this._widget._mouseup(itemID, this._dragItem.name);
+			// @param {string} itemID: アイテム ID
+			// @param {string} dragItemID: ドラッグ中のアイテム ID
+			itemID = this._widget._mouseup(itemID, this._dragItemMesh.name);
 
 			// ドラッグ終了
-			this._scene2d.remove(this._dragItem);
-			this._dragItem = null;
+			this._scene2d.remove(this._dragItemMesh);
+			this._dragItemMesh = null;
 		}
 
 		// スライダー側の処理
@@ -191,7 +211,7 @@ export default class Interface {
 	 * よって、今のところ使用予定がないのでナレッジとして残しておく
 	 * https://threejs.org/examples/#webgl_loader_svg
 	 */
-	_SVGLoader() {
+	private _SVGLoader() {
 
 		const guiData = {
 

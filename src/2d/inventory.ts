@@ -12,17 +12,17 @@ export default class Inventory {
 	private _height: number;
 
 	/* テクスチャ配列オブジェクト */
-	private _textureList: THREE.Texture[];
+	private readonly _textureList: THREE.Texture[];
 
-	/* インベントリ配列オブジェクト */
-	private _inventoryList1: THREE.Sprite[]; // 常に表示
-	private _inventoryList2: THREE.Sprite[]; // 表示・非表示
+	/* インベントリ制御オブジェクト */
+	private _inventoryControl1: THREE.Sprite[]; // チェストボタン用
+	private _inventoryControl2: THREE.Sprite[]; // インベントリ画面用
 
-	/* インベントリストア配列オブジェクト */
-	private _inventoryStoreList: THREE.Mesh[];
+	/* インベントリストア制御オブジェクト */
+	private _inventoryStoreControl: THREE.Mesh[];
 
 	/* インベントリ集合 */
-	private _inventoryGroup: THREE.Group;
+	private readonly _inventoryGroup: THREE.Group;
 
 	/* 公開: インベントリ集合の表示・非表示を確認する */
 	public _getInventoryGroup() {
@@ -47,7 +47,7 @@ export default class Inventory {
 	private _inventoryItemList: string[];
 	private _inventoryItemCursor: number; // 何番目のアイテムが表示中か（ページ送りに必要）
 
-	/* ボタンの押下予定位置 */
+	/* 戻る・進むボタンの押下予定位置 */
 	private _inventoryBtnEstimateChoose: number;
 
 	/* マウス操作 */
@@ -109,10 +109,10 @@ export default class Inventory {
 		this._textureList[5].minFilter = THREE.NearestFilter;
 		this._textureList[5].type = THREE.FloatType;
 
-		// マウスとの交差を調べたいものは配列に格納する
-		this._inventoryList1 = [];
-		this._inventoryList2 = [];
-		this._inventoryStoreList = [];
+		// マウスとの交差を調べたいものはインベントリ制御に格納する
+		this._inventoryControl1 = [];
+		this._inventoryControl2 = [];
+		this._inventoryStoreControl = [];
 
 		// チェストボタンを作成
 		const chestSprite = new THREE.Sprite(
@@ -123,8 +123,8 @@ export default class Inventory {
 		chestSprite.scale.set(this._width / 20, this._width / 20, 1);
 		scene2d.add(chestSprite);
 
-		// インベントリ配列に保存
-		this._inventoryList1.push(chestSprite);
+		// インベントリ制御に追加
+		this._inventoryControl1.push(chestSprite);
 
 
 		// インベントリ集合を作成する
@@ -199,7 +199,7 @@ export default class Inventory {
 					1
 				);
 
-				// インベントリ集合に保存
+				// インベントリ集合に追加
 				this._inventoryGroup.add(planeMesh);
 			}
 		}
@@ -228,7 +228,7 @@ export default class Inventory {
 					1
 				);
 
-				// インベントリ集合に保存
+				// インベントリ集合に追加
 				this._inventoryGroup.add(sprite);
 
 				// インベントリストアの内容を初期化
@@ -290,11 +290,11 @@ export default class Inventory {
 				);
 				planeMesh.name = item.id;
 
-				// インベントリ集合に保存
+				// インベントリ集合に追加
 				this._inventoryGroup.add(planeMesh);
 
-				// インベントリストア配列に保存
-				this._inventoryStoreList.push(planeMesh);
+				// インベントリストア制御に追加
+				this._inventoryStoreControl.push(planeMesh);
 			}
 		}
 
@@ -313,10 +313,10 @@ export default class Inventory {
 		);
 		navBackSprite.scale.set(widgetSize / 3, widgetSize / 2, 1);
 
-		// インベントリ配列に保存
-		this._inventoryList2.push(navBackSprite);
+		// インベントリ制御に追加
+		this._inventoryControl2.push(navBackSprite);
 
-		// インベントリ集合に保存
+		// インベントリ集合に追加
 		this._inventoryGroup.add(navBackSprite);
 
 		// 進むボタンを作成
@@ -334,10 +334,10 @@ export default class Inventory {
 		);
 		navNextSprite.scale.set(widgetSize / 3, widgetSize / 2, 1);
 
-		// インベントリ配列に保存
-		this._inventoryList2.push(navNextSprite);
+		// インベントリ制御に追加
+		this._inventoryControl2.push(navNextSprite);
 
-		// インベントリ集合に保存
+		// インベントリ集合に追加
 		this._inventoryGroup.add(navNextSprite);
 
 		// 初期化時のインベントリ集合を非表示にする
@@ -358,9 +358,9 @@ export default class Inventory {
 		this._raycaster.setFromCamera(mouseUV, camera2d);
 
 		// その光線とぶつかったオブジェクトを得る
-		let intersects = this._raycaster.intersectObjects(this._inventoryList1);
+		let intersects = this._raycaster.intersectObjects(this._inventoryControl1);
 		this._hoverInventory1 = false;
-		this._inventoryList1.map(mesh => {
+		this._inventoryControl1.map(mesh => {
 
 			if (intersects.length > 0 && mesh === intersects[0].object) {
 
@@ -372,9 +372,9 @@ export default class Inventory {
 		// インベントリ集合が表示されているとき
 		if (this._inventoryGroup.visible) {
 
-			let intersects = this._raycaster.intersectObjects(this._inventoryList2);
+			let intersects = this._raycaster.intersectObjects(this._inventoryControl2);
 			this._hoverInventory2 = false;
-			this._inventoryList2.map(mesh => {
+			this._inventoryControl2.map(mesh => {
 
 				if (intersects.length > 0 && mesh === intersects[0].object) {
 
@@ -387,10 +387,10 @@ export default class Inventory {
 			});
 
 			// インベントリストアでもレイキャストを実行
-			intersects = this._raycaster.intersectObjects(this._inventoryStoreList);
+			intersects = this._raycaster.intersectObjects(this._inventoryStoreControl);
 			this._inventoryItemChoose = '0';
 			this._hoverInventoryStore = false;
-			this._inventoryStoreList.map(mesh => {
+			this._inventoryStoreControl.map(mesh => {
 
 				if (intersects.length > 0 && mesh === intersects[0].object) {
 
@@ -425,7 +425,7 @@ export default class Inventory {
 		if (this._hoverInventory2) {
 
 			// 戻るボタン
-			if (this._inventoryBtnEstimateChoose == this._inventoryList2[0].id) {
+			if (this._inventoryBtnEstimateChoose == this._inventoryControl2[0].id) {
 
 				// 2ページ前に遡ってから次のページを表示する
 				if (this._inventoryItemCursor >= 5 * 9 * 2)
@@ -480,8 +480,8 @@ export default class Inventory {
 						new THREE.Vector2(rect.right, rect.bottom),
 						new THREE.Vector2(rect.right, rect.top)
 					];
-					this._inventoryStoreList[counter].name = item.id;
-					this._inventoryStoreList[counter].geometry = planeGeometry;
+					this._inventoryStoreControl[counter].name = item.id;
+					this._inventoryStoreControl[counter].geometry = planeGeometry;
 					counter++;
 				}
 			}

@@ -1,8 +1,8 @@
 {
-  "name": "ReverieArtsProject",
+  "name": "ConstructionGuideProject",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ReverieArts",
+  "license": "murakamikoumuten",
   "devDependencies": {
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.2",

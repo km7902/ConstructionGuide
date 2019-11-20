@@ -11,7 +11,7 @@ export default class Slider {
 	private _height: number;
 
 	/* テクスチャ配列オブジェクト */
-	private _textureList: THREE.Texture[];
+	private readonly _textureList: THREE.Texture[];
 
 	/* スライダーの状態 */
 	private _sliderInfo;
@@ -22,8 +22,8 @@ export default class Slider {
 		return this._sliderInfo;
 	}
 
-	/* スライダー配列オブジェクト */
-	private _sliderList: THREE.Sprite[];
+	/* スライダー制御オブジェクト */
+	private _sliderControl: THREE.Sprite[];
 
 	/* マウス操作 */
 	private _dragSlider: boolean;
@@ -76,8 +76,8 @@ export default class Slider {
 			ratio: h / 256
 		}
 
-		// マウスとの交差を調べたいものは配列に格納する
-		this._sliderList = [];
+		// マウスとの交差を調べたいものはスライダー制御に格納する
+		this._sliderControl = [];
 
 		// スライダーバーを作成
 		const sliderBarSprite = new THREE.Sprite(
@@ -97,8 +97,8 @@ export default class Slider {
 		sliderPinchSprite.scale.set(this._width / 20, this._height / 28, 1);
 		scene2d.add(sliderPinchSprite);
 
-		// スライダー配列に保存
-		this._sliderList.push(sliderPinchSprite);
+		// スライダー制御に追加
+		this._sliderControl.push(sliderPinchSprite);
 
 		// レイキャストを作成
 		this._raycaster = new THREE.Raycaster();
@@ -115,9 +115,9 @@ export default class Slider {
 		this._raycaster.setFromCamera(mouseUV, camera2d);
 
 		// その光線とぶつかったオブジェクトを得る
-		let intersects = this._raycaster.intersectObjects(this._sliderList);
+		let intersects = this._raycaster.intersectObjects(this._sliderControl);
 		this._hoverSlider = false;
-		this._sliderList.map(sprite => {
+		this._sliderControl.map(sprite => {
 
 			if (intersects.length > 0 && sprite === intersects[0].object) {
 
@@ -140,12 +140,12 @@ export default class Slider {
 		if (this._dragSlider && canvasUV.y >= this._sliderInfo.low && canvasUV.y <= this._sliderInfo.high) {
 
 			// スライダーピンチを動かす
-			this._sliderList[0].position.y = (this._height / 2) - canvasUV.y;
+			this._sliderControl[0].position.y = (this._height / 2) - canvasUV.y;
 
 			// 現在の高度を割り出す
 			this._sliderInfo.level = Math.floor(
 
-				(this._sliderList[0].position.y +
+				(this._sliderControl[0].position.y +
 				(this._sliderInfo.high - this._sliderInfo.low) / 2) / this._sliderInfo.ratio
 			);
 		}

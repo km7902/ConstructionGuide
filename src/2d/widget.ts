@@ -12,7 +12,7 @@ export default class Widget {
 	private _height: number;
 
 	/* テクスチャ配列オブジェクト */
-	private _textureList: THREE.Texture[];
+	private readonly _textureList: THREE.Texture[];
 
 	/* ウィジェットの高さと幅 */
 	private _widgetSize: number;
@@ -23,14 +23,14 @@ export default class Widget {
 		return this._widgetSize;
 	}
 
-	/* ウィジェット配列オブジェクト */
-	private _widgetList: THREE.Sprite[];
+	/* ウィジェット制御オブジェクト */
+	private _widgetControl: THREE.Sprite[];
 
 	/* ウィジェットストアに格納されたアイテム ID 一覧 */
 	private _widgetItemList: string[];
 
-	/* ウィジェットストア配列オブジェクト */
-	private _widgetStoreList: THREE.Mesh[];
+	/* ウィジェットストア制御オブジェクト */
+	private _widgetStoreControl: THREE.Mesh[];
 	private _widgetStoreID: number; // カーソルが乗っているウィジェットストアの ID
 
 	/* ウィジェットの選択予定位置 */
@@ -44,9 +44,9 @@ export default class Widget {
 
 		// Minecraft JavaEdition の ID を返す
 		let jeid = '';
-		for (let i = 0; i < this._widgetStoreList.length; i++) {
+		for (let i = 0; i < this._widgetStoreControl.length; i++) {
 
-			if (this._widgetStoreID == this._widgetStoreList[i].id) {
+			if (this._widgetStoreID == this._widgetStoreControl[i].id) {
 
 				if (this._widgetItemList[i] != '0')
 					jeid = palette.find((v) => v.id === this._widgetItemList[i]).jeid;
@@ -98,9 +98,9 @@ export default class Widget {
 		// ウィジェットストアのアイテム ID を初期化
 		this._widgetItemList = ['0', '0', '0', '0', '0', '0', '0', '0', '0'];
 
-		// マウスとの交差を調べたいものは配列に格納する
-		this._widgetList = [];
-		this._widgetStoreList = [];
+		// マウスとの交差を調べたいものはウィジェット制御に格納する
+		this._widgetControl = [];
+		this._widgetStoreControl = [];
 
 		// 9つ作成
 		for (let i = 0; i < 9; i++) {
@@ -140,8 +140,8 @@ export default class Widget {
 			}
 			scene2d.add(widgetSprite);
 
-			// ウィジェット配列に保存
-			this._widgetList.push(widgetSprite);
+			// ウィジェット制御に追加
+			this._widgetControl.push(widgetSprite);
 
 
 			// ウィジェットストアを初期化
@@ -168,8 +168,8 @@ export default class Widget {
 			);
 			scene2d.add(widgetStoreMesh);
 
-			// ウィジェットストア配列に保存
-			this._widgetStoreList.push(widgetStoreMesh);
+			// ウィジェットストア制御に追加
+			this._widgetStoreControl.push(widgetStoreMesh);
 		}
 
 		// レイキャストを作成
@@ -187,9 +187,9 @@ export default class Widget {
 		this._raycaster.setFromCamera(mouseUV, camera2d);
 
 		// その光線とぶつかったオブジェクトを得る
-		let intersects = this._raycaster.intersectObjects(this._widgetList);
+		let intersects = this._raycaster.intersectObjects(this._widgetControl);
 		this._hoverWidget = false;
-		this._widgetList.map(sprite => {
+		this._widgetControl.map(sprite => {
 
 			if (intersects.length > 0 && sprite === intersects[0].object) {
 
@@ -201,9 +201,9 @@ export default class Widget {
 			}
 		});
 
-		intersects = this._raycaster.intersectObjects(this._widgetStoreList);
+		intersects = this._raycaster.intersectObjects(this._widgetStoreControl);
 		this._widgetStoreID = 0;
-		this._widgetStoreList.map(mesh => {
+		this._widgetStoreControl.map(mesh => {
 
 			if (intersects.length > 0 && mesh === intersects[0].object) {
 
@@ -232,15 +232,15 @@ export default class Widget {
 			// 左クリックの場合
 			if (event.button == 0) {
 
-				for (let i = 0; i < this._widgetList.length; i++) {
+				for (let i = 0; i < this._widgetControl.length; i++) {
 
-					if (this._widgetEstimateChoose == this._widgetList[i].id) {
+					if (this._widgetEstimateChoose == this._widgetControl[i].id) {
 
 						// 選択状態にする
-						this._widgetList[i].position.z = 0;
-						this._widgetList[i].scale.x = this._widgetSize + (this._widgetSize / 10);
-						this._widgetList[i].scale.y = this._widgetSize + (this._widgetSize / 10);
-						this._widgetList[i].material.map = this._textureList[2];
+						this._widgetControl[i].position.z = 0;
+						this._widgetControl[i].scale.x = this._widgetSize + (this._widgetSize / 10);
+						this._widgetControl[i].scale.y = this._widgetSize + (this._widgetSize / 10);
+						this._widgetControl[i].material.map = this._textureList[2];
 
 						// 選択位置を記憶
 						this._widgetChoose = i;
@@ -251,22 +251,22 @@ export default class Widget {
 					} else {
 
 						// それ以外は非選択状態にする
-						this._widgetList[i].position.z = -1;
-						this._widgetList[i].scale.x = this._widgetSize;
-						this._widgetList[i].scale.y = this._widgetSize;
-						this._widgetList[i].material.map = i == 0 ? this._textureList[0] : this._textureList[1];
+						this._widgetControl[i].position.z = -1;
+						this._widgetControl[i].scale.x = this._widgetSize;
+						this._widgetControl[i].scale.y = this._widgetSize;
+						this._widgetControl[i].material.map = i == 0 ? this._textureList[0] : this._textureList[1];
 					}
 				}
 
 			// 右クリックの場合
 			} else if (event.button == 2) {
 
-				for (let i = 0; i < this._widgetList.length; i++) {
+				for (let i = 0; i < this._widgetControl.length; i++) {
 
-					if (this._widgetEstimateChoose == this._widgetList[i].id) {
+					if (this._widgetEstimateChoose == this._widgetControl[i].id) {
 
 						// 削除（空気に変更）する
-						this._widgetStoreList[i].geometry = this._createStoreGeometry(palette[0]);
+						this._widgetStoreControl[i].geometry = this._createStoreGeometry(palette[0]);
 
 						// ウィジェットストアのアイテム ID リストを更新
 						this._widgetItemList[i] = palette[0].id;
@@ -292,15 +292,15 @@ export default class Widget {
 	 */
 	public _mouseup(itemID: string, dragItemID: string) {
 
-		for (let i = 0; i < this._widgetStoreList.length; i++) {
+		for (let i = 0; i < this._widgetStoreControl.length; i++) {
 
 			// ウィジェットストアにドロップされたとき
-			if (this._widgetStoreID == this._widgetStoreList[i].id) {
+			if (this._widgetStoreID == this._widgetStoreControl[i].id) {
 
 				const item = palette.find((v) => v.id === dragItemID);
 
 				// 新しいジオメトリを上書きしてテクスチャの表示を変更する
-				this._widgetStoreList[i].geometry = this._createStoreGeometry(item);
+				this._widgetStoreControl[i].geometry = this._createStoreGeometry(item);
 
 				// ウィジェットストアのアイテム ID リストを更新
 				this._widgetItemList[i] = dragItemID;
