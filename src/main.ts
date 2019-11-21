@@ -89,8 +89,7 @@ export default class Main {
 		frame.appendChild(this._debug);
 
 		// ベース URL を定義
-		// this._baseURL = 'http://127.0.0.1:8080/dist/';
-		this._baseURL = 'https://km7902.github.io/ConstructionGuide/dist/';
+		this._baseURL = frame.getElementsByTagName('script')[0].getAttribute('src').replace('js/ConstructionGuide.js', '');
 
 		// スタイルシートを取得
 		const stylesheet = document.createElement('link');
@@ -338,7 +337,7 @@ export default class Main {
 	private _mousedown(event) {
 
 		// グリッドのマス目が選択状態、インベントリが非表示、ウィジェットに何か登録されているとき
-		if (this._grid._getPickGridControl() &&
+		if ((<any>this._grid._getPickGridControl().material).opacity != 0 &&
 			!this._interface._getInventoryVisibility() &&
 			(this._itemID != '0' || event.button == 2)
 		   ) {
@@ -355,9 +354,9 @@ export default class Main {
 					event,
 					this._itemID,
 					new THREE.Vector3(
-						this._grid._getPickGridControlPos().x,
+						this._grid._getPickGridControl().position.x,
 						this._interface._getSliderInfo().level,
-						this._grid._getPickGridControlPos().z
+						this._grid._getPickGridControl().position.z
 					)
 				)
 			);

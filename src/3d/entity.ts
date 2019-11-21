@@ -111,6 +111,7 @@ export default class Entity {
 
 		// その光線とぶつかったオブジェクトを得る
 		let intersects = this._raycaster.intersectObjects(this._entityControl);
+		this._entityMeshID = 0;
 		this._entityItemID = '0';
 		this._entityControl.map(mesh => {
 
@@ -229,7 +230,10 @@ export default class Entity {
 					return { entity: entityMesh, action: 'remove' }
 				}
 			}
-		} 
+
+			// キャンセルを main.ts に返す
+			return { entity: null, action: 'cancel' }
+		}
 	}
 
 	/**
@@ -355,55 +359,58 @@ export default class Entity {
 			Object.keys(this._entitySpace[e1]).map(e2 =>
 				Object.keys(this._entitySpace[e1][e2]).map(e3 => {
 
-					const posX = this._setX(e2);
-					const posY = this._setY(e1);
-					const posZ = this._setZ(e3);
+					if (this._entitySpace[e1][e2][e3] != 0) {
 
-					// 持っているアイテムによってテクスチャを切り替える
-					const item = palette.find((v) => v.id === this._entitySpace[e1][e2][e3]);
+						const posX = this._setX(e2);
+						const posY = this._setY(e1);
+						const posZ = this._setZ(e3);
 
-					// エンティティを作成
-					const entityGeometry = new THREE.BoxGeometry(
+						// 持っているアイテムによってテクスチャを切り替える
+						const item = palette.find((v) => v.id === this._entitySpace[e1][e2][e3]);
 
-						this._blockSize,
-						this._blockSize,
-						this._blockSize
-					);
-					let entityMaterial;
-					switch (item.tex) {
+						// エンティティを作成
+						const entityGeometry = new THREE.BoxGeometry(
 
-						// 単調テクスチャ
-						case 'toBox':
-							entityMaterial = new THREE.MeshPhongMaterial({
+							this._blockSize,
+							this._blockSize,
+							this._blockSize
+						);
+						let entityMaterial;
+						switch (item.tex) {
 
-								color: 0xcccccc,
-								map: this._texturemap.toBox(this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
-								transparent: true
-							});
-							break;
+							// 単調テクスチャ
+							case 'toBox':
+								entityMaterial = new THREE.MeshPhongMaterial({
 
-						// 天地無用テクスチャ
-						case 'toTopBox':
-							entityMaterial = new THREE.MeshPhongMaterial({
+									color: 0xcccccc,
+									map: this._texturemap.toBox(this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
+									transparent: true
+								});
+								break;
 
-								color: 0xcccccc,
-								map: this._texturemap.toTopBox(entityGeometry, this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
-								transparent: true
-							});
-							break;
+							// 天地無用テクスチャ
+							case 'toTopBox':
+								entityMaterial = new THREE.MeshPhongMaterial({
+
+									color: 0xcccccc,
+									map: this._texturemap.toTopBox(entityGeometry, this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
+									transparent: true
+								});
+								break;
+						}
+
+						const entityMesh = new THREE.Mesh(entityGeometry, entityMaterial);
+						entityMesh.position.set(posX, posY, posZ);
+
+						// アイテム ID を持たせる
+						entityMesh.name = item.id;
+
+						// エンティティ制御に追加
+						this._entityControl.push(entityMesh);
+
+						// エンティティ集合に登録
+						this._entityGroup.add(entityMesh);
 					}
-
-					const entityMesh = new THREE.Mesh(entityGeometry, entityMaterial);
-					entityMesh.position.set(posX, posY, posZ);
-
-					// アイテム ID を持たせる
-					entityMesh.name = item.id;
-
-					// エンティティ制御に追加
-					this._entityControl.push(entityMesh);
-
-					// エンティティ集合に登録
-					this._entityGroup.add(entityMesh);
 				})
 			)
 		);

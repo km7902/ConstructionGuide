@@ -27,22 +27,13 @@ export default class Grid {
 	/* グリッド制御オブジェクト */
 	private _gridControl: THREE.Mesh[];
 
-	/* 選択状態 */
-	private _pickGridControl: boolean;
+	/* グリッド選択オブジェクト */
+	private _pickGridControl: THREE.Mesh;
 
 	/* 公開: クリックの処理で必要 */
 	public _getPickGridControl() {
 
 		return this._pickGridControl;
-	}
-
-	/* 選択中のマス目の位置 */
-	private _pickGridControlPos: THREE.Vector3;
-
-	/* 公開: エンティティの作成基準 */
-	public _getPickGridControlPos() {
-
-		return this._pickGridControlPos;
 	}
 
 	/* レイキャストオブジェクト */
@@ -78,40 +69,44 @@ export default class Grid {
 		// マウスカーソルとの交差を調べたいものはグリッド制御に格納する
 		this._gridControl = [];
 
-		// メッシュを作成してグリッドに合うよう並べる
-		for (let i = 0; i < this._blockStep; i++) {
+		// グリッドに合うように非選択メッシュを作成する
+		let gridGeometry = new THREE.PlaneBufferGeometry(
 
-			for (let j = 0; j < this._blockStep; j++) {
+			this._blockSize * this._blockStep,
+			this._blockSize * this._blockStep
+		);
+		let gridMaterial = new THREE.MeshBasicMaterial({
 
-				// グリッドのマス目を作成してグリッド集合に登録
-				const gridGeometry = new THREE.PlaneGeometry(this._blockSize, this._blockSize);
-				const gridMaterial = new THREE.MeshBasicMaterial({
+			color: 0xffffff,
+			opacity: 0,
+			side: THREE.DoubleSide,
+			transparent: true,
+			depthWrite: false
+		});
+		let gridMesh = new THREE.Mesh(gridGeometry, gridMaterial);
+		gridMesh.position.set(0, 1, 0);
+		gridMesh.rotation.x = -Math.PI / 2;
+		this._gridGroup.add(gridMesh);
 
-					color: 0xffffff,
-					opacity: 0.1,
-					side: THREE.DoubleSide,
-					transparent: true
-				});
-				const gridMesh = new THREE.Mesh(gridGeometry, gridMaterial);
-				gridMesh.position.x =
-					(i * this._blockSize) -
-					(this._blockSize * Math.floor(this._blockStep / 2)) +
-					(this._blockStep % 2 == 0 ? this._blockSize / 2 : 0);
-				gridMesh.position.y = 1;
-				gridMesh.position.z =
-					(j * this._blockSize) -
-					(this._blockSize * Math.floor(this._blockStep / 2)) +
-					(this._blockStep % 2 == 0 ? this._blockSize / 2 : 0);
-				gridMesh.rotation.x = -Math.PI / 2;
-				this._gridGroup.add(gridMesh);
+		// グリッド制御に追加
+		this._gridControl.push(gridMesh);
 
-				// グリッド制御に追加
-				this._gridControl.push(gridMesh);
-			}
-		}
+		// 選択メッシュを作成する
+		gridGeometry = new THREE.PlaneBufferGeometry(this._blockSize, this._blockSize);
+		gridMaterial = new THREE.MeshBasicMaterial({
 
-		// 選択中のマス目の位置を初期化（未選択）
-		this._pickGridControlPos = new THREE.Vector3(0, 0, 0);
+			color: 0xffffff,
+			opacity: 0,
+			side: THREE.DoubleSide,
+			transparent: true
+		});
+		gridMesh = new THREE.Mesh(gridGeometry, gridMaterial);
+		gridMesh.position.set(0, 2, 0);
+		gridMesh.rotation.x = -Math.PI / 2;
+		this._gridGroup.add(gridMesh);
+
+		// グリッド選択に追加
+		this._pickGridControl = gridMesh;
 
 		// レイキャストを作成
 		this._raycaster = new THREE.Raycaster();
@@ -130,26 +125,26 @@ export default class Grid {
 
 		// その光線とぶつかったオブジェクトを得る
 		const intersects = this._raycaster.intersectObjects(this._gridControl);
-		this._pickGridControl = false;
 		this._gridControl.map(mesh => {
 
 			if (intersects.length > 0 && mesh === intersects[0].object && !action) {
 
-				// 2D 側イベントがない場合、対象をハイライト状態にする
-				(<any>mesh.material).opacity = 0.3;
+				// グリッド選択を表示
+				(<any>this._pickGridControl.material).opacity = 0.5;
+				this._pickGridControl.position.x =
+					(Math.floor(intersects[0].point.x * 0.01) *
+					 this._blockSize + (this._blockSize / 2));
+				this._pickGridControl.position.z =
+					(Math.floor(intersects[0].point.z * 0.01) *
+					 this._blockSize + (this._blockSize / 2));
 
-				// 対象の位置を記憶する
-				this._pickGridControlPos.x = mesh.position.x;
-				this._pickGridControlPos.y = this._gridGroup.position.y;
-				this._pickGridControlPos.z = mesh.position.z;
-				this._pickGridControl = true;
+			} else {
 
-			} else if ((<any>mesh.material).opacity == 0.3) {
-
-				// その他は非ハイライト状態にする
-				(<any>mesh.material).opacity =  0.1;
+				// グリッド選択を非表示
+				(<any>this._pickGridControl.material).opacity = 0;
 			}
 		});
+
 	}
 
 	/**
@@ -157,12 +152,12 @@ export default class Grid {
 	 */
 	public _getPickGridX() {
 
-		if (!this._pickGridControl)
+		if ((<any>this._pickGridControl.material).opacity == 0)
 			return '-';
-		else if (this._pickGridControlPos.x % this._blockSize == 0)
-			return String(this._pickGridControlPos.x / this._blockSize) + '.0';
+		else if (this._pickGridControl.position.x % this._blockSize == 0)
+			return String(this._pickGridControl.position.x / this._blockSize) + '.0';
 		else
-			return String((this._pickGridControlPos.x - this._blockSize / 2) / this._blockSize) + '.0';
+			return String((this._pickGridControl.position.x - this._blockSize / 2) / this._blockSize) + '.0';
 	}
 
 	/**
@@ -170,11 +165,11 @@ export default class Grid {
 	 */
 	public _getPickGridZ() {
 
-		if (!this._pickGridControl)
+		if ((<any>this._pickGridControl.material).opacity == 0)
 			return '-';
-		else if (this._pickGridControlPos.z % this._blockSize == 0)
-			return String(this._pickGridControlPos.z / this._blockSize) + '.0';
+		else if (this._pickGridControl.position.z % this._blockSize == 0)
+			return String(this._pickGridControl.position.z / this._blockSize) + '.0';
 		else
-			return String((this._pickGridControlPos.z - this._blockSize / 2) / this._blockSize) + '.0';
+			return String((this._pickGridControl.position.z - this._blockSize / 2) / this._blockSize) + '.0';
 	}
 }
