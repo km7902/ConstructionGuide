@@ -17,14 +17,18 @@ export default class Entity {
 	/* エンティティの配置 */
 	private _entitySpace;
 
+	/* エンティティの共通ジオメトリとテクスチャ */
+	private _entityGeometry;
+	private _entityTexture;
+
 	/* テクスチャマップオブジェクト */
 	private readonly _texturemap: Texturemap;
 
 	/* エンティティ制御オブジェクト */
-	private _entityControl: THREE.Mesh[];
+	private _entityControl: THREE.Group[];
 
-	/* エンティティメッシュ ID */
-	private _entityMeshID: number;
+	/* エンティティクラスタ ID */
+	private _entityClusterID: number;
 
 	/* エンティティアイテム ID */
 	private _entityItemID: string;
@@ -42,18 +46,18 @@ export default class Entity {
 	private readonly _entityGroup: THREE.Group;
 
 	/* 公開: main.ts で 3D シーンに登録してもらうため */
-	public _setEntityGroup(mesh) {
+	public _setEntityGroup(cluster) {
 
-		// mesh { entity: ターゲットエンティティ, action: 処理内容 }
+		// cluster { entity: ターゲットエンティティ, action: 処理内容 }
 
-		switch (mesh.action) {
+		switch (cluster.action) {
 
 			case 'add': // 登録の場合
-				this._entityGroup.add(mesh.entity);
+				this._entityGroup.add(cluster.entity);
 				break;
 
 			case 'remove': // 削除の場合
-				this._entityGroup.remove(mesh.entity);
+				this._entityGroup.remove(cluster.entity);
 				break;
 
 			default: // それ以外は何もしない
@@ -84,6 +88,10 @@ export default class Entity {
 		// エンティティの配置を初期化
 		this._entitySpace = { '63': { '0': { '0': '0' } } };
 
+		// エンティティの共通ジオメトリとテクスチャを保管して同じ種類は再利用する
+		this._entityGeometry = [];
+		this._entityTexture  = [];
+
 		// テクスチャマップを作成する
 		this._texturemap = new Texturemap();
 
@@ -111,29 +119,41 @@ export default class Entity {
 
 		// その光線とぶつかったオブジェクトを得る
 		let intersects = this._raycaster.intersectObjects(this._entityControl);
-		this._entityMeshID = 0;
+		this._entityClusterID = 0;
 		this._entityItemID = '0';
-		this._entityControl.map(mesh => {
+		this._entityControl.map(cluster => {
 
-			if (intersects.length > 0 && mesh === intersects[0].object && !action) {
+			if (intersects.length > 0 && cluster === intersects[0].object.parent && !action) {
 
-				// 2D 側イベントがない場合、対象をハイライト状態にする
-				(<any>mesh.material).color.r = 1;
-				(<any>mesh.material).color.g = 1;
-				(<any>mesh.material).color.b = 1;
+				// エンティティクラスタの子要素（メッシュ全て）に対して行う
+				for (let i = 0; i < cluster.children.length; i++) {
 
-				// エンティティ ID を取得
-				this._entityMeshID = mesh.id;
+					// 2D 側イベントがない場合、対象をハイライト状態にする
+					const mesh: THREE.Mesh = <THREE.Mesh>cluster.children[i];
+					(<any>mesh.material).color.r = 1;
+					(<any>mesh.material).color.g = 1;
+					(<any>mesh.material).color.b = 1;
+				}
+
+				// エンティティクラスタ ID を取得
+				this._entityClusterID = cluster.id;
 
 				// アイテム ID を取得
-				this._entityItemID = mesh.name;
+				this._entityItemID = cluster.name;
 
 			} else {
 
-				// その他は非ハイライト状態にする
-				(<any>mesh.material).color.r = 0.8;
-				(<any>mesh.material).color.g = 0.8;
-				(<any>mesh.material).color.b = 0.8;
+				for (let i = 0; i < cluster.children.length; i++) {
+
+					// その他は非ハイライト状態にする
+					const mesh: THREE.Mesh = <THREE.Mesh>cluster.children[i];
+					if ((<any>mesh.material).color.r == 1) {
+
+						(<any>mesh.material).color.r = 0.8;
+						(<any>mesh.material).color.g = 0.8;
+						(<any>mesh.material).color.b = 0.8;
+					}
+				}
 			}
 		});
 	}
@@ -161,73 +181,36 @@ export default class Entity {
 				return { entity: null, action: 'cancel' }
 			}
 
-			// 持っているアイテムによってテクスチャを切り替える
-			const item = palette.find((v) => v.id === itemID);
-
 			// エンティティを作成
-			const entityGeometry = new THREE.BoxGeometry(
-
-				this._blockSize,
-				this._blockSize,
-				this._blockSize
-			);
-			let entityMaterial;
-			switch (item.tex) {
-
-				// 単調テクスチャ
-				case 'toBox':
-					entityMaterial = new THREE.MeshPhongMaterial({
-
-						color: 0xcccccc,
-						map: this._texturemap.toBox(this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
-						transparent: true
-					});
-					break;
-
-				// 天地無用テクスチャ
-				case 'toTopBox':
-					entityMaterial = new THREE.MeshPhongMaterial({
-
-						color: 0xcccccc,
-						map: this._texturemap.toTopBox(entityGeometry, this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
-						transparent: true
-					});
-					break;
-			}
-
-			const entityMesh = new THREE.Mesh(entityGeometry, entityMaterial);
-			entityMesh.position.set(posX, posY, posZ);
-
-			// アイテム ID を持たせる
-			entityMesh.name = item.id;
+			const entity = this._createEntity(itemID, posX, posY, posZ);
 
 			// エンティティ制御に追加
-			this._entityControl.push(entityMesh);
+			this._entityControl.push(entity);
 
 			// エンティティの配置に登録
-			this._entitySpaceAdd(entityMesh);
+			this._entitySpaceAdd(entity);
 
 			// エンティティを main.ts に渡す
-			return { entity: entityMesh, action: 'add' }
+			return { entity: entity, action: 'add' }
 
 		// 右クリックの場合
 		} else if (event.button == 2) {
 
 			for (let i = 0; i < this._entityControl.length; i++) {
 
-				if (this._entityMeshID == this._entityControl[i].id) {
+				if (this._entityClusterID == this._entityControl[i].id) {
 
 					// エンティティ集合から削除するために一時保管
-					const entityMesh = this._entityControl[i];
+					const entity = this._entityControl[i];
 
 					// エンティティの配置から削除
-					this._entitySpaceRemove(entityMesh);
+					this._entitySpaceRemove(entity);
 
 					// エンティティ制御から削除
 					this._entityControl.splice(i, 1);
 
 					// エンティティを main.ts に渡す
-					return { entity: entityMesh, action: 'remove' }
+					return { entity: entity, action: 'remove' }
 				}
 			}
 
@@ -269,14 +252,14 @@ export default class Entity {
 
 	/**
 	 * エンティティの配置マネージャ（登録）
-	 * @param {THREE.Mesh} mesh: エンティティオブジェクト
+	 * @param {THREE.Group} cluster: エンティティオブジェクト
 	 */
-	public _entitySpaceAdd(mesh: THREE.Mesh) {
+	public _entitySpaceAdd(cluster: THREE.Group) {
 
 		// 空間座標を取得
-		const x = this._getX(mesh.position.x);
-		const y = this._getY(mesh.position.y);
-		const z = this._getZ(mesh.position.z);
+		const x = this._getX(cluster.position.x);
+		const y = this._getY(cluster.position.y);
+		const z = this._getZ(cluster.position.z);
 
 		// エンティティの配置に登録
 		let exist = false;
@@ -285,7 +268,7 @@ export default class Entity {
 		exist = false;
 		Object.keys(this._entitySpace[y]).map(e2 => {if (e2 == x) exist = true});
 		if (!exist) this._entitySpace[y][x] = {};
-		this._entitySpace[y][x][z] = mesh.name;
+		this._entitySpace[y][x][z] = cluster.name;
 
 		// インターフェースができるまではコンソールログに JSON データを出力する
 		console.log(JSON.stringify(this._entitySpace));
@@ -293,14 +276,14 @@ export default class Entity {
 
 	/**
 	 * エンティティの配置マネージャ（削除）
-	 * @param {THREE.Mesh} mesh: ブロックオブジェクト
+	 * @param {THREE.Group} cluster: エンティティオブジェクト
 	 */
-	public _entitySpaceRemove(mesh: THREE.Mesh) {
+	public _entitySpaceRemove(cluster: THREE.Group) {
 
 		// 空間座標を取得
-		const x = this._getX(mesh.position.x);
-		const y = this._getY(mesh.position.y);
-		const z = this._getZ(mesh.position.z);
+		const x = this._getX(cluster.position.x);
+		const y = this._getY(cluster.position.y);
+		const z = this._getZ(cluster.position.z);
 
 		// エンティティの配置から削除（Air: 0 にする）
 		let exist = false;
@@ -365,55 +348,122 @@ export default class Entity {
 						const posY = this._setY(e1);
 						const posZ = this._setZ(e3);
 
-						// 持っているアイテムによってテクスチャを切り替える
-						const item = palette.find((v) => v.id === this._entitySpace[e1][e2][e3]);
-
 						// エンティティを作成
-						const entityGeometry = new THREE.BoxGeometry(
-
-							this._blockSize,
-							this._blockSize,
-							this._blockSize
-						);
-						let entityMaterial;
-						switch (item.tex) {
-
-							// 単調テクスチャ
-							case 'toBox':
-								entityMaterial = new THREE.MeshPhongMaterial({
-
-									color: 0xcccccc,
-									map: this._texturemap.toBox(this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
-									transparent: true
-								});
-								break;
-
-							// 天地無用テクスチャ
-							case 'toTopBox':
-								entityMaterial = new THREE.MeshPhongMaterial({
-
-									color: 0xcccccc,
-									map: this._texturemap.toTopBox(entityGeometry, this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'),
-									transparent: true
-								});
-								break;
-						}
-
-						const entityMesh = new THREE.Mesh(entityGeometry, entityMaterial);
-						entityMesh.position.set(posX, posY, posZ);
-
-						// アイテム ID を持たせる
-						entityMesh.name = item.id;
+						const entity = this._createEntity(this._entitySpace[e1][e2][e3], posX, posY, posZ);
 
 						// エンティティ制御に追加
-						this._entityControl.push(entityMesh);
+						this._entityControl.push(entity);
 
 						// エンティティ集合に登録
-						this._entityGroup.add(entityMesh);
+						this._entityGroup.add(entity);
 					}
 				})
 			)
 		);
+	}
+
+	/**
+	 * エンティティを作成
+	 * @param {string} itemID: アイテム ID
+	 * @param {number} posX: x 空間座標
+	 * @param {number} posY: y 空間座標
+	 * @param {number} posZ: z 空間座標
+	 */
+	private _createEntity(itemID: string, posX: number, posY: number, posZ: number) {
+
+		// 持っているアイテムによってテクスチャを切り替える
+		const item = palette.find((v) => v.id === itemID);
+
+		// 共通テクスチャがあれば再利用
+		let entityGeometry = null;
+		let entityTexture  = null;
+		for (let i = 0; i < this._entityTexture.length; i++) {
+
+			if (this._entityTexture[i].name == item.en) {
+
+				entityGeometry = this._entityGeometry[i];
+				entityTexture  = this._entityTexture[i];
+			}
+		}
+
+		// 共通テクスチャがなければ新規作成
+		if (entityTexture == null) {
+
+			// エンティティジオメトリとテクスチャを作成
+			switch (item.tex) {
+
+				// 単調テクスチャ
+				case 'toBox':
+
+					// エンティティジオメトリを作成
+					entityGeometry = new THREE.BoxGeometry(
+
+						this._blockSize,
+						this._blockSize,
+						this._blockSize
+					);
+
+					entityTexture = this._texturemap.toBox(
+
+						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
+					);
+					break;
+
+				// 天地無用テクスチャ
+				case 'toTopBox':
+
+					// エンティティジオメトリを作成
+					entityGeometry = new THREE.BoxGeometry(
+
+						this._blockSize,
+						this._blockSize,
+						this._blockSize
+					);
+
+					entityTexture = this._texturemap.toTopBox(
+
+						entityGeometry,
+						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
+					);
+					break;
+			}
+
+			// 再利用できるように名前を付ける
+			entityTexture.name = item.en;
+
+			// 共通化
+			this._entityGeometry.push(entityGeometry);
+			this._entityTexture.push(entityTexture);
+		}
+
+		// エンティティクラスタを作成
+		const entityCluster = new THREE.Group();
+
+		// エンティティマテリアルを作成
+		const entityMaterial = new THREE.MeshPhongMaterial({
+
+			color: 0xcccccc,
+			map: entityTexture,
+			transparent: true
+		});
+
+		// メッシュを作成してエンティティクラスタに登録
+		entityCluster.add(new THREE.Mesh(entityGeometry, entityMaterial));
+		entityCluster.position.set(posX, posY, posZ);
+
+		// エンティティクラスタにアイテム ID を持たせる
+		entityCluster.name = item.id;
+
+		return entityCluster;
+	}
+
+	/**
+	 * エンティティ集合の高度を設定
+	 * @param {number} level: 高度
+	 */
+	public _setLevel(level: number) {
+
+		this._entityGroup.position.y = -(level - 63) * this._blockSize;
 	}
 
 	/**
@@ -441,14 +491,5 @@ export default class Entity {
 	private _setZ(z: string) {
 
 		return parseInt(z) * this._blockSize + (this._blockStep % 2 == 0 ? this._blockSize / 2 : 0);
-	}
-
-	/**
-	 * エンティティ集合の高度を設定
-	 * @param {number} level: 高度
-	 */
-	public _setLevel(level: number) {
-
-		this._entityGroup.position.y = -(level - 63) * this._blockSize;
 	}
 }
