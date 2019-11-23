@@ -118,7 +118,7 @@ export default class Entity {
 		this._raycaster.setFromCamera(mouseUV, camera);
 
 		// その光線とぶつかったオブジェクトを得る
-		let intersects = this._raycaster.intersectObjects(this._entityControl);
+		let intersects = this._raycaster.intersectObjects(this._entityControl, true);
 		this._entityClusterID = 0;
 		this._entityItemID = '0';
 		this._entityControl.map(cluster => {
@@ -374,9 +374,13 @@ export default class Entity {
 		// 持っているアイテムによってテクスチャを切り替える
 		const item = palette.find((v) => v.id === itemID);
 
+		// 初期化
+		let entityGeometry = [];
+		let entityMaterial;
+		let entityMesh;
+		let entityTexture = null;
+
 		// 共通テクスチャがあれば再利用
-		let entityGeometry = null;
-		let entityTexture  = null;
 		for (let i = 0; i < this._entityTexture.length; i++) {
 
 			if (this._entityTexture[i].name == item.en) {
@@ -393,36 +397,52 @@ export default class Entity {
 			switch (item.tex) {
 
 				// 単調テクスチャ
-				case 'toBox':
+				case 'Box':
 
-					// エンティティジオメトリを作成
-					entityGeometry = new THREE.BoxGeometry(
+					entityGeometry.push(new THREE.BoxGeometry(
 
 						this._blockSize,
 						this._blockSize,
 						this._blockSize
-					);
+					));
 
-					entityTexture = this._texturemap.toBox(
+					entityTexture = this._texturemap.Box(
 
 						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
 					);
 					break;
 
 				// 天地無用テクスチャ
-				case 'toTopBox':
+				case 'TopBox':
 
-					// エンティティジオメトリを作成
-					entityGeometry = new THREE.BoxGeometry(
+					entityGeometry.push(new THREE.BoxGeometry(
 
 						this._blockSize,
 						this._blockSize,
 						this._blockSize
+					));
+
+					entityTexture = this._texturemap.TopBox(
+
+						entityGeometry[0],
+						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
 					);
+					break;
 
-					entityTexture = this._texturemap.toTopBox(
+				// 植物系テクスチャ
+				case 'Plant':
 
-						entityGeometry,
+					// ジオメトリを2枚作成
+					for (let i = 0; i < 2; i++) {
+						entityGeometry.push(new THREE.PlaneGeometry(
+
+							this._blockSize,
+							this._blockSize
+						));
+					}
+
+					entityTexture = this._texturemap.Plant(
+
 						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
 					);
 					break;
@@ -439,16 +459,59 @@ export default class Entity {
 		// エンティティクラスタを作成
 		const entityCluster = new THREE.Group();
 
-		// エンティティマテリアルを作成
-		const entityMaterial = new THREE.MeshPhongMaterial({
-
-			color: 0xcccccc,
-			map: entityTexture,
-			transparent: true
-		});
-
 		// メッシュを作成してエンティティクラスタに登録
-		entityCluster.add(new THREE.Mesh(entityGeometry, entityMaterial));
+		for (let i = 0; i < entityGeometry.length; i++) {
+
+			// エンティティマテリアルとメッシュを作成
+			switch (item.tex) {
+
+				// 単調
+				case 'Box':
+
+					entityMaterial = new THREE.MeshPhongMaterial({
+
+						color: 0xcccccc,
+						map: entityTexture,
+						transparent: true
+					});
+
+					entityMesh = new THREE.Mesh(entityGeometry[i], entityMaterial);
+					break;
+
+				// 天地無用
+				case 'TopBox':
+
+					entityMaterial = new THREE.MeshPhongMaterial({
+
+						color: 0xcccccc,
+						map: entityTexture,
+						transparent: true
+					});
+
+					entityMesh = new THREE.Mesh(entityGeometry[i], entityMaterial);
+					break;
+
+				// 植物系
+				case 'Plant':
+
+					entityMaterial = new THREE.MeshPhongMaterial({
+
+						color: 0xcccccc,
+						depthWrite: false,
+						map: entityTexture,
+						side: THREE.DoubleSide,
+						transparent: true
+					});
+
+					// 2枚のジオメトリを交差させる
+					entityMesh = new THREE.Mesh(entityGeometry[i], entityMaterial);
+					if (i == 0) entityMesh.rotation.set(0,  40, 0);
+					if (i == 1) entityMesh.rotation.set(0, -40, 0);
+					break;
+			}
+
+			entityCluster.add(entityMesh);
+		}
 		entityCluster.position.set(posX, posY, posZ);
 
 		// エンティティクラスタにアイテム ID を持たせる

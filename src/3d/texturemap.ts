@@ -18,7 +18,7 @@ export default class Texturemap {
 	 * エンティティにテクスチャを貼り付ける（単純）
 	 *  @param {string} image: テクスチャファイル名
 	 */
-	public toBox(image: string) {
+	public Box(image: string) {
 
 		// テクスチャオブジェクトを作成
 		const texture = new THREE.TextureLoader().load(image);
@@ -34,7 +34,7 @@ export default class Texturemap {
 	 *  @param {THREE.BoxGeometry} geometry: ジオメトリオブジェクト
 	 *  @param {string} image: テクスチャファイル名
 	 */
-	public toTopBox(geometry: THREE.BoxGeometry, image: string) {
+	public TopBox(geometry: THREE.BoxGeometry, image: string) {
 
 		// 面のマテリアル番号をすべて 0 にする（単一テクスチャーを使うように）
 		geometry.faces.forEach (face => { face.materialIndex = 0 });
@@ -132,6 +132,21 @@ export default class Texturemap {
 
 		// ジオメトリの更新フラグを立てる
 		geometry.uvsNeedUpdate = true;
+
+		// テクスチャオブジェクトを作成
+		const texture = new THREE.TextureLoader().load(image);
+		texture.magFilter = THREE.NearestFilter;
+		texture.minFilter = THREE.NearestFilter;
+		texture.type = THREE.FloatType;
+
+		return texture;
+	}
+
+	/**
+	 * エンティティにテクスチャを貼り付ける（植物系）
+	 *  @param {string} image: テクスチャファイル名
+	 */
+	public Plant(image: string) {
 
 		// テクスチャオブジェクトを作成
 		const texture = new THREE.TextureLoader().load(image);

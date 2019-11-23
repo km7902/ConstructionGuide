@@ -21,7 +21,7 @@ const data: Palette[] = [
 		beid: "air",
 		x: "9",
 		y: "125",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "0:1",
@@ -91,7 +91,7 @@ const data: Palette[] = [
 		beid: "stone",
 		x: "1",
 		y: "1",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "1:1",
@@ -101,7 +101,7 @@ const data: Palette[] = [
 		beid: "stone 1",
 		x: "2",
 		y: "1",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "1:2",
@@ -111,7 +111,7 @@ const data: Palette[] = [
 		beid: "stone 2",
 		x: "3",
 		y: "1",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "1:3",
@@ -121,7 +121,7 @@ const data: Palette[] = [
 		beid: "stone 3",
 		x: "4",
 		y: "1",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "1:4",
@@ -131,7 +131,7 @@ const data: Palette[] = [
 		beid: "stone 4",
 		x: "5",
 		y: "1",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "1:5",
@@ -141,7 +141,7 @@ const data: Palette[] = [
 		beid: "stone 5",
 		x: "6",
 		y: "1",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "1:6",
@@ -151,7 +151,7 @@ const data: Palette[] = [
 		beid: "stone 6",
 		x: "7",
 		y: "1",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "2",
@@ -161,7 +161,7 @@ const data: Palette[] = [
 		beid: "grass",
 		x: "8",
 		y: "1",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "3",
@@ -171,7 +171,7 @@ const data: Palette[] = [
 		beid: "dirt",
 		x: "9",
 		y: "1",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "3:1",
@@ -181,7 +181,7 @@ const data: Palette[] = [
 		beid: "dirt 1",
 		x: "1",
 		y: "2",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "3:2",
@@ -191,7 +191,7 @@ const data: Palette[] = [
 		beid: "podzol",
 		x: "2",
 		y: "2",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "4",
@@ -201,7 +201,7 @@ const data: Palette[] = [
 		beid: "cobblestone",
 		x: "3",
 		y: "2",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "5",
@@ -211,7 +211,7 @@ const data: Palette[] = [
 		beid: "planks",
 		x: "4",
 		y: "2",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "5:1",
@@ -221,7 +221,7 @@ const data: Palette[] = [
 		beid: "planks 1",
 		x: "5",
 		y: "2",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "5:2",
@@ -231,7 +231,7 @@ const data: Palette[] = [
 		beid: "planks 2",
 		x: "6",
 		y: "2",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "5:3",
@@ -241,7 +241,7 @@ const data: Palette[] = [
 		beid: "planks 3",
 		x: "7",
 		y: "2",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "5:4",
@@ -251,7 +251,7 @@ const data: Palette[] = [
 		beid: "planks 4",
 		x: "8",
 		y: "2",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "5:5",
@@ -261,7 +261,7 @@ const data: Palette[] = [
 		beid: "planks 5",
 		x: "9",
 		y: "2",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "7",
@@ -271,7 +271,7 @@ const data: Palette[] = [
 		beid: "bedrock",
 		x: "7",
 		y: "3",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "12",
@@ -281,7 +281,7 @@ const data: Palette[] = [
 		beid: "sand",
 		x: "8",
 		y: "3",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "12:1",
@@ -291,7 +291,7 @@ const data: Palette[] = [
 		beid: "sand 1",
 		x: "9",
 		y: "3",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "13",
@@ -301,7 +301,7 @@ const data: Palette[] = [
 		beid: "gravel",
 		x: "1",
 		y: "4",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "14",
@@ -311,7 +311,7 @@ const data: Palette[] = [
 		beid: "gold_ore",
 		x: "2",
 		y: "4",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "15",
@@ -321,7 +321,7 @@ const data: Palette[] = [
 		beid: "iron_ore",
 		x: "3",
 		y: "4",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "16",
@@ -331,7 +331,7 @@ const data: Palette[] = [
 		beid: "coal_ore",
 		x: "4",
 		y: "4",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "17",
@@ -341,7 +341,7 @@ const data: Palette[] = [
 		beid: "log",
 		x: "5",
 		y: "4",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "17:1",
@@ -351,7 +351,7 @@ const data: Palette[] = [
 		beid: "log 1",
 		x: "6",
 		y: "4",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "17:2",
@@ -361,7 +361,7 @@ const data: Palette[] = [
 		beid: "log 2",
 		x: "7",
 		y: "4",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "17:3",
@@ -371,7 +371,7 @@ const data: Palette[] = [
 		beid: "log 3",
 		x: "8",
 		y: "4",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "162",
@@ -381,7 +381,7 @@ const data: Palette[] = [
 		beid: "log2",
 		x: "9",
 		y: "4",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "162:1",
@@ -391,7 +391,7 @@ const data: Palette[] = [
 		beid: "log2 1",
 		x: "1",
 		y: "5",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "3001",
@@ -399,9 +399,9 @@ const data: Palette[] = [
 		en: "Stripped Oak Log",
 		jeid: "minecraft:stripped_oak_log",
 		beid: "stripped_oak_log",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "5",
+		tex: "TopBox"
 	}, {
 
 		id: "3002",
@@ -409,9 +409,9 @@ const data: Palette[] = [
 		en: "Stripped Spruce Log",
 		jeid: "minecraft:stripped_spruce_log",
 		beid: "stripped_spruce_log",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "5",
+		tex: "TopBox"
 	}, {
 
 		id: "3003",
@@ -419,9 +419,9 @@ const data: Palette[] = [
 		en: "Stripped Birch Log",
 		jeid: "minecraft:stripped_birch_log",
 		beid: "stripped_birch_log",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "5",
+		tex: "TopBox"
 	}, {
 
 		id: "3004",
@@ -429,9 +429,9 @@ const data: Palette[] = [
 		en: "Stripped Jungle Log",
 		jeid: "minecraft:stripped_jungle_log",
 		beid: "stripped_jungle_log",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "5",
+		tex: "TopBox"
 	}, {
 
 		id: "3005",
@@ -439,9 +439,9 @@ const data: Palette[] = [
 		en: "Stripped Acacia Log",
 		jeid: "minecraft:stripped_acacia_log",
 		beid: "stripped_acacia_log",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "5",
+		tex: "TopBox"
 	}, {
 
 		id: "3006",
@@ -449,9 +449,9 @@ const data: Palette[] = [
 		en: "Stripped Dark Oak Log",
 		jeid: "minecraft:stripped_dark_oak_log",
 		beid: "stripped_dark_oak_log",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "5",
+		tex: "TopBox"
 	}, {
 
 		id: "3007",
@@ -459,9 +459,9 @@ const data: Palette[] = [
 		en: "Stripped Oak Wood",
 		jeid: "minecraft:stripped_oak_wood",
 		beid: "stripped_oak_log 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "5",
+		tex: "Box"
 	}, {
 
 		id: "3008",
@@ -469,9 +469,9 @@ const data: Palette[] = [
 		en: "Stripped Spruce Wood",
 		jeid: "minecraft:stripped_spruce_wood",
 		beid: "stripped_spruce_log 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "5",
+		tex: "Box"
 	}, {
 
 		id: "3009",
@@ -479,9 +479,9 @@ const data: Palette[] = [
 		en: "Stripped Birch Wood",
 		jeid: "minecraft:stripped_birch_wood",
 		beid: "stripped_birch_log 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "6",
+		tex: "Box"
 	}, {
 
 		id: "3010",
@@ -489,9 +489,9 @@ const data: Palette[] = [
 		en: "Stripped Jungle Wood",
 		jeid: "minecraft:stripped_jungle_wood",
 		beid: "stripped_jungle_log 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "6",
+		tex: "Box"
 	}, {
 
 		id: "3011",
@@ -499,9 +499,9 @@ const data: Palette[] = [
 		en: "Stripped Acacia Wood",
 		jeid: "minecraft:stripped_acacia_wood",
 		beid: "stripped_acacia_log 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "6",
+		tex: "Box"
 	}, {
 
 		id: "3012",
@@ -509,9 +509,9 @@ const data: Palette[] = [
 		en: "Stripped Dark Oak Wood",
 		jeid: "minecraft:stripped_dark_oak_wood",
 		beid: "stripped_dark_oak_log 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "6",
+		tex: "Box"
 	}, {
 
 		id: "3013",
@@ -519,9 +519,9 @@ const data: Palette[] = [
 		en: "Oak Wood",
 		jeid: "minecraft:oak_wood",
 		beid: "wood",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "6",
+		tex: "Box"
 	}, {
 
 		id: "3014",
@@ -529,9 +529,9 @@ const data: Palette[] = [
 		en: "Spruce Wood",
 		jeid: "minecraft:spruce_wood",
 		beid: "wood 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "6",
+		tex: "Box"
 	}, {
 
 		id: "3015",
@@ -539,9 +539,9 @@ const data: Palette[] = [
 		en: "Birch Wood",
 		jeid: "minecraft:birch_wood",
 		beid: "wood 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "6",
+		tex: "Box"
 	}, {
 
 		id: "3016",
@@ -549,9 +549,9 @@ const data: Palette[] = [
 		en: "Jungle Wood",
 		jeid: "minecraft:jungle_wood",
 		beid: "wood 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "6",
+		tex: "Box"
 	}, {
 
 		id: "3017",
@@ -559,9 +559,9 @@ const data: Palette[] = [
 		en: "Acacia Wood",
 		jeid: "minecraft:acacia_wood",
 		beid: "wood 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "6",
+		tex: "Box"
 	}, {
 
 		id: "3018",
@@ -569,9 +569,9 @@ const data: Palette[] = [
 		en: "Dark Oak Wood",
 		jeid: "minecraft:dark_oak_wood",
 		beid: "wood 5",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "7",
+		tex: "Box"
 	}, {
 
 		id: "19",
@@ -581,7 +581,7 @@ const data: Palette[] = [
 		beid: "sponge",
 		x: "8",
 		y: "7",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "19:1",
@@ -591,7 +591,7 @@ const data: Palette[] = [
 		beid: "sponge 1",
 		x: "9",
 		y: "7",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "20",
@@ -601,7 +601,7 @@ const data: Palette[] = [
 		beid: "glass",
 		x: "1",
 		y: "8",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "21",
@@ -611,7 +611,7 @@ const data: Palette[] = [
 		beid: "lapis_ore",
 		x: "2",
 		y: "8",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "22",
@@ -621,7 +621,7 @@ const data: Palette[] = [
 		beid: "lapis_block",
 		x: "3",
 		y: "8",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "24",
@@ -631,7 +631,7 @@ const data: Palette[] = [
 		beid: "sandstone",
 		x: "5",
 		y: "8",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "24:1",
@@ -641,17 +641,17 @@ const data: Palette[] = [
 		beid: "sandstone 1",
 		x: "6",
 		y: "8",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "24:2",
-		jp: "研がれた砂岩",
+		jp: "研かれた砂岩",
 		en: "Cut Sandstone",
 		jeid: "minecraft:cut_sandstone",
 		beid: "sandstone 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "8",
+		tex: "TopBox"
 	}, {
 
 		id: "35",
@@ -661,7 +661,7 @@ const data: Palette[] = [
 		beid: "wool",
 		x: "1",
 		y: "10",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:1",
@@ -671,7 +671,7 @@ const data: Palette[] = [
 		beid: "wool 1",
 		x: "2",
 		y: "10",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:2",
@@ -681,7 +681,7 @@ const data: Palette[] = [
 		beid: "wool 2",
 		x: "3",
 		y: "10",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:3",
@@ -691,7 +691,7 @@ const data: Palette[] = [
 		beid: "wool 3",
 		x: "4",
 		y: "10",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:4",
@@ -701,7 +701,7 @@ const data: Palette[] = [
 		beid: "wool 4",
 		x: "5",
 		y: "10",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:5",
@@ -711,7 +711,7 @@ const data: Palette[] = [
 		beid: "wool 5",
 		x: "6",
 		y: "10",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:6",
@@ -721,7 +721,7 @@ const data: Palette[] = [
 		beid: "wool 6",
 		x: "7",
 		y: "10",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:7",
@@ -731,7 +731,7 @@ const data: Palette[] = [
 		beid: "wool 7",
 		x: "8",
 		y: "10",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:8",
@@ -741,7 +741,7 @@ const data: Palette[] = [
 		beid: "wool 8",
 		x: "9",
 		y: "10",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:9",
@@ -751,7 +751,7 @@ const data: Palette[] = [
 		beid: "wool 9",
 		x: "1",
 		y: "11",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:10",
@@ -761,7 +761,7 @@ const data: Palette[] = [
 		beid: "wool 10",
 		x: "2",
 		y: "11",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:11",
@@ -771,7 +771,7 @@ const data: Palette[] = [
 		beid: "wool 11",
 		x: "3",
 		y: "11",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:12",
@@ -781,7 +781,7 @@ const data: Palette[] = [
 		beid: "wool 12",
 		x: "4",
 		y: "11",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:13",
@@ -791,7 +791,7 @@ const data: Palette[] = [
 		beid: "wool 13",
 		x: "5",
 		y: "11",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:14",
@@ -801,7 +801,7 @@ const data: Palette[] = [
 		beid: "wool 14",
 		x: "6",
 		y: "11",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "35:15",
@@ -811,7 +811,7 @@ const data: Palette[] = [
 		beid: "wool 15",
 		x: "7",
 		y: "11",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "41",
@@ -821,7 +821,7 @@ const data: Palette[] = [
 		beid: "gold_block",
 		x: "5",
 		y: "13",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "42",
@@ -831,7 +831,7 @@ const data: Palette[] = [
 		beid: "iron_block",
 		x: "6",
 		y: "13",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "126",
@@ -925,7 +925,7 @@ const data: Palette[] = [
 	}, {
 
 		id: "44:9",
-		jp: "研がれた砂岩のハーフブロック",
+		jp: "研かれた砂岩のハーフブロック",
 		en: "Cut Sandstone Slab",
 		jeid: "minecraft:cut_sandstone_slab",
 		beid: "stone_slab4 3",
@@ -1005,7 +1005,7 @@ const data: Palette[] = [
 	}, {
 
 		id: "182:1",
-		jp: "研がれた赤い砂岩のハーフブロック",
+		jp: "研かれた赤い砂岩のハーフブロック",
 		en: "Cut Red Sandstone Slab",
 		jeid: "minecraft:cut_red_sandstone_slab",
 		beid: "stone_slab4 4",
@@ -1059,9 +1059,9 @@ const data: Palette[] = [
 		en: "Smooth Quartz",
 		jeid: "minecraft:smooth_quartz",
 		beid: "quartz_block 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "16",
+		tex: "Box"
 	}, {
 
 		id: "179:3",
@@ -1071,7 +1071,7 @@ const data: Palette[] = [
 		beid: "red_sandstone 3",
 		x: "3",
 		y: "16",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "24:3",
@@ -1081,7 +1081,7 @@ const data: Palette[] = [
 		beid: "sandstone 3",
 		x: "7",
 		y: "8",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "1:7",
@@ -1089,9 +1089,9 @@ const data: Palette[] = [
 		en: "Smooth Stone",
 		jeid: "minecraft:smooth_stone",
 		beid: "smooth_stone",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "16",
+		tex: "Box"
 	}, {
 
 		id: "45",
@@ -1101,7 +1101,7 @@ const data: Palette[] = [
 		beid: "brick_block",
 		x: "6",
 		y: "16",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "47",
@@ -1111,7 +1111,7 @@ const data: Palette[] = [
 		beid: "bookshelf",
 		x: "8",
 		y: "16",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "48",
@@ -1121,7 +1121,7 @@ const data: Palette[] = [
 		beid: "mossy_cobblestone",
 		x: "9",
 		y: "16",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "49",
@@ -1131,7 +1131,7 @@ const data: Palette[] = [
 		beid: "obsidian",
 		x: "1",
 		y: "17",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "201",
@@ -1141,7 +1141,7 @@ const data: Palette[] = [
 		beid: "purpur_block",
 		x: "6",
 		y: "17",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "202",
@@ -1151,7 +1151,7 @@ const data: Palette[] = [
 		beid: "purpur_block 2",
 		x: "7",
 		y: "17",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "203",
@@ -1181,7 +1181,7 @@ const data: Palette[] = [
 		beid: "diamond_ore",
 		x: "2",
 		y: "18",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "57",
@@ -1191,7 +1191,7 @@ const data: Palette[] = [
 		beid: "diamond_block",
 		x: "3",
 		y: "18",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "67",
@@ -1211,7 +1211,7 @@ const data: Palette[] = [
 		beid: "redstone_ore",
 		x: "9",
 		y: "19",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "74",
@@ -1231,7 +1231,7 @@ const data: Palette[] = [
 		beid: "ice",
 		x: "4",
 		y: "20",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "80",
@@ -1241,7 +1241,7 @@ const data: Palette[] = [
 		beid: "snow",
 		x: "5",
 		y: "20",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "82",
@@ -1251,7 +1251,7 @@ const data: Palette[] = [
 		beid: "clay",
 		x: "7",
 		y: "20",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "86",
@@ -1261,7 +1261,7 @@ const data: Palette[] = [
 		beid: "pumpkin",
 		x: "6",
 		y: "21",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "86:1",
@@ -1301,7 +1301,7 @@ const data: Palette[] = [
 		beid: "netherrack",
 		x: "8",
 		y: "21",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "88",
@@ -1311,7 +1311,7 @@ const data: Palette[] = [
 		beid: "soul_sand",
 		x: "9",
 		y: "21",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "89",
@@ -1321,7 +1321,7 @@ const data: Palette[] = [
 		beid: "glowstone",
 		x: "1",
 		y: "22",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "91",
@@ -1341,7 +1341,7 @@ const data: Palette[] = [
 		beid: "stonebrick",
 		x: "6",
 		y: "23",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "98:1",
@@ -1351,7 +1351,7 @@ const data: Palette[] = [
 		beid: "stonebrick 1",
 		x: "7",
 		y: "23",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "98:2",
@@ -1361,7 +1361,7 @@ const data: Palette[] = [
 		beid: "stonebrick 2",
 		x: "8",
 		y: "23",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "98:3",
@@ -1371,7 +1371,7 @@ const data: Palette[] = [
 		beid: "stonebrick 3",
 		x: "9",
 		y: "23",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "103",
@@ -1381,7 +1381,7 @@ const data: Palette[] = [
 		beid: "melon_block",
 		x: "6",
 		y: "24",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "105",
@@ -1431,7 +1431,7 @@ const data: Palette[] = [
 		beid: "mycelium",
 		x: "7",
 		y: "25",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "112",
@@ -1441,7 +1441,7 @@ const data: Palette[] = [
 		beid: "nether_brick_block",
 		x: "9",
 		y: "25",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "114",
@@ -1461,7 +1461,7 @@ const data: Palette[] = [
 		beid: "end_stone",
 		x: "5",
 		y: "26",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "206",
@@ -1471,7 +1471,7 @@ const data: Palette[] = [
 		beid: "end_brick",
 		x: "6",
 		y: "26",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "128",
@@ -1491,7 +1491,7 @@ const data: Palette[] = [
 		beid: "emerald_ore",
 		x: "9",
 		y: "26",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "133",
@@ -1501,7 +1501,7 @@ const data: Palette[] = [
 		beid: "emerald_block",
 		x: "3",
 		y: "27",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "134",
@@ -1541,7 +1541,7 @@ const data: Palette[] = [
 		beid: "quartz_ore",
 		x: "9",
 		y: "30",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "155:1",
@@ -1549,9 +1549,9 @@ const data: Palette[] = [
 		en: "Chiseled Quartz Block",
 		jeid: "minecraft:chiseled_quartz_block",
 		beid: "quartz_block 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "31",
+		tex: "TopBox"
 	}, {
 
 		id: "155",
@@ -1559,19 +1559,19 @@ const data: Palette[] = [
 		en: "Quartz Block",
 		jeid: "minecraft:quartz_block",
 		beid: "quartz_block",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "31",
+		tex: "TopBox"
 	}, {
 
 		id: "155:2",
 		jp: "クォーツの柱",
-		en: "Pillar Quartz Block",
+		en: "Quartz Pillar Block",
 		jeid: "minecraft:quartz_pillar",
 		beid: "quartz_block 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "31",
+		tex: "TopBox"
 	}, {
 
 		id: "156",
@@ -1591,7 +1591,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay",
 		x: "8",
 		y: "31",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:1",
@@ -1601,7 +1601,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 1",
 		x: "9",
 		y: "31",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:2",
@@ -1611,7 +1611,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 2",
 		x: "1",
 		y: "32",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:3",
@@ -1621,7 +1621,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 3",
 		x: "2",
 		y: "32",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:4",
@@ -1631,7 +1631,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 4",
 		x: "3",
 		y: "32",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:5",
@@ -1641,7 +1641,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 5",
 		x: "4",
 		y: "32",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:6",
@@ -1651,7 +1651,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 6",
 		x: "5",
 		y: "32",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:7",
@@ -1661,7 +1661,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 7",
 		x: "6",
 		y: "32",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:8",
@@ -1671,7 +1671,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 8",
 		x: "7",
 		y: "32",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:9",
@@ -1681,7 +1681,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 9",
 		x: "8",
 		y: "32",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:10",
@@ -1691,7 +1691,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 10",
 		x: "9",
 		y: "32",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:11",
@@ -1701,7 +1701,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 11",
 		x: "1",
 		y: "33",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:12",
@@ -1711,7 +1711,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 12",
 		x: "2",
 		y: "33",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:13",
@@ -1721,7 +1721,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 13",
 		x: "3",
 		y: "33",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:14",
@@ -1731,7 +1731,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 14",
 		x: "4",
 		y: "33",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "159:15",
@@ -1741,7 +1741,7 @@ const data: Palette[] = [
 		beid: "stained_hardened_clay 15",
 		x: "5",
 		y: "33",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "170",
@@ -1751,7 +1751,7 @@ const data: Palette[] = [
 		beid: "hay_block",
 		x: "7",
 		y: "33",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "172",
@@ -1761,7 +1761,7 @@ const data: Palette[] = [
 		beid: "hardened_clay",
 		x: "6",
 		y: "35",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "173",
@@ -1771,7 +1771,7 @@ const data: Palette[] = [
 		beid: "coal_block",
 		x: "7",
 		y: "35",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "174",
@@ -1781,7 +1781,7 @@ const data: Palette[] = [
 		beid: "packed_ice",
 		x: "8",
 		y: "35",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "163",
@@ -1811,7 +1811,7 @@ const data: Palette[] = [
 		beid: "stained_glass",
 		x: "1",
 		y: "37",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:1",
@@ -1821,7 +1821,7 @@ const data: Palette[] = [
 		beid: "stained_glass 1",
 		x: "2",
 		y: "37",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:2",
@@ -1831,7 +1831,7 @@ const data: Palette[] = [
 		beid: "stained_glass 2",
 		x: "3",
 		y: "37",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:3",
@@ -1841,7 +1841,7 @@ const data: Palette[] = [
 		beid: "stained_glass 3",
 		x: "4",
 		y: "37",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:4",
@@ -1851,7 +1851,7 @@ const data: Palette[] = [
 		beid: "stained_glass 4",
 		x: "5",
 		y: "37",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:5",
@@ -1861,7 +1861,7 @@ const data: Palette[] = [
 		beid: "stained_glass 5",
 		x: "6",
 		y: "37",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:6",
@@ -1871,7 +1871,7 @@ const data: Palette[] = [
 		beid: "stained_glass 6",
 		x: "7",
 		y: "37",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:7",
@@ -1881,7 +1881,7 @@ const data: Palette[] = [
 		beid: "stained_glass 7",
 		x: "8",
 		y: "37",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:8",
@@ -1891,7 +1891,7 @@ const data: Palette[] = [
 		beid: "stained_glass 8",
 		x: "9",
 		y: "37",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:9",
@@ -1901,7 +1901,7 @@ const data: Palette[] = [
 		beid: "stained_glass 9",
 		x: "1",
 		y: "38",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:10",
@@ -1911,7 +1911,7 @@ const data: Palette[] = [
 		beid: "stained_glass 10",
 		x: "2",
 		y: "38",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:11",
@@ -1921,7 +1921,7 @@ const data: Palette[] = [
 		beid: "stained_glass 11",
 		x: "3",
 		y: "38",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:12",
@@ -1931,7 +1931,7 @@ const data: Palette[] = [
 		beid: "stained_glass 12",
 		x: "4",
 		y: "38",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:13",
@@ -1941,7 +1941,7 @@ const data: Palette[] = [
 		beid: "stained_glass 13",
 		x: "5",
 		y: "38",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:14",
@@ -1951,7 +1951,7 @@ const data: Palette[] = [
 		beid: "stained_glass 14",
 		x: "6",
 		y: "38",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "95:15",
@@ -1961,7 +1961,7 @@ const data: Palette[] = [
 		beid: "stained_glass 15",
 		x: "7",
 		y: "38",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "168",
@@ -1971,7 +1971,7 @@ const data: Palette[] = [
 		beid: "prismarine",
 		x: "6",
 		y: "40",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "168:1",
@@ -1981,7 +1981,7 @@ const data: Palette[] = [
 		beid: "prismarine 2",
 		x: "7",
 		y: "40",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "168:2",
@@ -1991,7 +1991,7 @@ const data: Palette[] = [
 		beid: "prismarine 1",
 		x: "8",
 		y: "40",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "168:3",
@@ -2041,7 +2041,7 @@ const data: Palette[] = [
 		beid: "red_sandstone",
 		x: "4",
 		y: "41",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "179:1",
@@ -2051,17 +2051,17 @@ const data: Palette[] = [
 		beid: "red_sandstone 1",
 		x: "5",
 		y: "41",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "179:2",
-		jp: "研がれた赤い砂岩",
+		jp: "研かれた赤い砂岩",
 		en: "Cut Red Sandstone",
 		jeid: "minecraft:cut_red_sandstone",
 		beid: "red_sandstone 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "41",
+		tex: "TopBox"
 	}, {
 
 		id: "180",
@@ -2091,7 +2091,7 @@ const data: Palette[] = [
 		beid: "nether_wart_block",
 		x: "9",
 		y: "41",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "215",
@@ -2101,7 +2101,7 @@ const data: Palette[] = [
 		beid: "red_nether_brick",
 		x: "1",
 		y: "42",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "216",
@@ -2111,7 +2111,7 @@ const data: Palette[] = [
 		beid: "bone_block",
 		x: "2",
 		y: "42",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "251",
@@ -2121,7 +2121,7 @@ const data: Palette[] = [
 		beid: "concrete",
 		x: "1",
 		y: "46",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:1",
@@ -2131,7 +2131,7 @@ const data: Palette[] = [
 		beid: "concrete 1",
 		x: "2",
 		y: "46",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:2",
@@ -2141,7 +2141,7 @@ const data: Palette[] = [
 		beid: "concrete 2",
 		x: "3",
 		y: "46",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:3",
@@ -2151,7 +2151,7 @@ const data: Palette[] = [
 		beid: "concrete 3",
 		x: "4",
 		y: "46",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:4",
@@ -2161,7 +2161,7 @@ const data: Palette[] = [
 		beid: "concrete 4",
 		x: "5",
 		y: "46",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:5",
@@ -2171,7 +2171,7 @@ const data: Palette[] = [
 		beid: "concrete 5",
 		x: "6",
 		y: "46",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:6",
@@ -2181,7 +2181,7 @@ const data: Palette[] = [
 		beid: "concrete 6",
 		x: "7",
 		y: "46",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:7",
@@ -2191,7 +2191,7 @@ const data: Palette[] = [
 		beid: "concrete 7",
 		x: "8",
 		y: "46",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:8",
@@ -2201,7 +2201,7 @@ const data: Palette[] = [
 		beid: "concrete 8",
 		x: "9",
 		y: "46",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:9",
@@ -2211,7 +2211,7 @@ const data: Palette[] = [
 		beid: "concrete 9",
 		x: "1",
 		y: "47",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:10",
@@ -2221,7 +2221,7 @@ const data: Palette[] = [
 		beid: "concrete 10",
 		x: "2",
 		y: "47",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:11",
@@ -2231,7 +2231,7 @@ const data: Palette[] = [
 		beid: "concrete 11",
 		x: "3",
 		y: "47",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:12",
@@ -2241,7 +2241,7 @@ const data: Palette[] = [
 		beid: "concrete 12",
 		x: "4",
 		y: "47",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:13",
@@ -2251,7 +2251,7 @@ const data: Palette[] = [
 		beid: "concrete 13",
 		x: "5",
 		y: "47",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:14",
@@ -2261,7 +2261,7 @@ const data: Palette[] = [
 		beid: "concrete 14",
 		x: "6",
 		y: "47",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "251:15",
@@ -2271,7 +2271,7 @@ const data: Palette[] = [
 		beid: "concrete 15",
 		x: "7",
 		y: "47",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252",
@@ -2281,7 +2281,7 @@ const data: Palette[] = [
 		beid: "concretepowder",
 		x: "8",
 		y: "47",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:1",
@@ -2291,7 +2291,7 @@ const data: Palette[] = [
 		beid: "concretepowder 1",
 		x: "9",
 		y: "47",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:2",
@@ -2301,7 +2301,7 @@ const data: Palette[] = [
 		beid: "concretepowder 2",
 		x: "1",
 		y: "48",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:3",
@@ -2311,7 +2311,7 @@ const data: Palette[] = [
 		beid: "concretepowder 3",
 		x: "2",
 		y: "48",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:4",
@@ -2321,7 +2321,7 @@ const data: Palette[] = [
 		beid: "concretepowder 4",
 		x: "3",
 		y: "48",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:5",
@@ -2331,7 +2331,7 @@ const data: Palette[] = [
 		beid: "concretepowder 5",
 		x: "4",
 		y: "48",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:6",
@@ -2341,7 +2341,7 @@ const data: Palette[] = [
 		beid: "concretepowder 6",
 		x: "5",
 		y: "48",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:7",
@@ -2351,7 +2351,7 @@ const data: Palette[] = [
 		beid: "concretepowder 7",
 		x: "6",
 		y: "48",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:8",
@@ -2361,7 +2361,7 @@ const data: Palette[] = [
 		beid: "concretepowder 8",
 		x: "7",
 		y: "48",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:9",
@@ -2371,7 +2371,7 @@ const data: Palette[] = [
 		beid: "concretepowder 9",
 		x: "8",
 		y: "48",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:10",
@@ -2381,7 +2381,7 @@ const data: Palette[] = [
 		beid: "concretepowder 10",
 		x: "9",
 		y: "48",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:11",
@@ -2391,7 +2391,7 @@ const data: Palette[] = [
 		beid: "concretepowder 11",
 		x: "1",
 		y: "49",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:12",
@@ -2401,7 +2401,7 @@ const data: Palette[] = [
 		beid: "concretepowder 12",
 		x: "2",
 		y: "49",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:13",
@@ -2411,7 +2411,7 @@ const data: Palette[] = [
 		beid: "concretepowder 13",
 		x: "3",
 		y: "49",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:14",
@@ -2421,7 +2421,7 @@ const data: Palette[] = [
 		beid: "concretepowder 14",
 		x: "4",
 		y: "49",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "252:15",
@@ -2431,7 +2431,7 @@ const data: Palette[] = [
 		beid: "concretepowder 15",
 		x: "5",
 		y: "49",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "3019",
@@ -2439,9 +2439,9 @@ const data: Palette[] = [
 		en: "Dead Tube Coral Block",
 		jeid: "minecraft:dead_tube_coral_block",
 		beid: "coral_block 8",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "49",
+		tex: "Box"
 	}, {
 
 		id: "3020",
@@ -2449,9 +2449,9 @@ const data: Palette[] = [
 		en: "Dead Brain Coral Block",
 		jeid: "minecraft:dead_brain_coral_block",
 		beid: "coral_block 9",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "49",
+		tex: "Box"
 	}, {
 
 		id: "3021",
@@ -2459,9 +2459,9 @@ const data: Palette[] = [
 		en: "Dead Bubble Coral Block",
 		jeid: "minecraft:dead_bubble_coral_block",
 		beid: "coral_block 10",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "49",
+		tex: "Box"
 	}, {
 
 		id: "3022",
@@ -2469,9 +2469,9 @@ const data: Palette[] = [
 		en: "Dead Fire Coral Block",
 		jeid: "minecraft:dead_fire_coral_block",
 		beid: "coral_block 11",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "50",
+		tex: "Box"
 	}, {
 
 		id: "3023",
@@ -2479,9 +2479,9 @@ const data: Palette[] = [
 		en: "Dead Horn Coral Block",
 		jeid: "minecraft:dead_horn_coral_block",
 		beid: "coral_block 12",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "50",
+		tex: "Box"
 	}, {
 
 		id: "3024",
@@ -2489,9 +2489,9 @@ const data: Palette[] = [
 		en: "Tube Coral Block",
 		jeid: "minecraft:tube_coral_block",
 		beid: "coral_block",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "50",
+		tex: "Box"
 	}, {
 
 		id: "3025",
@@ -2499,9 +2499,9 @@ const data: Palette[] = [
 		en: "Brain Coral Block",
 		jeid: "minecraft:brain_coral_block",
 		beid: "coral_block 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "50",
+		tex: "Box"
 	}, {
 
 		id: "3026",
@@ -2509,9 +2509,9 @@ const data: Palette[] = [
 		en: "Bubble Coral Block",
 		jeid: "minecraft:bubble_coral_block",
 		beid: "coral_block 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "50",
+		tex: "Box"
 	}, {
 
 		id: "3027",
@@ -2519,9 +2519,9 @@ const data: Palette[] = [
 		en: "Fire Coral Block",
 		jeid: "minecraft:fire_coral_block",
 		beid: "coral_block 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "50",
+		tex: "Box"
 	}, {
 
 		id: "3028",
@@ -2529,9 +2529,9 @@ const data: Palette[] = [
 		en: "Horn Coral Block",
 		jeid: "minecraft:horn_coral_block",
 		beid: "coral_block 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "50",
+		tex: "Box"
 	}, {
 
 		id: "3029",
@@ -2539,9 +2539,9 @@ const data: Palette[] = [
 		en: "Blue Ice",
 		jeid: "minecraft:blue_ice",
 		beid: "blue_ice",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "53",
+		tex: "Box"
 	}, {
 
 		id: "212",
@@ -2551,7 +2551,7 @@ const data: Palette[] = [
 		beid: "frosted_ice",
 		x: "8",
 		y: "35",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "3030",
@@ -3189,9 +3189,9 @@ const data: Palette[] = [
 		en: "Oak Sapling",
 		jeid: "minecraft:oak_sapling",
 		beid: "sapling",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "3",
+		tex: "Plant"
 	}, {
 
 		id: "6:1",
@@ -3199,9 +3199,9 @@ const data: Palette[] = [
 		en: "Spruce Sapling",
 		jeid: "minecraft:spruce_sapling",
 		beid: "sapling 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "3",
+		tex: "Plant"
 	}, {
 
 		id: "6:2",
@@ -3209,9 +3209,9 @@ const data: Palette[] = [
 		en: "Birch Sapling",
 		jeid: "minecraft:birch_sapling",
 		beid: "sapling 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "3",
+		tex: "Plant"
 	}, {
 
 		id: "6:3",
@@ -3219,9 +3219,9 @@ const data: Palette[] = [
 		en: "Jungle Sapling",
 		jeid: "minecraft:jungle_sapling",
 		beid: "sapling 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "3",
+		tex: "Plant"
 	}, {
 
 		id: "6:4",
@@ -3229,9 +3229,9 @@ const data: Palette[] = [
 		en: "Acacia Sapling",
 		jeid: "minecraft:acacia_sapling",
 		beid: "sapling 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "3",
+		tex: "Plant"
 	}, {
 
 		id: "6:5",
@@ -3239,9 +3239,9 @@ const data: Palette[] = [
 		en: "Dark Oak Sapling",
 		jeid: "minecraft:dark_oak_sapling",
 		beid: "sapling 5",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "3",
+		tex: "Plant"
 	}, {
 
 		id: "18",
@@ -3251,7 +3251,7 @@ const data: Palette[] = [
 		beid: "leaves",
 		x: "2",
 		y: "7",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "18:1",
@@ -3261,7 +3261,7 @@ const data: Palette[] = [
 		beid: "leaves 1",
 		x: "3",
 		y: "7",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "18:2",
@@ -3271,7 +3271,7 @@ const data: Palette[] = [
 		beid: "leaves 2",
 		x: "4",
 		y: "7",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "18:3",
@@ -3281,7 +3281,7 @@ const data: Palette[] = [
 		beid: "leaves 3",
 		x: "5",
 		y: "7",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "161",
@@ -3291,7 +3291,7 @@ const data: Palette[] = [
 		beid: "leaves2",
 		x: "6",
 		y: "7",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "161:1",
@@ -3301,7 +3301,7 @@ const data: Palette[] = [
 		beid: "leaves2 1",
 		x: "7",
 		y: "7",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "30",
@@ -3389,9 +3389,9 @@ const data: Palette[] = [
 		en: "Dandelion",
 		jeid: "minecraft:dandelion",
 		beid: "yellow_flower",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "11",
+		tex: "Plant"
 	}, {
 
 		id: "38",
@@ -3399,9 +3399,9 @@ const data: Palette[] = [
 		en: "Poppy",
 		jeid: "minecraft:poppy",
 		beid: "red_flower",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "11",
+		tex: "Plant"
 	}, {
 
 		id: "38:1",
@@ -3409,9 +3409,9 @@ const data: Palette[] = [
 		en: "Blue Orchid",
 		jeid: "minecraft:blue_orchid",
 		beid: "red_flower 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "12",
+		tex: "Plant"
 	}, {
 
 		id: "38:2",
@@ -3419,9 +3419,9 @@ const data: Palette[] = [
 		en: "Allium",
 		jeid: "minecraft:allium",
 		beid: "red_flower 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "12",
+		tex: "Plant"
 	}, {
 
 		id: "38:3",
@@ -3429,9 +3429,9 @@ const data: Palette[] = [
 		en: "Azure Bluet",
 		jeid: "minecraft:azure_bluet",
 		beid: "red_flower 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "12",
+		tex: "Plant"
 	}, {
 
 		id: "38:4",
@@ -3439,9 +3439,9 @@ const data: Palette[] = [
 		en: "Red Tulip",
 		jeid: "minecraft:red_tulip",
 		beid: "red_flower 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "12",
+		tex: "Plant"
 	}, {
 
 		id: "38:5",
@@ -3449,9 +3449,9 @@ const data: Palette[] = [
 		en: "Orange Tulip",
 		jeid: "minecraft:orange_tulip",
 		beid: "red_flower 5",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "12",
+		tex: "Plant"
 	}, {
 
 		id: "38:6",
@@ -3459,9 +3459,9 @@ const data: Palette[] = [
 		en: "White Tulip",
 		jeid: "minecraft:white_tulip",
 		beid: "red_flower 6",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "12",
+		tex: "Plant"
 	}, {
 
 		id: "38:7",
@@ -3469,9 +3469,9 @@ const data: Palette[] = [
 		en: "Pink Tulip",
 		jeid: "minecraft:pink_tulip",
 		beid: "red_flower 7",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "12",
+		tex: "Plant"
 	}, {
 
 		id: "38:8",
@@ -3479,9 +3479,9 @@ const data: Palette[] = [
 		en: "Oxeye Daisy",
 		jeid: "minecraft:oxeye_daisy",
 		beid: "red_flower 8",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "12",
+		tex: "Plant"
 	}, {
 
 		id: "3063",
@@ -3489,9 +3489,9 @@ const data: Palette[] = [
 		en: "Cornflower",
 		jeid: "minecraft:cornflower",
 		beid: "red_flower 9",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "12",
+		tex: "Plant"
 	}, {
 
 		id: "3064",
@@ -3499,9 +3499,9 @@ const data: Palette[] = [
 		en: "Lily of the Valley",
 		jeid: "minecraft:lily_of_the_valley",
 		beid: "red_flower 10",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "13",
+		tex: "Plant"
 	}, {
 
 		id: "3065",
@@ -3509,9 +3509,9 @@ const data: Palette[] = [
 		en: "Wither Rose",
 		jeid: "minecraft:wither_rose",
 		beid: "wither_rose",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "13",
+		tex: "Plant"
 	}, {
 
 		id: "39",
@@ -3519,9 +3519,9 @@ const data: Palette[] = [
 		en: "Brown Mushroom",
 		jeid: "minecraft:brown_mushroom",
 		beid: "brown_mushroom",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "13",
+		tex: "Plant"
 	}, {
 
 		id: "40",
@@ -3529,9 +3529,9 @@ const data: Palette[] = [
 		en: "Red Mushroom",
 		jeid: "minecraft:red_mushroom",
 		beid: "red_mushroom",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "13",
+		tex: "Plant"
 	}, {
 
 		id: "50",
@@ -3671,7 +3671,7 @@ const data: Palette[] = [
 		beid: "jukebox",
 		x: "8",
 		y: "20",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "85",
@@ -3741,7 +3741,7 @@ const data: Palette[] = [
 		beid: "spawn_egg",
 		x: "9",
 		y: "22",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "97:1",
@@ -3751,7 +3751,7 @@ const data: Palette[] = [
 		beid: "spawn_egg 1",
 		x: "1",
 		y: "23",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "97:2",
@@ -3761,7 +3761,7 @@ const data: Palette[] = [
 		beid: "spawn_egg 2",
 		x: "2",
 		y: "23",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "97:3",
@@ -3771,7 +3771,7 @@ const data: Palette[] = [
 		beid: "spawn_egg 3",
 		x: "3",
 		y: "23",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "97:4",
@@ -3781,7 +3781,7 @@ const data: Palette[] = [
 		beid: "spawn_egg 4",
 		x: "4",
 		y: "23",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "97:5",
@@ -3791,7 +3791,7 @@ const data: Palette[] = [
 		beid: "spawn_egg 5",
 		x: "5",
 		y: "23",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "99",
@@ -3801,7 +3801,7 @@ const data: Palette[] = [
 		beid: "brown_mushroom_block 7",
 		x: "1",
 		y: "24",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "100",
@@ -3811,7 +3811,7 @@ const data: Palette[] = [
 		beid: "red_mushroom_block",
 		x: "2",
 		y: "24",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "99:1",
@@ -3819,9 +3819,9 @@ const data: Palette[] = [
 		en: "Mushroom Stem",
 		jeid: "minecraft:mushroom_stem",
 		beid: "brown_mushroom_block 10",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "24",
+		tex: "Box"
 	}, {
 
 		id: "101",
@@ -4271,7 +4271,7 @@ const data: Palette[] = [
 		beid: "slime",
 		x: "2",
 		y: "36",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "208",
@@ -4531,7 +4531,7 @@ const data: Palette[] = [
 		beid: "shulker_box",
 		x: "5",
 		y: "42",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "220",
@@ -4541,7 +4541,7 @@ const data: Palette[] = [
 		beid: "shulker_box 1",
 		x: "6",
 		y: "42",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "221",
@@ -4551,7 +4551,7 @@ const data: Palette[] = [
 		beid: "shulker_box 2",
 		x: "7",
 		y: "42",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "222",
@@ -4561,7 +4561,7 @@ const data: Palette[] = [
 		beid: "shulker_box 3",
 		x: "8",
 		y: "42",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "223",
@@ -4571,7 +4571,7 @@ const data: Palette[] = [
 		beid: "shulker_box 4",
 		x: "9",
 		y: "42",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "224",
@@ -4581,7 +4581,7 @@ const data: Palette[] = [
 		beid: "shulker_box 5",
 		x: "1",
 		y: "43",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "225",
@@ -4591,7 +4591,7 @@ const data: Palette[] = [
 		beid: "shulker_box 6",
 		x: "2",
 		y: "43",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "226",
@@ -4601,7 +4601,7 @@ const data: Palette[] = [
 		beid: "shulker_box 7",
 		x: "3",
 		y: "43",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "227",
@@ -4611,7 +4611,7 @@ const data: Palette[] = [
 		beid: "shulker_box 8",
 		x: "4",
 		y: "43",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "228",
@@ -4621,7 +4621,7 @@ const data: Palette[] = [
 		beid: "shulker_box 9",
 		x: "5",
 		y: "43",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "229",
@@ -4631,7 +4631,7 @@ const data: Palette[] = [
 		beid: "shulker_box 10",
 		x: "6",
 		y: "43",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "230",
@@ -4641,7 +4641,7 @@ const data: Palette[] = [
 		beid: "shulker_box 11",
 		x: "7",
 		y: "43",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "231",
@@ -4651,7 +4651,7 @@ const data: Palette[] = [
 		beid: "shulker_box 12",
 		x: "8",
 		y: "43",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "232",
@@ -4661,7 +4661,7 @@ const data: Palette[] = [
 		beid: "shulker_box 13",
 		x: "9",
 		y: "43",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "233",
@@ -4671,7 +4671,7 @@ const data: Palette[] = [
 		beid: "shulker_box 14",
 		x: "1",
 		y: "44",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "234",
@@ -4681,7 +4681,7 @@ const data: Palette[] = [
 		beid: "shulker_box 15",
 		x: "2",
 		y: "44",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "235",
@@ -4691,7 +4691,7 @@ const data: Palette[] = [
 		beid: "white_glazed_terracotta",
 		x: "3",
 		y: "44",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "236",
@@ -4701,7 +4701,7 @@ const data: Palette[] = [
 		beid: "orange_glazed_terracotta",
 		x: "4",
 		y: "44",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "237",
@@ -4711,7 +4711,7 @@ const data: Palette[] = [
 		beid: "magenta_glazed_terracotta",
 		x: "5",
 		y: "44",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "238",
@@ -4721,7 +4721,7 @@ const data: Palette[] = [
 		beid: "light_blue_glazed_terracotta",
 		x: "6",
 		y: "44",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "239",
@@ -4731,7 +4731,7 @@ const data: Palette[] = [
 		beid: "yellow_glazed_terracotta",
 		x: "7",
 		y: "44",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "240",
@@ -4741,7 +4741,7 @@ const data: Palette[] = [
 		beid: "lime_glazed_terracotta",
 		x: "8",
 		y: "44",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "241",
@@ -4751,7 +4751,7 @@ const data: Palette[] = [
 		beid: "pink_glazed_terracotta",
 		x: "9",
 		y: "44",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "242",
@@ -4761,7 +4761,7 @@ const data: Palette[] = [
 		beid: "gray_glazed_terracotta",
 		x: "1",
 		y: "45",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "243",
@@ -4771,7 +4771,7 @@ const data: Palette[] = [
 		beid: "slilver_glazed_terracotta",
 		x: "2",
 		y: "45",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "244",
@@ -4781,7 +4781,7 @@ const data: Palette[] = [
 		beid: "cyan_glazed_terracotta",
 		x: "3",
 		y: "45",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "245",
@@ -4791,7 +4791,7 @@ const data: Palette[] = [
 		beid: "purple_glazed_terracotta",
 		x: "4",
 		y: "45",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "246",
@@ -4801,7 +4801,7 @@ const data: Palette[] = [
 		beid: "blue_glazed_terracotta",
 		x: "5",
 		y: "45",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "247",
@@ -4811,7 +4811,7 @@ const data: Palette[] = [
 		beid: "brown_glazed_terracotta",
 		x: "6",
 		y: "45",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "248",
@@ -4821,7 +4821,7 @@ const data: Palette[] = [
 		beid: "green_glazed_terracotta",
 		x: "7",
 		y: "45",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "249",
@@ -4831,7 +4831,7 @@ const data: Palette[] = [
 		beid: "red_glazed_terracotta",
 		x: "8",
 		y: "45",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "250",
@@ -4841,7 +4841,7 @@ const data: Palette[] = [
 		beid: "black_glazed_terracotta",
 		x: "9",
 		y: "45",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "3068",
@@ -4849,9 +4849,9 @@ const data: Palette[] = [
 		en: "Tube Coral",
 		jeid: "minecraft:tube_coral",
 		beid: "coral",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "50",
+		tex: "Plant"
 	}, {
 
 		id: "3069",
@@ -4859,9 +4859,9 @@ const data: Palette[] = [
 		en: "Brain Coral",
 		jeid: "minecraft:brain_coral",
 		beid: "coral 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "50",
+		tex: "Plant"
 	}, {
 
 		id: "3070",
@@ -4869,9 +4869,9 @@ const data: Palette[] = [
 		en: "Bubble Coral",
 		jeid: "minecraft:bubble_coral",
 		beid: "coral 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "51",
+		tex: "Plant"
 	}, {
 
 		id: "3071",
@@ -4879,9 +4879,9 @@ const data: Palette[] = [
 		en: "Fire Coral",
 		jeid: "minecraft:fire_coral",
 		beid: "coral 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "51",
+		tex: "Plant"
 	}, {
 
 		id: "3072",
@@ -4889,9 +4889,9 @@ const data: Palette[] = [
 		en: "Horn Coral",
 		jeid: "minecraft:horn_coral",
 		beid: "coral 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "51",
+		tex: "Plant"
 	}, {
 
 		id: "3073",
@@ -4899,9 +4899,9 @@ const data: Palette[] = [
 		en: "Dead Tube Coral",
 		jeid: "minecraft:dead_tube_coral",
 		beid: "",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "51",
+		tex: "Plant"
 	}, {
 
 		id: "3074",
@@ -4909,9 +4909,9 @@ const data: Palette[] = [
 		en: "Dead Brain Coral",
 		jeid: "minecraft:dead_brain_coral",
 		beid: "",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "51",
+		tex: "Plant"
 	}, {
 
 		id: "3075",
@@ -4919,9 +4919,9 @@ const data: Palette[] = [
 		en: "Dead Bubble Coral",
 		jeid: "minecraft:dead_bubble_coral",
 		beid: "",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "51",
+		tex: "Plant"
 	}, {
 
 		id: "3076",
@@ -4929,9 +4929,9 @@ const data: Palette[] = [
 		en: "Dead Fire Coral",
 		jeid: "minecraft:dead_fire_coral",
 		beid: "",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "51",
+		tex: "Plant"
 	}, {
 
 		id: "3077",
@@ -4939,9 +4939,9 @@ const data: Palette[] = [
 		en: "Dead Horn Coral",
 		jeid: "minecraft:dead_horn_coral",
 		beid: "",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "51",
+		tex: "Plant"
 	}, {
 
 		id: "3078",
@@ -5675,6 +5675,7 @@ const data: Palette[] = [
 	}, {
 
 		id: "390:15",
+
 		jp: "ヤグルマギクの鉢植え",
 		en: "Potted Cornflower",
 		jeid: "minecraft:potted_cornflower",
@@ -6411,7 +6412,7 @@ const data: Palette[] = [
 		beid: "noteblock",
 		x: "8",
 		y: "8",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "29",
@@ -6471,7 +6472,7 @@ const data: Palette[] = [
 		beid: "tnt",
 		x: "7",
 		y: "16",
-		tex: "toTopBox"
+		tex: "TopBox"
 	}, {
 
 		id: "69",
@@ -6721,7 +6722,7 @@ const data: Palette[] = [
 		beid: "redstone_lamp",
 		x: "7",
 		y: "26",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "124",
@@ -6731,7 +6732,7 @@ const data: Palette[] = [
 		beid: "lit_redstone_lamp",
 		x: "",
 		y: "",
-		tex: "toBox"
+		tex: ""
 	}, {
 
 		id: "131",
@@ -6871,7 +6872,7 @@ const data: Palette[] = [
 		beid: "redstone_block",
 		x: "8",
 		y: "30",
-		tex: "toBox"
+		tex: "Box"
 	}, {
 
 		id: "154",
@@ -9158,6 +9159,7 @@ const data: Palette[] = [
 		jp: "生鮭",
 		en: "Raw Salmon",
 		jeid: "minecraft:salmon",
+
 		beid: "salmon",
 		x: "",
 		y: "",
