@@ -213,10 +213,10 @@ export default class Entity {
 					return { entity: entity, action: 'remove' }
 				}
 			}
-
-			// キャンセルを main.ts に返す
-			return { entity: null, action: 'cancel' }
 		}
+
+		// キャンセルを main.ts に返す
+		return { entity: null, action: 'cancel' }
 	}
 
 	/**

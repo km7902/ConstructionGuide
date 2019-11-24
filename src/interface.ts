@@ -1,4 +1,4 @@
-import { SVGLoader } from '../lib/SVGLoader';
+import Functions from './2d/functions';
 import Inventory from './2d/inventory';
 import Slider from './2d/slider';
 import Widget from './2d/widget';
@@ -26,6 +26,9 @@ export default class Interface {
 	/* スライダーオブジェクト */
 	private readonly _slider: Slider;
 
+	/* ファンクションズオブジェクト */
+	private readonly _functions: Functions;
+
 	/* 公開: 3D 側で高度を取得するため */
 	public _getSliderInfo() {
 
@@ -39,6 +42,17 @@ export default class Interface {
 	public _getInventoryVisibility() {
 
 		return this._inventory._getInventoryGroup().visible;
+	}
+
+	/* 公開: キーボードでインベントリ表示・非表示を切り替えるため */
+	public _setInventoryVisibility() {
+	
+		// ドラッグ中でない場合に切り替える
+		if (this._dragItemMesh == null) {
+
+			this._inventory._getInventoryGroup().visible =
+			this._inventory._getInventoryGroup().visible ? false : true;
+		}
 	}
 
 	/* 公開: デバッグ表示 */
@@ -97,6 +111,10 @@ export default class Interface {
 		// @param {number} widgetSize: ウィジェットの幅と高さ
 		this._inventory = new Inventory(this._scene2d, baseURL, this._widget._getWidgetSize());
 
+		// 機能を作成
+		// @param {THREE.Scene} scene2d: 2D シーンオブジェクト
+		this._functions = new Functions(this._scene2d);
+
 		// ドラッグ中に表示するアイテムの初期化
 		this._dragItemMesh = null;
 	}
@@ -122,8 +140,13 @@ export default class Interface {
 		// @param {THREE.OrthographicCamera} camera2d: 2D カメラオブジェクト
 		const hoverInventory = this._inventory._update(mouseUV, this._camera2d);
 
+		// ファンクションズ側の処理
+		// @param {THREE.Vector2} mouseUV: マウスカーソル座標
+		// @param {THREE.OrthographicCamera} camera2d: 2D カメラオブジェクト
+		const hoverFunctions = this._functions._update(mouseUV, this._camera2d);
+
 		// main.ts にイベントの有無を通知する
-		return hoverWidget || hoverSlider || hoverInventory;
+		return hoverWidget || hoverSlider || hoverInventory || hoverFunctions;
 	}
 
 	/**
@@ -168,6 +191,9 @@ export default class Interface {
 		// @param {number} widgetSize: ウィジェットの幅と高さ
 		this._dragItemMesh = this._inventory._mousedown(canvasUV, this._widget._getWidgetSize());
 
+		// ファンクションズ側の処理
+		const functionsResult = this._functions._mousedown();
+
 		// ドラッグ中に表示するアイテムがあるとき
 		if (this._dragItemMesh != null) {
 
@@ -176,7 +202,7 @@ export default class Interface {
 		}
 
 		// main.ts に現在のアイテム ID を通知する
-		return itemID;
+		return { itemID: itemID, functionsResult: functionsResult };
 	}
 
 	/**
@@ -203,98 +229,5 @@ export default class Interface {
 
 		// main.ts に現在のアイテム ID を通知する
 		return itemID;
-	}
-
-	/**
-	 * SVG ファイルを読み込む
-	 * パスをシェイプに変換してグループ化しているが、テクスチャを貼ったスプライトより使いにくい
-	 * よって、今のところ使用予定がないのでナレッジとして残しておく
-	 * https://threejs.org/examples/#webgl_loader_svg
-	 */
-	private _SVGLoader() {
-
-		const guiData = {
-
-			currentURL: 'img/chest.svg',
-			drawFillShapes: true,
-			drawStrokes: true,
-			fillShapesWireframe: false,
-			strokesWireframe: false,
-			scene: this._scene2d,
-			screenWidth: this._width,
-			screenHeight: this._height
-		}
-
-		new SVGLoader().load(guiData.currentURL, function(data) {
-
-			const paths = data.paths;
-
-			const group = new THREE.Group();
-			group.scale.multiplyScalar(0.15);
-			group.position.set(guiData.screenWidth / 2.38, (guiData.screenHeight / - 2) + (guiData.screenHeight / 8), 0);
-			group.scale.y *= - 1;
-
-			for (let i = 0; i < paths.length; i++) {
-
-				const path = paths[i];
-
-				const fillColor = path.userData.style.fill;
-				if (guiData.drawFillShapes && fillColor !== undefined && fillColor !== 'none') {
-
-					const material = new THREE.MeshBasicMaterial({
-
-						color: new THREE.Color().setStyle(fillColor),
-						opacity: path.userData.style.fillOpacity,
-						transparent: path.userData.style.fillOpacity < 1,
-						side: THREE.DoubleSide,
-						depthWrite: false,
-						wireframe: guiData.fillShapesWireframe
-					});
-
-					const shapes = path.toShapes(true);
-
-					for (let j = 0; j < shapes.length; j++) {
-
-						const shape = shapes[j];
-
-						const geometry = new THREE.ShapeBufferGeometry(shape);
-						const mesh = new THREE.Mesh(geometry, material);
-
-						group.add(mesh);
-					}
-				}
-
-				const strokeColor = path.userData.style.stroke;
-
-				if (guiData.drawStrokes && strokeColor !== undefined && strokeColor !== 'none') {
-
-					const material = new THREE.MeshBasicMaterial({
-
-						color: new THREE.Color().setStyle(strokeColor),
-						opacity: path.userData.style.strokeOpacity,
-						transparent: path.userData.style.strokeOpacity < 1,
-						side: THREE.DoubleSide,
-						depthWrite: false,
-						wireframe: guiData.strokesWireframe
-					});
-
-					for (let j = 0; j < path.subPaths.length; j++) {
-
-						const subPath = path.subPaths[j];
-
-						const geometry = SVGLoader.pointsToStroke(subPath.getPoints(), path.userData.style);
-
-						if (geometry) {
-
-							const mesh = new THREE.Mesh(geometry, material);
-
-							group.add(mesh);
-						}
-					}
-				}
-			}
-
-			guiData.scene.add(group);
-		});
 	}
 }

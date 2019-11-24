@@ -65,6 +65,7 @@ export default class Main {
 		this._mousemove = this._mousemove.bind(this);
 		this._mousedown = this._mousedown.bind(this);
 		this._mouseup   = this._mouseup.bind(this);
+		this._keydown   = this._keydown.bind(this);
 		this._resize    = this._resize.bind(this);
 
 		// キャンバスを取得
@@ -142,6 +143,13 @@ export default class Main {
 		this._orbitControls.enableDamping = true;
 		this._orbitControls.dampingFactor = 0.2;
 
+		this._orbitControls.keys = {
+			LEFT  : 65, // A key
+			UP    : 87, // W key
+			RIGHT : 68, // D key
+			BOTTOM: 83  // S key
+		}
+
 		// 光源を作成
 		// new THREE.AmbientLight(色, 光の強さ)
 		const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
@@ -187,6 +195,9 @@ export default class Main {
 		this._mouseUV = new THREE.Vector2(this._width / 2, this._height / 2);
 		this._canvasUV = new THREE.Vector2(0, 0);
 
+		// キーボードイベントを登録
+		window.addEventListener('keydown', this._keydown);
+
 		// リサイズを一度実行してからイベントを登録
 		this._resize();
 		window.addEventListener('resize', this._resize);
@@ -229,14 +240,6 @@ export default class Main {
 				this._orbitControls.enablePan = true;
 			}
 
-		// インベントリが開いているとき
-		} else if (this._interface._getInventoryVisibility()) {
-
-			// インベントリが閉じられるまでカメラコントローラーを休止
-			this._orbitControls.enableZoom = false;
-			this._orbitControls.enableRotate = false;
-			this._orbitControls.enablePan = false;
-
 		// 2D 側イベントがあるとき
 		} else {
 
@@ -249,6 +252,16 @@ export default class Main {
 			this._orbitControls.enableZoom = false;
 			this._orbitControls.enableRotate = false;
 			this._orbitControls.enablePan = false;
+		}
+
+		// インベントリが開いているとき
+		if (this._interface._getInventoryVisibility()) {
+
+			// インベントリが閉じられるまでカメラコントローラーを休止
+			this._orbitControls.enableZoom = false;
+			this._orbitControls.enableRotate = false;
+			this._orbitControls.enablePan = false;
+
 		}
 
 		// スライダーを動かした場合にエンティティ集合の Y 軸方向を動かす
@@ -372,7 +385,15 @@ export default class Main {
 		// @param {object} event: イベント情報
 		// @param {THREE.Vector2} canvasUV: マウスカーソルのキャンバス座標
 		// @param {string} itemID: アイテム ID
-		this._itemID = this._interface._mousedown(event, this._canvasUV, this._itemID);
+		const results = this._interface._mousedown(event, this._canvasUV, this._itemID);
+		this._itemID = results.itemID;
+
+		// カメラリセットがクリックされたとき
+		if (results.functionsResult) {
+
+			// カメラコントローラーの視点をリセット
+			this._orbitControls.reset();
+		}
 	}
 
 	/**
@@ -393,6 +414,19 @@ export default class Main {
 		// 現在使用中のアイテム ID を渡して変更があれば更新する
 		// @param {string} itemID: アイテム ID
 		this._itemID = this._interface._mouseup(this._itemID);
+	}
+
+	/**
+	 * キーボードイベント
+	 * @param {object} event: イベント詳細
+	 */
+	private _keydown(event) {
+
+		if (event.key == 'e') {
+
+			// インベントリを表示・非表示
+			this._interface._setInventoryVisibility();
+		}
 	}
 
 	/**

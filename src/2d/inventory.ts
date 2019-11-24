@@ -15,8 +15,8 @@ export default class Inventory {
 	private readonly _textureList: THREE.Texture[];
 
 	/* インベントリ制御オブジェクト */
-	private _inventoryControl1: THREE.Sprite[]; // チェストボタン用
-	private _inventoryControl2: THREE.Sprite[]; // インベントリ画面用
+	private _inventoryControlOuter: THREE.Sprite[]; // チェストボタン用
+	private _inventoryControlInner: THREE.Sprite[]; // インベントリ画面用
 
 	/* インベントリストア制御オブジェクト */
 	private _inventoryStoreControl: THREE.Mesh[];
@@ -51,8 +51,8 @@ export default class Inventory {
 	private _inventoryBtnEstimateChoose: number;
 
 	/* マウス操作 */
-	private _hoverInventory1: boolean;
-	private _hoverInventory2: boolean;
+	private _hoverInventoryOuter: boolean;
+	private _hoverInventoryInner: boolean;
 	private _hoverInventoryStore: boolean;
 
 	/* レイキャストオブジェクト */
@@ -110,8 +110,8 @@ export default class Inventory {
 		this._textureList[5].type = THREE.FloatType;
 
 		// マウスとの交差を調べたいものはインベントリ制御に格納する
-		this._inventoryControl1 = [];
-		this._inventoryControl2 = [];
+		this._inventoryControlOuter = [];
+		this._inventoryControlInner = [];
 		this._inventoryStoreControl = [];
 
 		// チェストボタンを作成
@@ -124,7 +124,7 @@ export default class Inventory {
 		scene2d.add(chestSprite);
 
 		// インベントリ制御に追加
-		this._inventoryControl1.push(chestSprite);
+		this._inventoryControlOuter.push(chestSprite);
 
 
 		// インベントリ集合を作成する
@@ -314,7 +314,7 @@ export default class Inventory {
 		navBackSprite.scale.set(widgetSize / 3, widgetSize / 2, 1);
 
 		// インベントリ制御に追加
-		this._inventoryControl2.push(navBackSprite);
+		this._inventoryControlInner.push(navBackSprite);
 
 		// インベントリ集合に追加
 		this._inventoryGroup.add(navBackSprite);
@@ -335,7 +335,7 @@ export default class Inventory {
 		navNextSprite.scale.set(widgetSize / 3, widgetSize / 2, 1);
 
 		// インベントリ制御に追加
-		this._inventoryControl2.push(navNextSprite);
+		this._inventoryControlInner.push(navNextSprite);
 
 		// インベントリ集合に追加
 		this._inventoryGroup.add(navNextSprite);
@@ -358,23 +358,25 @@ export default class Inventory {
 		this._raycaster.setFromCamera(mouseUV, camera2d);
 
 		// その光線とぶつかったオブジェクトを得る
-		let intersects = this._raycaster.intersectObjects(this._inventoryControl1);
-		this._hoverInventory1 = false;
-		this._inventoryControl1.map(mesh => {
+		let intersects = this._raycaster.intersectObjects(this._inventoryControlOuter);
+		this._hoverInventoryOuter = false;
+		this._inventoryControlOuter.map(mesh => {
 
 			if (intersects.length > 0 && mesh === intersects[0].object) {
 
 				// 2D 側でオブジェクトを得たことを通知する
-				this._hoverInventory1 = true;
+				this._hoverInventoryOuter = true;
 			}
 		});
 
 		// インベントリ集合が表示されているとき
+		this._hoverInventoryInner = false;
+		this._hoverInventoryStore = false;
+		this._inventoryItemChoose = '0';
 		if (this._inventoryGroup.visible) {
 
-			let intersects = this._raycaster.intersectObjects(this._inventoryControl2);
-			this._hoverInventory2 = false;
-			this._inventoryControl2.map(mesh => {
+			let intersects = this._raycaster.intersectObjects(this._inventoryControlInner);
+			this._inventoryControlInner.map(mesh => {
 
 				if (intersects.length > 0 && mesh === intersects[0].object) {
 
@@ -382,14 +384,12 @@ export default class Inventory {
 					this._inventoryBtnEstimateChoose = mesh.id;
 
 					// 2D 側でオブジェクトを得たことを通知する
-					this._hoverInventory2 = true;
+					this._hoverInventoryInner = true;
 				}
 			});
 
 			// インベントリストアでもレイキャストを実行
 			intersects = this._raycaster.intersectObjects(this._inventoryStoreControl);
-			this._inventoryItemChoose = '0';
-			this._hoverInventoryStore = false;
 			this._inventoryStoreControl.map(mesh => {
 
 				if (intersects.length > 0 && mesh === intersects[0].object) {
@@ -404,7 +404,7 @@ export default class Inventory {
 		}
 
 		// interface.ts に通知する
-		return this._hoverInventory1 || this._hoverInventory2 || this._hoverInventoryStore;
+		return this._hoverInventoryOuter || this._hoverInventoryInner || this._hoverInventoryStore;
 	}
 
 	/**
@@ -415,27 +415,30 @@ export default class Inventory {
 	public _mousedown(canvasUV: THREE.Vector2, widgetSize: number) {
 
 		// チェストにマウスカーソルがあるとき
-		if (this._hoverInventory1) {
+		if (this._hoverInventoryOuter) {
 
 			// インベントリ集合の表示・非表示を切り替える
 			this._inventoryGroup.visible = this._inventoryGroup.visible ? false : true;
 		}
 
+		// インベントリが表示されていなければ以降を処理しない
+		if (!this._inventoryGroup.visible) return null;
+
 		// 戻る・進むボタンにカーソルがあるとき
-		if (this._hoverInventory2) {
+		if (this._hoverInventoryInner) {
 
 			// 戻るボタン
-			if (this._inventoryBtnEstimateChoose == this._inventoryControl2[0].id) {
+			if (this._inventoryBtnEstimateChoose == this._inventoryControlInner[0].id) {
 
 				// 2ページ前に遡ってから次のページを表示する
 				if (this._inventoryItemCursor >= 5 * 9 * 2)
 					this._inventoryItemCursor -= 5 * 9 * 2;
 				else
-					return;
+					return null;
 			}
 
 			// 次のページがなければ以降を処理しない
-			if (this._inventoryItemCursor >= this._inventoryItemList.length) return;
+			if (this._inventoryItemCursor >= this._inventoryItemList.length) return null;
 
 			// 次のページを表示する
 			let counter = 0;
