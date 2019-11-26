@@ -9,18 +9,6 @@ export default class Grid {
 	private _blockSize: number;
 	private _blockStep: number;
 
-	/* 公開: エンティティの作成基準 */
-	public _getBlockSize() {
-
-		return this._blockSize;
-	}
-
-	/* 公開: エンティティの作成基準 */
-	public _getBlockStep() {
-
-		return this._blockStep;
-	}
-
 	/* グリッド集合オブジェクト */
 	private readonly _gridGroup: THREE.Group;
 
@@ -92,7 +80,11 @@ export default class Grid {
 		this._gridControl.push(gridMesh);
 
 		// 選択メッシュを作成する
-		gridGeometry = new THREE.PlaneBufferGeometry(this._blockSize, this._blockSize);
+		gridGeometry = new THREE.PlaneBufferGeometry(
+
+			this._blockSize,
+			this._blockSize
+		);
 		gridMaterial = new THREE.MeshBasicMaterial({
 
 			color: 0xffffff,
@@ -144,11 +136,10 @@ export default class Grid {
 				(<any>this._pickGridControl.material).opacity = 0;
 			}
 		});
-
 	}
 
 	/**
-	 * ハイライトの位置 X を文字列で取得
+	 * ハイライトのブロック座標 X を文字列で取得
 	 */
 	public _getPickGridX() {
 
@@ -161,7 +152,7 @@ export default class Grid {
 	}
 
 	/**
-	 * ハイライトの位置 Z を文字列で取得
+	 * ハイライトのブロック座標 Z を文字列で取得
 	 */
 	public _getPickGridZ() {
 

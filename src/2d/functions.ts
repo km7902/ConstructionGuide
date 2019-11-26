@@ -24,8 +24,9 @@ export default class Functions {
 	 * コンストラクタ
 	 * @constructor
 	 * @param {THREE.Scene} scene2d: 2D シーンオブジェクト
+	 * @param {string} baseURL: 外部リソースへの URL
 	 */
-	constructor(scene2d: THREE.Scene) {
+	constructor(scene2d: THREE.Scene, baseURL: string) {
 
 		// キャンバスを取得
 		this._canvas = document.getElementById('ConstructionGuideApp');
@@ -39,8 +40,8 @@ export default class Functions {
 		const SVGgroup = new THREE.Group();
 
 		// SVG ファイルを読み込む（カメラリセット）
-		this._SVGLoader('img/video.svg', SVGgroup);
-		SVGgroup.scale.multiplyScalar(0.06);
+		this._SVGLoader(baseURL + 'img/video.svg', SVGgroup, this._width, this._height);
+		SVGgroup.scale.multiplyScalar(0.06 * (this._width / 640));
 		SVGgroup.scale.y *= - 1;
 		SVGgroup.position.set(this._width / 2.34, (this._height / 2) - (this._height / 20), 0);
 		scene2d.add(SVGgroup);
@@ -91,8 +92,10 @@ export default class Functions {
 	 * SVG ファイルを読み込む
 	 * @param {string} url: SVG ファイルの URL
 	 * @param {THREE.Group} group: SVG オブジェクト
+	 * @param {number} width: キャンバスの幅
+	 * @param {number} height: キャンバスの高さ
 	 */
-	private _SVGLoader(url: string, group: THREE.Group) {
+	private _SVGLoader(url: string, group: THREE.Group, width: number, height: number) {
 
 		const guiData = {
 
@@ -102,8 +105,8 @@ export default class Functions {
 			fillShapesWireframe: false,
 			strokesWireframe: false,
 			group: group,
-			screenWidth: this._width,
-			screenHeight: this._height
+			screenWidth: width,
+			screenHeight: height
 		}
 
 		new SVGLoader().load(guiData.currentURL, function(data) {

@@ -56,7 +56,7 @@ export default class Interface {
 	}
 
 	/* 公開: デバッグ表示 */
-	public _getInventoryItemID() {
+	public _getInterfaceItemID() {
 
 		// ドラッグ中でない場合はインベントリから取得
 		if (this._dragItemMesh == null) {
@@ -111,9 +111,10 @@ export default class Interface {
 		// @param {number} widgetSize: ウィジェットの幅と高さ
 		this._inventory = new Inventory(this._scene2d, baseURL, this._widget._getWidgetSize());
 
-		// 機能を作成
+		// ファンクションズを作成
 		// @param {THREE.Scene} scene2d: 2D シーンオブジェクト
-		this._functions = new Functions(this._scene2d);
+		// @param {string} baseURL: 外部リソースへの URL
+		this._functions = new Functions(this._scene2d, baseURL);
 
 		// ドラッグ中に表示するアイテムの初期化
 		this._dragItemMesh = null;
@@ -202,7 +203,7 @@ export default class Interface {
 		}
 
 		// main.ts に現在のアイテム ID を通知する
-		return { itemID: itemID, functionsResult: functionsResult };
+		return { itemID: itemID, functionsResult: functionsResult }
 	}
 
 	/**

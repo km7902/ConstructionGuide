@@ -42,7 +42,7 @@ export default class Widget {
 	/* 公開:デバッグ表示 */
 	public _getWidgetItemChoose() {
 
-		// Minecraft JavaEdition の ID を返す
+		// Minecraft JavaEdition のアイテム ID を返す
 		let jeid = '';
 		for (let i = 0; i < this._widgetStoreControl.length; i++) {
 

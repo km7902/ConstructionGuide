@@ -54,6 +54,10 @@ export default class Main {
 	private _mouseUV: THREE.Vector2;
 	private _canvasUV: THREE.Vector2;
 
+	/* キーの状態 */
+	private _downKey: string[];
+	private _ctrlKey: boolean;
+
 	/**
 	 * コンストラクタ
 	 * @constructor
@@ -66,6 +70,7 @@ export default class Main {
 		this._mousedown = this._mousedown.bind(this);
 		this._mouseup   = this._mouseup.bind(this);
 		this._keydown   = this._keydown.bind(this);
+		this._keyup     = this._keyup.bind(this);
 		this._resize    = this._resize.bind(this);
 
 		// キャンバスを取得
@@ -152,7 +157,7 @@ export default class Main {
 
 		// 光源を作成
 		// new THREE.AmbientLight(色, 光の強さ)
-		const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+		const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
 		this._scene.add(ambientLight);
 
 		// new THREE.DirectionalLight(色, 光の強さ)
@@ -160,18 +165,22 @@ export default class Main {
 		directionalLight.position.set(0, 1200, 400);
 		this._scene.add(directionalLight);
 
+		// ブロックのサイズと数
+		const blockSize = 100;
+		const blockStep = 50;
+
 		// グリッドを作成する
 		// @param {THREE.Scene} scene: 3D シーンオブジェクト
 		// @param {number} blockSize: ブロックのサイズ
 		// @param {number} blockStep: ブロックの数
-		this._grid = new Grid(this._scene, 100, 50);
+		this._grid = new Grid(this._scene, blockSize, blockStep);
 
 		// エンティティを作成する
 		// @param {THREE.Scene} scene: 3D シーンオブジェクト
 		// @param {string} baseURL: 外部リソースへの URL
 		// @param {number} blockSize: ブロックのサイズ
-		// @param {number} blockSize: ブロックの数
-		this._entity = new Entity(this._scene, this._baseURL, this._grid._getBlockSize(), this._grid._getBlockStep());
+		// @param {number} blockStep: ブロックの数
+		this._entity = new Entity(this._scene, this._baseURL, blockSize, blockStep);
 
 		// JSON データがあればエンティティの配置を復元
 		if (this._canvas.innerHTML != '')
@@ -192,11 +201,16 @@ export default class Main {
 		window.addEventListener('mouseup', this._mouseup);
 
 		// マウス座標管理を初期化
-		this._mouseUV = new THREE.Vector2(this._width / 2, this._height / 2);
+		this._mouseUV  = new THREE.Vector2(this._width / 2, this._height / 2);
 		this._canvasUV = new THREE.Vector2(0, 0);
 
 		// キーボードイベントを登録
 		window.addEventListener('keydown', this._keydown);
+		window.addEventListener('keyup', this._keyup);
+
+		// キーの状態を初期化
+		this._downKey = [];
+		this._ctrlKey = false;
 
 		// リサイズを一度実行してからイベントを登録
 		this._resize();
@@ -293,12 +307,17 @@ export default class Main {
 			'</span><br><span>';
 
 		// アイテム ID を表示
-		if (this._interface._getInventoryItemID() != '')
-			debugText += 'Block: ' + this._interface._getInventoryItemID();
+		if (this._interface._getInterfaceItemID() != '')
+			debugText += 'Block: ' + this._interface._getInterfaceItemID();
 		else if (this._entity._getEntityItemID() != '')
 			debugText += 'Block: ' + this._entity._getEntityItemID();
 		else
 			debugText += 'Block: ';
+
+		// キーイベント情報
+		debugText += '</span><br><span>KeyCode: ';
+		for (let i = 0; i < this._downKey.length; i++)
+			debugText += (i == 0 ? '' : ' + ') + this._downKey[i];
 
 		// デバッグ表示
 		this._debug.innerHTML = '<span>' + debugText + '</span>';
@@ -352,8 +371,7 @@ export default class Main {
 		// グリッドのマス目が選択状態、インベントリが非表示、ウィジェットに何か登録されているとき
 		if ((<any>this._grid._getPickGridControl().material).opacity != 0 &&
 			!this._interface._getInventoryVisibility() &&
-			(this._itemID != '0' || event.button == 2)
-		   ) {
+			(this._itemID != '0' || event.button == 2)) {
 
 			// エンティティ側の処理
 			// グループへの登録は main.ts が処理しなければならない？
@@ -361,11 +379,13 @@ export default class Main {
 
 				// @param {object} event: イベント情報
 				// @param {string} itemID: アイテム ID
+				// @param {boolean} ctrlKey: CTRL キーが押されているか
 				// @param {THREE.Vector3} position: エンティティの登録位置
 				this._entity._mousedown(
 
 					event,
 					this._itemID,
+					this._ctrlKey,
 					new THREE.Vector3(
 						this._grid._getPickGridControl().position.x,
 						this._interface._getSliderInfo().level,
@@ -417,7 +437,7 @@ export default class Main {
 	}
 
 	/**
-	 * キーボードイベント
+	 * キーボードイベント（キー押下）
 	 * @param {object} event: イベント詳細
 	 */
 	private _keydown(event) {
@@ -427,6 +447,35 @@ export default class Main {
 			// インベントリを表示・非表示
 			this._interface._setInventoryVisibility();
 		}
+
+		if (event.key == 'Control') {
+
+			// キーの状態を変更
+			this._ctrlKey = true;
+		}
+
+		// 押下中のキーコードをデバッグ表示
+		if (this._downKey.indexOf(event.code) < 0)
+			this._downKey.push(event.code);
+	}
+
+	/**
+	 * キーボードイベント（キー開放）
+	 * @param {object} event: イベント詳細
+	 */
+	private _keyup(event) {
+
+		if (event.key == 'Control') {
+
+			// キーの状態を変更
+			this._ctrlKey = false;
+		}
+
+		// 押下中のキーコードをデバッグ表示
+		this._downKey = this._downKey.filter(function(item) {
+
+			return item != event.code;
+		});
 	}
 
 	/**

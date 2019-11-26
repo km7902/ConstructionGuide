@@ -839,9 +839,9 @@ const data: Palette[] = [
 		en: "Oak Wood Slab",
 		jeid: "minecraft:oak_slab",
 		beid: "wooden_slab",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "13",
+		tex: "Slab"
 	}, {
 
 		id: "126:1",
@@ -849,9 +849,9 @@ const data: Palette[] = [
 		en: "Spruce Wood Slab",
 		jeid: "minecraft:spruce_slab",
 		beid: "wooden_slab 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "13",
+		tex: "Slab"
 	}, {
 
 		id: "126:2",
@@ -859,9 +859,9 @@ const data: Palette[] = [
 		en: "Birch Wood Slab",
 		jeid: "minecraft:birch_slab",
 		beid: "wooden_slab 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "13",
+		tex: "Slab"
 	}, {
 
 		id: "126:3",
@@ -869,9 +869,9 @@ const data: Palette[] = [
 		en: "Jungle Wood Slab",
 		jeid: "minecraft:jungle_slab",
 		beid: "wooden_slab 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "14",
+		tex: "Slab"
 	}, {
 
 		id: "126:4",
@@ -879,9 +879,9 @@ const data: Palette[] = [
 		en: "Acacia Wood Slab",
 		jeid: "minecraft:acacia_slab",
 		beid: "wooden_slab 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "14",
+		tex: "Slab"
 	}, {
 
 		id: "126:5",
@@ -889,9 +889,9 @@ const data: Palette[] = [
 		en: "Dark Oak Wood Slab",
 		jeid: "minecraft:dark_oak_slab",
 		beid: "wooden_slab 5",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "14",
+		tex: "Slab"
 	}, {
 
 		id: "44",
@@ -899,9 +899,9 @@ const data: Palette[] = [
 		en: "Stone Slab",
 		jeid: "minecraft:stone_slab",
 		beid: "stone_slab4 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "14",
+		tex: "Slab"
 	}, {
 
 		id: "44:8",
@@ -909,9 +909,9 @@ const data: Palette[] = [
 		en: "Smooth Stone Slab",
 		jeid: "minecraft:smooth_stone_slab",
 		beid: "stone_slab",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "14",
+		tex: "Slab"
 	}, {
 
 		id: "44:1",
@@ -919,9 +919,9 @@ const data: Palette[] = [
 		en: "Sandstone Slab",
 		jeid: "minecraft:sandstone_slab",
 		beid: "stone_slab 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "14",
+		tex: "Slab"
 	}, {
 
 		id: "44:9",
@@ -929,9 +929,9 @@ const data: Palette[] = [
 		en: "Cut Sandstone Slab",
 		jeid: "minecraft:cut_sandstone_slab",
 		beid: "stone_slab4 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "14",
+		tex: "Slab"
 	}, {
 
 		id: "44:2",
@@ -939,9 +939,9 @@ const data: Palette[] = [
 		en: "Petrified Oak Slab",
 		jeid: "minecraft:petrified_oak_slab",
 		beid: "stone_slab 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "14",
+		tex: "Slab"
 	}, {
 
 		id: "44:3",
@@ -949,49 +949,49 @@ const data: Palette[] = [
 		en: "Cobblestone Slab",
 		jeid: "minecraft:cobblestone_slab",
 		beid: "stone_slab 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "14",
+		tex: "Slab"
 	}, {
 
 		id: "44:4",
 		jp: "レンガのハーフブロック",
-		en: "Brick Slab",
+		en: "Bricks Slab",
 		jeid: "minecraft:brick_slab",
 		beid: "stone_slab 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "15",
+		tex: "Slab"
 	}, {
 
 		id: "44:5",
 		jp: "石レンガのハーフブロック",
-		en: "Stone Brick Slab",
+		en: "Stone Bricks Slab",
 		jeid: "minecraft:stone_brick_slab",
 		beid: "stone_slab 5",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "15",
+		tex: "Slab"
 	}, {
 
 		id: "44:6",
 		jp: "ネザーレンガのハーフブロック",
-		en: "Nether Brick Slab",
+		en: "Nether Bricks Slab",
 		jeid: "minecraft:nether_brick_slab",
 		beid: "stone_slab 7",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "15",
+		tex: "Slab"
 	}, {
 
 		id: "44:7",
 		jp: "クォーツのハーフブロック",
-		en: "Quartz Slab",
+		en: "Quartz Block Slab",
 		jeid: "minecraft:quartz_slab",
 		beid: "stone_slab 6",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "15",
+		tex: "Slab"
 	}, {
 
 		id: "182",
@@ -999,9 +999,9 @@ const data: Palette[] = [
 		en: "Red Sandstone Slab",
 		jeid: "minecraft:red_sandstone_slab",
 		beid: "stone_slab2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "15",
+		tex: "Slab"
 	}, {
 
 		id: "182:1",
@@ -1009,19 +1009,19 @@ const data: Palette[] = [
 		en: "Cut Red Sandstone Slab",
 		jeid: "minecraft:cut_red_sandstone_slab",
 		beid: "stone_slab4 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "15",
+		tex: "Slab"
 	}, {
 
 		id: "205",
 		jp: "プルプァのハーフブロック",
-		en: "Purpur Slab",
+		en: "Purpur Block Slab",
 		jeid: "minecraft:purpur_slab",
 		beid: "stone_slab2 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "15",
+		tex: "Slab"
 	}, {
 
 		id: "205:1",
@@ -1029,19 +1029,19 @@ const data: Palette[] = [
 		en: "Prismarine Slab",
 		jeid: "minecraft:prismarine_slab",
 		beid: "stone_slab2 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "15",
+		tex: "Slab"
 	}, {
 
 		id: "205:2",
 		jp: "プリズマリンレンガのハーフブロック",
-		en: "Prismarine Brick Slab",
+		en: "Prismarine Bricks Slab",
 		jeid: "minecraft:prismarine_brick_slab",
 		beid: "stone_slab2 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "15",
+		tex: "Slab"
 	}, {
 
 		id: "205:3",
@@ -1049,9 +1049,9 @@ const data: Palette[] = [
 		en: "Dark Prismarine Slab",
 		jeid: "minecraft:dark_prismarine_slab",
 		beid: "stone_slab2 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "16",
+		tex: "Slab"
 	}, {
 
 		id: "155:3",
@@ -2699,9 +2699,9 @@ const data: Palette[] = [
 		en: "Polished Granite Slab",
 		jeid: "minecraft:polished_granite_slab",
 		beid: "stone_slab3 7",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "54",
+		tex: "Slab"
 	}, {
 
 		id: "3045",
@@ -2709,19 +2709,19 @@ const data: Palette[] = [
 		en: "Smooth Red Sandstone Slab",
 		jeid: "minecraft:smooth_red_sandstone_slab",
 		beid: "stone_slab3 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "54",
+		tex: "Slab"
 	}, {
 
 		id: "3046",
 		jp: "苔むした石レンガのハーフブロック",
-		en: "Mossy Stone Brick Slab",
+		en: "Mossy Stone Bricks Slab",
 		jeid: "minecraft:mossy_stone_brick_slab",
 		beid: "stone_slab4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "55",
+		tex: "Slab"
 	}, {
 
 		id: "3047",
@@ -2729,9 +2729,9 @@ const data: Palette[] = [
 		en: "Polished Diorite Slab",
 		jeid: "minecraft:polished_diorite_slab",
 		beid: "stone_slab3 5",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "55",
+		tex: "Slab"
 	}, {
 
 		id: "3048",
@@ -2739,19 +2739,19 @@ const data: Palette[] = [
 		en: "Mossy Cobblestone Slab",
 		jeid: "minecraft:mossy_cobblestone_slab",
 		beid: "stone_slab2 5",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "55",
+		tex: "Slab"
 	}, {
 
 		id: "3049",
 		jp: "エンドストーンレンガのハーフブロック",
-		en: "End Stone Brick Slab",
+		en: "End Stone Bricks Slab",
 		jeid: "minecraft:end_stone_brick_slab",
 		beid: "stone_slab3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "55",
+		tex: "Slab"
 	}, {
 
 		id: "3050",
@@ -2759,9 +2759,9 @@ const data: Palette[] = [
 		en: "Smooth Sandstone Slab",
 		jeid: "minecraft:smooth_sandstone_slab",
 		beid: "stone_slab2 6",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "55",
+		tex: "Slab"
 	}, {
 
 		id: "3051",
@@ -2769,9 +2769,9 @@ const data: Palette[] = [
 		en: "Smooth Quartz Slab",
 		jeid: "minecraft:smooth_quartz_slab",
 		beid: "stone_slab4 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "55",
+		tex: "Slab"
 	}, {
 
 		id: "3052",
@@ -2779,9 +2779,9 @@ const data: Palette[] = [
 		en: "Granite Slab",
 		jeid: "minecraft:granite_slab",
 		beid: "stone_slab3 6",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "55",
+		tex: "Slab"
 	}, {
 
 		id: "3053",
@@ -2789,19 +2789,19 @@ const data: Palette[] = [
 		en: "Andesite Slab",
 		jeid: "minecraft:andesite_slab",
 		beid: "stone_slab3 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "55",
+		tex: "Slab"
 	}, {
 
 		id: "3054",
 		jp: "赤いネザーレンガのハーフブロック",
-		en: "Red Mether Brick Slab",
+		en: "Red Nether Bricks Slab",
 		jeid: "minecraft:red_nether_brick_slab",
 		beid: "stone_slab2 7",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "55",
+		tex: "Slab"
 	}, {
 
 		id: "3055",
@@ -2809,9 +2809,9 @@ const data: Palette[] = [
 		en: "Polished Andesite Slab",
 		jeid: "minecraft:polished_andesite_slab",
 		beid: "stone_slab3 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "56",
+		tex: "Slab"
 	}, {
 
 		id: "3056",
@@ -2819,9 +2819,9 @@ const data: Palette[] = [
 		en: "Diorite Slab",
 		jeid: "minecraft:diorite_slab",
 		beid: "stone_slab3 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "56",
+		tex: "Slab"
 	}, {
 
 		id: "3057",
@@ -5675,7 +5675,6 @@ const data: Palette[] = [
 	}, {
 
 		id: "390:15",
-
 		jp: "ヤグルマギクの鉢植え",
 		en: "Potted Cornflower",
 		jeid: "minecraft:potted_cornflower",
@@ -9159,7 +9158,6 @@ const data: Palette[] = [
 		jp: "生鮭",
 		en: "Raw Salmon",
 		jeid: "minecraft:salmon",
-
 		beid: "salmon",
 		x: "",
 		y: "",

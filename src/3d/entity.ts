@@ -138,7 +138,7 @@ export default class Entity {
 				// エンティティクラスタ ID を取得
 				this._entityClusterID = cluster.id;
 
-				// アイテム ID を取得
+				// エンティティアイテム ID を取得
 				this._entityItemID = cluster.name;
 
 			} else {
@@ -149,9 +149,9 @@ export default class Entity {
 					const mesh: THREE.Mesh = <THREE.Mesh>cluster.children[i];
 					if ((<any>mesh.material).color.r == 1) {
 
-						(<any>mesh.material).color.r = 0.8;
-						(<any>mesh.material).color.g = 0.8;
-						(<any>mesh.material).color.b = 0.8;
+						(<any>mesh.material).color.r = 0.7;
+						(<any>mesh.material).color.g = 0.7;
+						(<any>mesh.material).color.b = 0.7;
 					}
 				}
 			}
@@ -162,9 +162,10 @@ export default class Entity {
 	 * マウスイベント（クリック押下）
 	 * @param {object} event: イベント情報
 	 * @param {string} itemID: アイテム ID
+	 * @param {boolean} ctrlKey: CTRL キーが押されているか
 	 * @param {THREE.Vector3} position: エンティティの登録位置
 	 */
-	public _mousedown(event, itemID: string, position: THREE.Vector3) {
+	public _mousedown(event, itemID: string, ctrlKey: boolean, position: THREE.Vector3) {
 
 		// 左クリックの場合
 		if (event.button == 0) {
@@ -175,20 +176,20 @@ export default class Entity {
 			const posZ = position.z;
 
 			// エンティティがすでに配置されているかチェックする
-			if (!this._entitySpaceExist(posX, posY, posZ)) {
+			if (!this._entitySpaceExist(ctrlKey, posX, posY, posZ)) {
 
 				// キャンセルを main.ts に返す
 				return { entity: null, action: 'cancel' }
 			}
 
 			// エンティティを作成
-			const entity = this._createEntity(itemID, posX, posY, posZ);
+			const entity = this._createEntity(itemID, ctrlKey, posX, posY, posZ);
 
 			// エンティティ制御に追加
 			this._entityControl.push(entity);
 
 			// エンティティの配置に登録
-			this._entitySpaceAdd(entity);
+			this._entitySpaceAdd(entity, ctrlKey);
 
 			// エンティティを main.ts に渡す
 			return { entity: entity, action: 'add' }
@@ -221,11 +222,12 @@ export default class Entity {
 
 	/**
 	 * エンティティの配置マネージャ（検査）
+	 * @param {boolean} ctrlKey: CTRL キーが押されているか
 	 * @param {number} posX: ブロックの X 座標
 	 * @param {number} posY: ブロックの Y 座標
 	 * @param {number} posZ: ブロックの Z 座標
 	 */
-	public _entitySpaceExist(posX: number, posY: number, posZ: number) {
+	public _entitySpaceExist(ctrlKey: boolean, posX: number, posY: number, posZ: number) {
 
 		// 空間座標を取得
 		const x = this._getX(posX);
@@ -244,17 +246,30 @@ export default class Entity {
 		if (!exist) return true;
 
 		// すでに何かある場合は登録不可（ただし Air: 0 のときは例外）
-		if (this._entitySpace[y][x][z] != '0')
+		if (this._entitySpace[y][x][z] != '0') {
+
+			// ハーフブロックの判定
+			if (this._entitySpace[y][x][z].indexOf('/') > 0) {
+
+				// 空間があれば配置可能
+				const items = this._entitySpace[y][x][z].split('/');
+				if ((ctrlKey && items[0] == '0') || (!ctrlKey && items[1] == '0'))
+					return true;
+			}
 			return false;
-		else
+
+		} else {
+
 			return true;
+		}
 	}
 
 	/**
 	 * エンティティの配置マネージャ（登録）
 	 * @param {THREE.Group} cluster: エンティティオブジェクト
+	 * @param {boolean} ctrlKey: CTRL キーが押されているか
 	 */
-	public _entitySpaceAdd(cluster: THREE.Group) {
+	public _entitySpaceAdd(cluster: THREE.Group, ctrlKey: boolean) {
 
 		// 空間座標を取得
 		const x = this._getX(cluster.position.x);
@@ -268,7 +283,34 @@ export default class Entity {
 		exist = false;
 		Object.keys(this._entitySpace[y]).map(e2 => {if (e2 == x) exist = true});
 		if (!exist) this._entitySpace[y][x] = {};
-		this._entitySpace[y][x][z] = cluster.name;
+		exist = false;
+		Object.keys(this._entitySpace[y][x]).map(e3 => {if (e3 == z) exist = true});
+		if (!exist) this._entitySpace[y][x][z] = '0';
+
+		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab')) {
+
+			// ハーフブロックの場合
+			if (this._entitySpace[y][x][z].indexOf('/') > 0) {
+
+				const items = this._entitySpace[y][x][z].split('/');
+				if (ctrlKey)
+					this._entitySpace[y][x][z] = cluster.name + '/' + items[1]; // 上付き
+				else
+					this._entitySpace[y][x][z] = items[0] + '/' + cluster.name; // 下付き
+
+			} else {
+
+				if (ctrlKey)
+					this._entitySpace[y][x][z] = cluster.name + '/0'; // 上付き
+				else
+					this._entitySpace[y][x][z] = '0/' + cluster.name; // 下付き
+			}
+
+		} else {
+
+			// 通常ブロックの場合
+			this._entitySpace[y][x][z] = cluster.name;
+		}
 
 		// インターフェースができるまではコンソールログに JSON データを出力する
 		console.log(JSON.stringify(this._entitySpace));
@@ -292,7 +334,35 @@ export default class Entity {
 		exist = false;
 		Object.keys(this._entitySpace[y]).map(e2 => {if (e2 == x) exist = true});
 		if (!exist) this._entitySpace[y][x] = {};
-		this._entitySpace[y][x][z] = '0';
+		exist = false;
+		Object.keys(this._entitySpace[y][x]).map(e3 => {if (e3 == z) exist = true});
+		if (!exist) this._entitySpace[y][x][z] = '0';
+		
+		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab')) {
+
+			// ハーフブロックの場合
+			if (this._entitySpace[y][x][z].indexOf('/') > 0) {
+
+				const items = this._entitySpace[y][x][z].split('/');
+				if ((<THREE.Mesh>cluster.children[0]).position.y > 0)
+					this._entitySpace[y][x][z] = '0/' + items[1]; // 上付き
+				else
+					this._entitySpace[y][x][z] = items[0] + '/0'; // 下付き
+
+				// 上付きと下付きが何もなければ通常に戻す
+				if (this._entitySpace[y][x][z] == '0/0')
+					this._entitySpace[y][x][z] = '0';
+
+			} else {
+
+				this._entitySpace[y][x][z] = '0';
+			}
+
+		} else {
+
+			// 通常ブロックの場合
+			this._entitySpace[y][x][z] = '0';
+		}
 	}
 
 	/**
@@ -349,7 +419,29 @@ export default class Entity {
 						const posZ = this._setZ(e3);
 
 						// エンティティを作成
-						const entity = this._createEntity(this._entitySpace[e1][e2][e3], posX, posY, posZ);
+						let entity;
+						if (this._entitySpace[e1][e2][e3].indexOf('/') > 0) {
+
+							// ハーフブロックの場合
+							const items = this._entitySpace[e1][e2][e3].split('/');
+							if (items[0] != 0) {
+
+								entity = this._createEntity(items[0], true,  posX, posY, posZ); // 上付き
+
+								// エンティティ制御に追加
+								this._entityControl.push(entity);
+
+								// エンティティ集合に登録
+								this._entityGroup.add(entity);
+							}
+							if (items[1] != 0)
+								entity = this._createEntity(items[1], false, posX, posY, posZ); // 下付き
+
+						} else {
+
+							// 通常ブロックの場合
+							entity = this._createEntity(this._entitySpace[e1][e2][e3], false, posX, posY, posZ);
+						}
 
 						// エンティティ制御に追加
 						this._entityControl.push(entity);
@@ -365,25 +457,26 @@ export default class Entity {
 	/**
 	 * エンティティを作成
 	 * @param {string} itemID: アイテム ID
+	 * @param {boolean} ctrlKey: CTRL キーが押されているか
 	 * @param {number} posX: x 空間座標
 	 * @param {number} posY: y 空間座標
 	 * @param {number} posZ: z 空間座標
 	 */
-	private _createEntity(itemID: string, posX: number, posY: number, posZ: number) {
+	private _createEntity(itemID: string, ctrlKey: boolean, posX: number, posY: number, posZ: number) {
 
 		// 持っているアイテムによってテクスチャを切り替える
 		const item = palette.find((v) => v.id === itemID);
 
 		// 初期化
 		let entityGeometry = [];
+		let entityTexture  = [];
 		let entityMaterial;
 		let entityMesh;
-		let entityTexture = null;
 
 		// 共通テクスチャがあれば再利用
 		for (let i = 0; i < this._entityTexture.length; i++) {
 
-			if (this._entityTexture[i].name == item.en) {
+			if (this._entityTexture[i][0].name == item.en) {
 
 				entityGeometry = this._entityGeometry[i];
 				entityTexture  = this._entityTexture[i];
@@ -391,7 +484,7 @@ export default class Entity {
 		}
 
 		// 共通テクスチャがなければ新規作成
-		if (entityTexture == null) {
+		if (entityTexture.length == 0) {
 
 			// エンティティジオメトリとテクスチャを作成
 			switch (item.tex) {
@@ -406,10 +499,10 @@ export default class Entity {
 						this._blockSize
 					));
 
-					entityTexture = this._texturemap.Box(
+					entityTexture.push(this._texturemap.Box(
 
 						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
-					);
+					));
 					break;
 
 				// 天地無用テクスチャ
@@ -422,11 +515,11 @@ export default class Entity {
 						this._blockSize
 					));
 
-					entityTexture = this._texturemap.TopBox(
+					entityTexture.push(this._texturemap.TopBox(
 
 						entityGeometry[0],
 						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
-					);
+					));
 					break;
 
 				// 植物系テクスチャ
@@ -441,15 +534,53 @@ export default class Entity {
 						));
 					}
 
-					entityTexture = this._texturemap.Plant(
+					entityTexture.push(this._texturemap.Plant(
 
 						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
-					);
+					));
+					break;
+
+				// ハーフブロック系
+				case 'Slab':
+
+					// ジオメトリを2枚作成
+					for (let i = 0; i < 2; i++) {
+						entityGeometry.push(new THREE.BoxGeometry(
+
+							this._blockSize,
+							this._blockSize / 2,
+							this._blockSize
+						));
+					}
+
+					// ハーフブロック系は既存のテクスチャを流用する（Smooth Stone, Petrified Oak を除く）
+					const itemName = item.en != 'Smooth Stone Slab' && item.en != 'Petrified Oak Slab' ?
+						item.en.replace(' Wood', ' Wood Plank').replace(' Slab', ''):
+						item.en;
+
+					// 上付きテクスチャ
+					entityTexture.push(this._texturemap.Slab(
+
+						entityGeometry[0],
+						this._baseURL + 'texture/' + itemName.replace(/ /g, '_') + '.png',
+						palette.find((v) => v.en === itemName).tex,
+						true
+					));
+
+					// 下付きテクスチャ
+					entityTexture.push(this._texturemap.Slab(
+
+						entityGeometry[1],
+						this._baseURL + 'texture/' + itemName.replace(/ /g, '_') + '.png',
+						palette.find((v) => v.en === itemName).tex,
+						false
+					));
 					break;
 			}
 
 			// 再利用できるように名前を付ける
-			entityTexture.name = item.en;
+			for (let j = 0; j < entityTexture.length; j++)
+				entityTexture[j].name = item.en;
 
 			// 共通化
 			this._entityGeometry.push(entityGeometry);
@@ -459,58 +590,73 @@ export default class Entity {
 		// エンティティクラスタを作成
 		const entityCluster = new THREE.Group();
 
-		// メッシュを作成してエンティティクラスタに登録
-		for (let i = 0; i < entityGeometry.length; i++) {
+		// エンティティマテリアルとメッシュを作成
+		switch (item.tex) {
 
-			// エンティティマテリアルとメッシュを作成
-			switch (item.tex) {
+			// 単調
+			case 'Box':
 
-				// 単調
-				case 'Box':
+				entityMaterial = new THREE.MeshPhongMaterial({
 
-					entityMaterial = new THREE.MeshPhongMaterial({
+					color: 0xffffff,
+					map: entityTexture[0],
+					transparent: true
+				});
 
-						color: 0xcccccc,
-						map: entityTexture,
-						transparent: true
-					});
+				entityMesh = new THREE.Mesh(entityGeometry[0], entityMaterial);
+				entityCluster.add(entityMesh);
+				break;
 
-					entityMesh = new THREE.Mesh(entityGeometry[i], entityMaterial);
-					break;
+			// 天地無用
+			case 'TopBox':
 
-				// 天地無用
-				case 'TopBox':
+				entityMaterial = new THREE.MeshPhongMaterial({
 
-					entityMaterial = new THREE.MeshPhongMaterial({
+					color: 0xffffff,
+					map: entityTexture[0],
+					transparent: true
+				});
 
-						color: 0xcccccc,
-						map: entityTexture,
-						transparent: true
-					});
+				entityMesh = new THREE.Mesh(entityGeometry[0], entityMaterial);
+				entityCluster.add(entityMesh);
+				break;
 
-					entityMesh = new THREE.Mesh(entityGeometry[i], entityMaterial);
-					break;
+			// 植物系
+			case 'Plant':
 
-				// 植物系
-				case 'Plant':
+				entityMaterial = new THREE.MeshPhongMaterial({
 
-					entityMaterial = new THREE.MeshPhongMaterial({
+					color: 0xffffff,
+					depthWrite: false,
+					map: entityTexture[0],
+					side: THREE.DoubleSide,
+					transparent: true
+				});
 
-						color: 0xcccccc,
-						depthWrite: false,
-						map: entityTexture,
-						side: THREE.DoubleSide,
-						transparent: true
-					});
+				// 2枚のジオメトリを交差させる
+				for (let i = 0; i < entityGeometry.length; i++) {
 
-					// 2枚のジオメトリを交差させる
 					entityMesh = new THREE.Mesh(entityGeometry[i], entityMaterial);
 					if (i == 0) entityMesh.rotation.set(0,  40, 0);
 					if (i == 1) entityMesh.rotation.set(0, -40, 0);
-					break;
-			}
+					entityCluster.add(entityMesh);
+				}
+				break;
 
-			entityCluster.add(entityMesh);
+			// ハーフブロック系
+			case 'Slab':
+
+				entityMaterial = new THREE.MeshPhongMaterial({
+
+					color: 0xffffff,
+					map: ctrlKey ? entityTexture[0] : entityTexture[1],
+					transparent: true
+				});
+
+				entityMesh = new THREE.Mesh(ctrlKey ? entityGeometry[0] : entityGeometry[1], entityMaterial);
+				entityMesh.position.y = ctrlKey ? this._blockSize / 4 : -(this._blockSize / 4);
+				entityCluster.add(entityMesh);
+				break;
 		}
 		entityCluster.position.set(posX, posY, posZ);
 
