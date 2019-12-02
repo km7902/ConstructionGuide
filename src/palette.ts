@@ -1269,9 +1269,9 @@ const data: Palette[] = [
 		en: "Carved Pumpkin",
 		jeid: "minecraft:carved_pumpkin",
 		beid: "carved_pumpkin",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "21",
+		tex: "Cube"
 	}, {
 
 		id: "104",
@@ -1329,9 +1329,9 @@ const data: Palette[] = [
 		en: "Jack o'Lantern",
 		jeid: "minecraft:jack_o_lantern",
 		beid: "lit_pumpkin",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "22",
+		tex: "Cube"
 	}, {
 
 		id: "98",
@@ -2029,9 +2029,9 @@ const data: Palette[] = [
 		en: "Sea Lantern",
 		jeid: "minecraft:sea_lantern",
 		beid: "sealantern",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "41",
+		tex: "Box"
 	}, {
 
 		id: "179",
@@ -2079,9 +2079,9 @@ const data: Palette[] = [
 		en: "Magma Block",
 		jeid: "minecraft:magma_block",
 		beid: "magma",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "41",
+		tex: "Box"
 	}, {
 
 		id: "214",
@@ -3599,9 +3599,9 @@ const data: Palette[] = [
 		en: "Crafting Table",
 		jeid: "minecraft:crafting_table",
 		beid: "crafting_table",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "18",
+		tex: "Cube"
 	}, {
 
 		id: "60",
@@ -3619,9 +3619,9 @@ const data: Palette[] = [
 		en: "Furnace",
 		jeid: "minecraft:furnace",
 		beid: "furnace",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "18",
+		tex: "Cube"
 	}, {
 
 		id: "62",
@@ -6239,9 +6239,9 @@ const data: Palette[] = [
 		en: "Loom",
 		jeid: "minecraft:loom",
 		beid: "loom",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "123",
+		tex: "Cube"
 	}, {
 
 		id: "3099",
@@ -6259,9 +6259,9 @@ const data: Palette[] = [
 		en: "Smoker",
 		jeid: "minecraft:smoker",
 		beid: "smoker",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "123",
+		tex: "Cube"
 	}, {
 
 		id: "3101",
@@ -6279,9 +6279,9 @@ const data: Palette[] = [
 		en: "Blast Furnace",
 		jeid: "minecraft:blast_furnace",
 		beid: "blast_furnace",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "124",
+		tex: "Cube"
 	}, {
 
 		id: "3103",
@@ -6299,9 +6299,9 @@ const data: Palette[] = [
 		en: "Cartography Table",
 		jeid: "minecraft:cartography_table",
 		beid: "cartography_table",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "124",
+		tex: "Cube"
 	}, {
 
 		id: "3105",
@@ -6309,9 +6309,9 @@ const data: Palette[] = [
 		en: "Fletching Table",
 		jeid: "minecraft:fletching_table",
 		beid: "fletching_table",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "124",
+		tex: "Cube"
 	}, {
 
 		id: "3106",
@@ -6329,9 +6329,9 @@ const data: Palette[] = [
 		en: "Smithing Table",
 		jeid: "minecraft:smithing_table",
 		beid: "smithing_table",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "124",
+		tex: "Cube"
 	}, {
 
 		id: "3108",
@@ -6399,9 +6399,9 @@ const data: Palette[] = [
 		en: "Dispenser",
 		jeid: "minecraft:dispenser",
 		beid: "dispenser",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "8",
+		tex: "Cube"
 	}, {
 
 		id: "25",
@@ -6889,9 +6889,9 @@ const data: Palette[] = [
 		en: "Dropper",
 		jeid: "minecraft:dropper",
 		beid: "dropper",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "31",
+		tex: "Cube"
 	}, {
 
 		id: "167",
@@ -6909,9 +6909,9 @@ const data: Palette[] = [
 		en: "Observer",
 		jeid: "minecraft:observer",
 		beid: "observer",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "42",
+		tex: "Cube"
 	}, {
 
 		id: "71",

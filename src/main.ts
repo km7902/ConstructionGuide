@@ -279,6 +279,9 @@ export default class Main {
 
 		}
 
+		// エンティティアニメーション
+		this._entity._animation();
+
 		// スライダーを動かした場合にエンティティ集合の Y 軸方向を動かす
 		this._entity._setLevel(this._interface._getSliderInfo().level);
 

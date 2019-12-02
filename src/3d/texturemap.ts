@@ -16,9 +16,51 @@ export default class Texturemap {
 
 	/**
 	 * エンティティにテクスチャを貼り付ける（単純）
+	 *  @param {THREE.BoxGeometry} geometry: ジオメトリオブジェクト
 	 *  @param {string} image: テクスチャファイル名
 	 */
-	public Box(image: string) {
+	public Box(geometry: THREE.BoxGeometry, image: string) {
+
+		// シーランタンなら
+		if (image.indexOf('Sea_Lantern') >= 0) {
+
+			// テクスチャマッピングデータ
+			const tex = {
+
+				resolution: { width: 16, height: 80 },
+				uv: [
+					{ tag: 'left',   x: 0, y: 0, w: 16, h: 16, topleft: 1 },
+					{ tag: 'right',  x: 0, y: 0, w: 16, h: 16, topleft: 3 },
+					{ tag: 'top',    x: 0, y: 0, w: 16, h: 16, topleft: 0 },
+					{ tag: 'bottom', x: 0, y: 0, w: 16, h: 16, topleft: 2 },
+					{ tag: 'front',  x: 0, y: 0, w: 16, h: 16, topleft: 0 },
+					{ tag: 'back',   x: 0, y: 0, w: 16, h: 16, topleft: 2 }
+				]
+			}
+
+			// 頂点データを作成
+			this.vertexAdd(tex, geometry);
+
+		// マグマブロックなら
+		} else if (image.indexOf('Magma_Block') >= 0) {
+
+			// テクスチャマッピングデータ
+			const tex = {
+
+				resolution: { width: 16, height: 48 },
+				uv: [
+					{ tag: 'left',   x: 0, y: 0, w: 16, h: 16, topleft: 1 },
+					{ tag: 'right',  x: 0, y: 0, w: 16, h: 16, topleft: 3 },
+					{ tag: 'top',    x: 0, y: 0, w: 16, h: 16, topleft: 0 },
+					{ tag: 'bottom', x: 0, y: 0, w: 16, h: 16, topleft: 2 },
+					{ tag: 'front',  x: 0, y: 0, w: 16, h: 16, topleft: 0 },
+					{ tag: 'back',   x: 0, y: 0, w: 16, h: 16, topleft: 2 }
+				]
+			}
+
+			// 頂点データを作成
+			this.vertexAdd(tex, geometry);
+		}
 
 		// テクスチャオブジェクトを作成
 		const texture = new THREE.TextureLoader().load(image);
@@ -36,9 +78,6 @@ export default class Texturemap {
 	 */
 	public TopBox(geometry: THREE.BoxGeometry, image: string) {
 
-		// 面のマテリアル番号をすべて 0 にする（単一テクスチャーを使うように）
-		geometry.faces.forEach (face => { face.materialIndex = 0 });
-
 		// テクスチャマッピングデータ
 		const tex = {
 
@@ -54,7 +93,106 @@ export default class Texturemap {
 		}
 
 		// 頂点データを作成
-		this.buildVertex(tex, geometry);
+		this.vertexAdd(tex, geometry);
+
+		// テクスチャオブジェクトを作成
+		const texture = new THREE.TextureLoader().load(image);
+		texture.magFilter = THREE.NearestFilter;
+		texture.minFilter = THREE.NearestFilter;
+		texture.type = THREE.FloatType;
+
+		return texture;
+	}
+
+	/**
+	 * エンティティにテクスチャを貼り付ける（立方体）
+	 *  @param {THREE.BoxGeometry} geometry: ジオメトリオブジェクト
+	 *  @param {string} image: テクスチャファイル名
+	 */
+	public Cube(geometry: THREE.BoxGeometry, image: string) {
+
+		// 製図台は例外
+		if (image.indexOf('Cartography_Table') >= 0) {
+
+			// テクスチャマッピングデータ
+			const tex = {
+
+				resolution: { width: 16, height: 64 },
+				uv: [
+					{ tag: 'left',   x: 0, y: 48, w: 16, h: 16, topleft: 1 },
+					{ tag: 'right',  x: 0, y: 32, w: 16, h: 16, topleft: 3 },
+					{ tag: 'top',    x: 0, y: 0,  w: 16, h: 16, topleft: 0 },
+					{ tag: 'bottom', x: 0, y: 48, w: 16, h: 16, topleft: 2 },
+					{ tag: 'front',  x: 0, y: 16, w: 16, h: 16, topleft: 0 },
+					{ tag: 'back',   x: 0, y: 48, w: 16, h: 16, topleft: 2 }
+				]
+			}
+
+			// 頂点データを作成
+			this.vertexAdd(tex, geometry);
+
+		// 矢細工台と鍛冶台も例外
+		} else if (
+			image.indexOf('Fletching_Table') >= 0 ||
+			image.indexOf('Smithing_Table')  >= 0) {
+
+			// テクスチャマッピングデータ
+			const tex = {
+
+				resolution: { width: 16, height: 64 },
+				uv: [
+					{ tag: 'left',   x: 0, y: 32, w: 16, h: 16, topleft: 1 },
+					{ tag: 'right',  x: 0, y: 32, w: 16, h: 16, topleft: 3 },
+					{ tag: 'top',    x: 0, y: 0,  w: 16, h: 16, topleft: 0 },
+					{ tag: 'bottom', x: 0, y: 48, w: 16, h: 16, topleft: 2 },
+					{ tag: 'front',  x: 0, y: 16, w: 16, h: 16, topleft: 0 },
+					{ tag: 'back',   x: 0, y: 16, w: 16, h: 16, topleft: 2 }
+				]
+			}
+
+			// 頂点データを作成
+			this.vertexAdd(tex, geometry);
+
+		// オブザーバーだって例外
+		// ディスペンサーとドロッパーは設置方向によりテクスチャが変化するので注意
+		} else if (image.indexOf('Observer') >= 0) {
+
+			// テクスチャマッピングデータ
+			const tex = {
+
+				resolution: { width: 16, height: 64 },
+				uv: [
+					{ tag: 'left',   x: 0, y: 32, w: 16, h: 16, topleft: 1 },
+					{ tag: 'right',  x: 0, y: 32, w: 16, h: 16, topleft: 3 },
+					{ tag: 'top',    x: 0, y: 0,  w: 16, h: 16, topleft: 0 },
+					{ tag: 'bottom', x: 0, y: 0,  w: 16, h: 16, topleft: 2 },
+					{ tag: 'front',  x: 0, y: 16, w: 16, h: 16, topleft: 0 },
+					{ tag: 'back',   x: 0, y: 48, w: 16, h: 16, topleft: 2 }
+				]
+			}
+
+			// 頂点データを作成
+			this.vertexAdd(tex, geometry);
+
+		} else {
+
+			// テクスチャマッピングデータ
+			const tex = {
+
+				resolution: { width: 16, height: 64 },
+				uv: [
+					{ tag: 'left',   x: 0, y: 32, w: 16, h: 16, topleft: 1 },
+					{ tag: 'right',  x: 0, y: 32, w: 16, h: 16, topleft: 3 },
+					{ tag: 'top',    x: 0, y: 0,  w: 16, h: 16, topleft: 0 },
+					{ tag: 'bottom', x: 0, y: 48, w: 16, h: 16, topleft: 2 },
+					{ tag: 'front',  x: 0, y: 16, w: 16, h: 16, topleft: 0 },
+					{ tag: 'back',   x: 0, y: 32, w: 16, h: 16, topleft: 2 }
+				]
+			}
+
+			// 頂点データを作成
+			this.vertexAdd(tex, geometry);
+		}
 
 		// テクスチャオブジェクトを作成
 		const texture = new THREE.TextureLoader().load(image);
@@ -104,15 +242,12 @@ export default class Texturemap {
 	 */
 	public Slab(geometry: THREE.BoxGeometry, image: string, type: string, ctrlKey: boolean) {
 
-		// 面のマテリアル番号をすべて 0 にする（単一テクスチャーを使うように）
-		geometry.faces.forEach (face => { face.materialIndex = 0 });
-
-		let tex, y;
+		// 例外テクスチャなら
 		if (type == 'Slab' || type == 'TopBox') {
 
 			// テクスチャマッピングデータ
-			y = ctrlKey ? 16 : 24;
-			tex = {
+			const y = ctrlKey ? 16 : 24;
+			const tex = {
 
 				resolution: { width: 16, height: 48 },
 				uv: [
@@ -125,11 +260,15 @@ export default class Texturemap {
 				]
 			}
 
+			// 頂点データを作成
+			this.vertexAdd(tex, geometry);
+
+		// それ以外なら
 		} else {
 
 			// テクスチャマッピングデータ
-			y = ctrlKey ? 0 : 8;
-			tex = {
+			const y = ctrlKey ? 0 : 8;
+			const tex = {
 
 				resolution: { width: 16, height: 16 },
 				uv: [
@@ -141,10 +280,10 @@ export default class Texturemap {
 					{ tag: 'back',   x: 0, y: y, w: 16, h: 8,  topleft: 2 }
 				]
 			}
-		}
 
-		// 頂点データを作成
-		this.buildVertex(tex, geometry);
+			// 頂点データを作成
+			this.vertexAdd(tex, geometry);
+		}
 
 		// テクスチャオブジェクトを作成
 		const texture = new THREE.TextureLoader().load(image);
@@ -162,9 +301,6 @@ export default class Texturemap {
 	 */
 	public Carpet(geometry: THREE.BoxGeometry, image: string) {
 
-		// 面のマテリアル番号をすべて 0 にする（単一テクスチャーを使うように）
-		geometry.faces.forEach (face => { face.materialIndex = 0 });
-
 		// テクスチャマッピングデータ
 		const tex = {
 
@@ -180,7 +316,7 @@ export default class Texturemap {
 		}
 
 		// 頂点データを作成
-		this.buildVertex(tex, geometry);
+		this.vertexAdd(tex, geometry);
 
 		// テクスチャオブジェクトを作成
 		const texture = new THREE.TextureLoader().load(image);
@@ -198,9 +334,6 @@ export default class Texturemap {
 	 */
 	public Pressure(geometry: THREE.BoxGeometry, image: string) {
 
-		// 面のマテリアル番号をすべて 0 にする（単一テクスチャーを使うように）
-		geometry.faces.forEach (face => { face.materialIndex = 0 });
-
 		// テクスチャマッピングデータ
 		const tex = {
 
@@ -216,7 +349,7 @@ export default class Texturemap {
 		}
 
 		// 頂点データを作成
-		this.buildVertex(tex, geometry);
+		this.vertexAdd(tex, geometry);
 
 		// テクスチャオブジェクトを作成
 		const texture = new THREE.TextureLoader().load(image);
@@ -229,10 +362,16 @@ export default class Texturemap {
 
 	/**
 	 * 頂点データを作成
+	 * @author @Urushibara01
+	 * @see https://qiita.com/Urushibara01/items/d828e853fc5c4626647a
+	 * 
 	 * @param {object} tex: テクスチャマッピングデータ
 	 * @param {THREE.BoxGeometry} geometry: ジオメトリオブジェクト
 	 */
-	private buildVertex(tex, geometry: THREE.BoxGeometry) {
+	private vertexAdd(tex, geometry: THREE.BoxGeometry) {
+
+		// 面（face）のマテリアル番号をすべて 0 にする（単一テクスチャーを使うように）
+		geometry.faces.forEach (face => { face.materialIndex = 0 });
 
 		const points = [];
 		for (let i = 0; i < 6; i++) {

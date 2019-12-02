@@ -65,6 +65,9 @@ export default class Entity {
 		}
 	}
 
+	/* アニメーションの待ち時間 */
+	private _tick: number;
+
 	/* レイキャストオブジェクト */
 	private readonly _raycaster: THREE.Raycaster;
 
@@ -101,6 +104,9 @@ export default class Entity {
 
 		// マウスとの交差を調べたいものはエンティティ制御に格納する
 		this._entityControl = [];
+
+		// アニメーションの待ち時間を初期化
+		this._tick = 0;
 
 		// レイキャストを作成
 		this._raycaster = new THREE.Raycaster();
@@ -249,7 +255,7 @@ export default class Entity {
 		if (this._entitySpace[y][x][z] != '0') {
 
 			// ハーフブロックの判定
-			if (this._entitySpace[y][x][z].indexOf('/') > 0) {
+			if (this._entitySpace[y][x][z].indexOf('/') >= 0) {
 
 				// 空間があれば配置可能
 				const items = this._entitySpace[y][x][z].split('/');
@@ -287,10 +293,10 @@ export default class Entity {
 		Object.keys(this._entitySpace[y][x]).map(e3 => {if (e3 == z) exist = true});
 		if (!exist) this._entitySpace[y][x][z] = '0';
 
-		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab') > 0) {
+		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab') >= 0) {
 
 			// ハーフブロックの場合
-			if (this._entitySpace[y][x][z].indexOf('/') > 0) {
+			if (this._entitySpace[y][x][z].indexOf('/') >= 0) {
 
 				const items = this._entitySpace[y][x][z].split('/');
 				if (ctrlKey)
@@ -338,10 +344,10 @@ export default class Entity {
 		Object.keys(this._entitySpace[y][x]).map(e3 => {if (e3 == z) exist = true});
 		if (!exist) this._entitySpace[y][x][z] = '0';
 		
-		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab') > 0) {
+		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab') >= 0) {
 
 			// ハーフブロックの場合
-			if (this._entitySpace[y][x][z].indexOf('/') > 0) {
+			if (this._entitySpace[y][x][z].indexOf('/') >= 0) {
 
 				const items = this._entitySpace[y][x][z].split('/');
 				if ((<THREE.Mesh>cluster.children[0]).position.y > 0)
@@ -420,7 +426,7 @@ export default class Entity {
 
 						// エンティティを作成
 						let entity;
-						if (this._entitySpace[e1][e2][e3].indexOf('/') > 0) {
+						if (this._entitySpace[e1][e2][e3].indexOf('/') >= 0) {
 
 							// ハーフブロックの場合
 							const items = this._entitySpace[e1][e2][e3].split('/');
@@ -502,6 +508,7 @@ export default class Entity {
 
 					entityTexture.push(this._texturemap.Box(
 
+						entityGeometry[0],
 						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
 					));
 					break;
@@ -523,11 +530,28 @@ export default class Entity {
 					));
 					break;
 
+				// 立方体テクスチャ
+				case 'Cube':
+
+					entityGeometry.push(new THREE.BoxGeometry(
+
+						this._blockSize,
+						this._blockSize,
+						this._blockSize
+					));
+
+					entityTexture.push(this._texturemap.Cube(
+
+						entityGeometry[0],
+						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
+					));
+					break;
+
 				// 植物系テクスチャ
 				case 'Plant':
 
-					// ジオメトリを2枚作成
-					for (let i = 0; i < 2; i++) {
+					// ジオメトリを4枚作成
+					for (let i = 0; i < 4; i++) {
 						entityGeometry.push(new THREE.PlaneGeometry(
 
 							this._blockSize,
@@ -630,7 +654,7 @@ export default class Entity {
 
 					// 感圧板は既存のテクスチャを流用する
 					itemName = item.en
-						.replace(' Pressure Plate', ' Wood Plank')
+						.replace('Pressure Plate', 'Wood Plank')
 						.replace('Stone Wood Plank', 'Stone')
 						.replace('Weighted Wood Plank (light)', 'Gold Block')
 						.replace('Weighted Wood Plank (heavy)', 'Iron Block');
@@ -661,19 +685,11 @@ export default class Entity {
 			// 単調
 			case 'Box':
 
-				entityMaterial = new THREE.MeshPhongMaterial({
-
-					color: 0xffffff,
-					map: entityTexture[0],
-					transparent: true
-				});
-
-				entityMesh = new THREE.Mesh(entityGeometry[0], entityMaterial);
-				entityCluster.add(entityMesh);
-				break;
-
 			// 天地無用
 			case 'TopBox':
+
+			// 立方体テクスチャ
+			case 'Cube':
 
 				entityMaterial = new THREE.MeshPhongMaterial({
 
@@ -694,16 +710,17 @@ export default class Entity {
 					color: 0xffffff,
 					depthWrite: false,
 					map: entityTexture[0],
-					side: THREE.DoubleSide,
 					transparent: true
 				});
 
-				// 2枚のジオメトリを交差させる
+				// 4枚のジオメトリを交差させる
 				for (let i = 0; i < entityGeometry.length; i++) {
 
 					entityMesh = new THREE.Mesh(entityGeometry[i], entityMaterial);
 					if (i == 0) entityMesh.rotation.set(0,  Math.PI/4, 0);
-					if (i == 1) entityMesh.rotation.set(0, -Math.PI/4, 0);
+					if (i == 1) entityMesh.rotation.set(0,  Math.PI/4 + Math.PI/2, 0);
+					if (i == 2) entityMesh.rotation.set(0, -Math.PI/4, 0);
+					if (i == 3) entityMesh.rotation.set(0, -Math.PI/4 - Math.PI/2, 0);
 					entityCluster.add(entityMesh);
 				}
 				break;
@@ -839,5 +856,91 @@ export default class Entity {
 	private _setZ(z: string) {
 
 		return parseInt(z) * this._blockSize + (this._blockStep % 2 == 0 ? this._blockSize / 2 : 0);
+	}
+
+	/**
+	 * エンティティアニメーション
+	 */
+	public _animation() {
+
+		// 次のアニメーションまでの待ち時間（15 tick）を経過したら
+		if (this._tick++ > 15) {
+
+			// 共通テクスチャを走査
+			for (let i = 0; i < this._entityTexture.length; i++) {
+
+				// 共通テクスチャに付与した名前を取得
+				switch (this._entityTexture[i][0].name) {
+
+					// シーランタンなら
+					case 'Sea Lantern':
+
+						// シーランタン用アニメーション
+						for (let j = 0; j < 12; j++)
+							this._vectorAdd(this._entityGeometry[i][0].faceVertexUvs[0][j], 16, 80, 0, 16);
+						this._entityGeometry[i][0].uvsNeedUpdate = true;
+						break;
+
+					// マグマブロックなら
+					case 'Magma Block':
+
+						// マグマブロック用アニメーション
+						for (let j = 0; j < 12; j++)
+							this._vectorAdd(this._entityGeometry[i][0].faceVertexUvs[0][j], 16, 48, 0, 16);
+						this._entityGeometry[i][0].uvsNeedUpdate = true;
+						break;
+				}
+			}
+
+			// 待ち時間をリセット
+			this._tick = 0;
+		}
+	}
+
+	/**
+	 * アニメーション実行
+	 * @author @Urushibara01
+	 * @see https://qiita.com/Urushibara01/items/4ca09ec6b0949c6f1c3c
+	 * 
+	 * @param {object} face: THREE.Geometry.faceVertexUvs[0][x]
+	 * @param {number} width:  テクスチャ画像の幅
+	 * @param {number} height: テクスチャ画像の高さ
+	 * @param {number} x: 加算する X 座標
+	 * @param {number} y: 加算する Y 座標
+	 */
+	private _vectorAdd(face, width, height, x, y) {
+
+		// Vector2 をリアル座標系に変換してから座標を加算する関数
+		const add = vector => {
+
+			const xx = vector.x * width + x;
+			const yy = (1 - vector.y) * height + y;
+
+			return { x: xx, y: yy };
+		}
+
+		// すべての座標をリアル座標になおして加算
+		const vexs = []; // Vector2 の配列
+		let maxX = 0, maxY = 0;
+		face.forEach (vector => {
+
+			const pos = add(vector);
+			vexs.push(pos);
+
+			// はみ出しチェック用
+			maxX = Math.max(maxX, pos.x);
+			maxY = Math.max(maxY, pos.y);
+		});
+
+		// 最大幅よりもはみ出してたらマイナスする
+		const minusX = maxX > width ? width: 0;
+		const minusY = maxY > height ? height: 0;
+
+		// 座標系を変換して実際の faceVertexUvs に代入
+		for (let i = 0; i < face.length; i++) {
+
+			face[i].x = (vexs[i].x - minusX) / width;
+			face[i].y = 1 - (vexs[i].y - minusY) / height;
+		}
 	}
 }
