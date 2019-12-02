@@ -2829,9 +2829,9 @@ const data: Palette[] = [
 		en: "Dried Kelp Block",
 		jeid: "minecraft:dried_kelp_block",
 		beid: "dried_kelp_block",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "68",
+		tex: "TopBox"
 	}, {
 
 		id: "3058",
@@ -3649,9 +3649,9 @@ const data: Palette[] = [
 		en: "Snow",
 		jeid: "minecraft:snow",
 		beid: "snow_layer",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "20",
+		tex: "Carpet"
 	}, {
 
 		id: "81",
@@ -4109,9 +4109,9 @@ const data: Palette[] = [
 		en: "White Carpet",
 		jeid: "minecraft:white_carpet",
 		beid: "carpet",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "33",
+		tex: "Carpet"
 	}, {
 
 		id: "171:1",
@@ -4119,9 +4119,9 @@ const data: Palette[] = [
 		en: "Orange Carpet",
 		jeid: "minecraft:orange_carpet",
 		beid: "carpet 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "33",
+		tex: "Carpet"
 	}, {
 
 		id: "171:2",
@@ -4129,9 +4129,9 @@ const data: Palette[] = [
 		en: "Magenta Carpet",
 		jeid: "minecraft:magenta_carpet",
 		beid: "carpet 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "34",
+		tex: "Carpet"
 	}, {
 
 		id: "171:3",
@@ -4139,9 +4139,9 @@ const data: Palette[] = [
 		en: "Light Blue Carpet",
 		jeid: "minecraft:light_blue_carpet",
 		beid: "carpet 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "34",
+		tex: "Carpet"
 	}, {
 
 		id: "171:4",
@@ -4149,9 +4149,9 @@ const data: Palette[] = [
 		en: "Yellow Carpet",
 		jeid: "minecraft:yellow_carpet",
 		beid: "carpet 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "34",
+		tex: "Carpet"
 	}, {
 
 		id: "171:5",
@@ -4159,9 +4159,9 @@ const data: Palette[] = [
 		en: "Lime Carpet",
 		jeid: "minecraft:lime_carpet",
 		beid: "carpet 5",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "34",
+		tex: "Carpet"
 	}, {
 
 		id: "171:6",
@@ -4169,9 +4169,9 @@ const data: Palette[] = [
 		en: "Pink Carpet",
 		jeid: "minecraft:pink_carpet",
 		beid: "carpet 6",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "34",
+		tex: "Carpet"
 	}, {
 
 		id: "171:7",
@@ -4179,9 +4179,9 @@ const data: Palette[] = [
 		en: "Gray Carpet",
 		jeid: "minecraft:gray_carpet",
 		beid: "carpet 7",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "34",
+		tex: "Carpet"
 	}, {
 
 		id: "171:8",
@@ -4189,9 +4189,9 @@ const data: Palette[] = [
 		en: "Light Gray Carpet",
 		jeid: "minecraft:light_gray_carpet",
 		beid: "carpet 8",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "34",
+		tex: "Carpet"
 	}, {
 
 		id: "171:9",
@@ -4199,9 +4199,9 @@ const data: Palette[] = [
 		en: "Cyan Carpet",
 		jeid: "minecraft:cyan_carpet",
 		beid: "carpet 9",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "34",
+		tex: "Carpet"
 	}, {
 
 		id: "171:10",
@@ -4209,9 +4209,9 @@ const data: Palette[] = [
 		en: "Purple Carpet",
 		jeid: "minecraft:purple_carpet",
 		beid: "carpet 10",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "34",
+		tex: "Carpet"
 	}, {
 
 		id: "171:11",
@@ -4219,9 +4219,9 @@ const data: Palette[] = [
 		en: "Blue Carpet",
 		jeid: "minecraft:blue_carpet",
 		beid: "carpet 11",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "35",
+		tex: "Carpet"
 	}, {
 
 		id: "171:12",
@@ -4229,9 +4229,9 @@ const data: Palette[] = [
 		en: "Brown Carpet",
 		jeid: "minecraft:brown_carpet",
 		beid: "carpet 12",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "35",
+		tex: "Carpet"
 	}, {
 
 		id: "171:13",
@@ -4239,9 +4239,9 @@ const data: Palette[] = [
 		en: "Green Carpet",
 		jeid: "minecraft:green_carpet",
 		beid: "carpet 13",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "35",
+		tex: "Carpet"
 	}, {
 
 		id: "171:14",
@@ -4249,9 +4249,9 @@ const data: Palette[] = [
 		en: "Red Carpet",
 		jeid: "minecraft:red_carpet",
 		beid: "carpet 14",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "35",
+		tex: "Carpet"
 	}, {
 
 		id: "171:15",
@@ -4259,9 +4259,9 @@ const data: Palette[] = [
 		en: "Black Carpet",
 		jeid: "minecraft:black_carpet",
 		beid: "carpet 15",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "35",
+		tex: "Carpet"
 	}, {
 
 		id: "165",
@@ -4949,9 +4949,9 @@ const data: Palette[] = [
 		en: "Tube Coral Fan",
 		jeid: "minecraft:tube_coral_fan",
 		beid: "coral_fan",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "51",
+		tex: "Coral"
 	}, {
 
 		id: "3079",
@@ -4959,9 +4959,9 @@ const data: Palette[] = [
 		en: "Brain Coral Fan",
 		jeid: "minecraft:brain_coral_fan",
 		beid: "coral_fan 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "1",
+		y: "52",
+		tex: "Coral"
 	}, {
 
 		id: "3080",
@@ -4969,9 +4969,9 @@ const data: Palette[] = [
 		en: "Bubble Coral Fan",
 		jeid: "minecraft:bubble_coral_fan",
 		beid: "coral_fan 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "52",
+		tex: "Coral"
 	}, {
 
 		id: "3081",
@@ -4979,9 +4979,9 @@ const data: Palette[] = [
 		en: "Fire Coral Fan",
 		jeid: "minecraft:fire_coral_fan",
 		beid: "coral_fan 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "52",
+		tex: "Coral"
 	}, {
 
 		id: "3082",
@@ -4989,9 +4989,9 @@ const data: Palette[] = [
 		en: "Horn Coral Fan",
 		jeid: "minecraft:horn_coral_fan",
 		beid: "coral_fan 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "52",
+		tex: "Coral"
 	}, {
 
 		id: "3083",
@@ -5049,9 +5049,9 @@ const data: Palette[] = [
 		en: "Dead Tube Coral Fan",
 		jeid: "minecraft:dead_tube_coral_fan",
 		beid: "coral_fan_dead",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "52",
+		tex: "Coral"
 	}, {
 
 		id: "3089",
@@ -5059,9 +5059,9 @@ const data: Palette[] = [
 		en: "Dead Brain Coral Fan",
 		jeid: "minecraft:dead_brain_coral_fan",
 		beid: "coral_fan_dead 1",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "52",
+		tex: "Coral"
 	}, {
 
 		id: "3090",
@@ -5069,9 +5069,9 @@ const data: Palette[] = [
 		en: "Dead Bubble Coral Fan",
 		jeid: "minecraft:dead_bubble_coral_fan",
 		beid: "coral_fan_dead 2",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "52",
+		tex: "Coral"
 	}, {
 
 		id: "3091",
@@ -5079,9 +5079,9 @@ const data: Palette[] = [
 		en: "Dead Fire Coral Fan",
 		jeid: "minecraft:dead_fire_coral_fan",
 		beid: "coral_fan_dead 3",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "52",
+		tex: "Coral"
 	}, {
 
 		id: "3092",
@@ -5089,9 +5089,9 @@ const data: Palette[] = [
 		en: "Dead Horn Coral Fan",
 		jeid: "minecraft:dead_horn_coral_fan",
 		beid: "coral_fan_dead 4",
-		x: "",
-		y: "",
-		tex: ""
+		x: "9",
+		y: "52",
+		tex: "Coral"
 	}, {
 
 		id: "3093",
@@ -6249,9 +6249,9 @@ const data: Palette[] = [
 		en: "Barrel",
 		jeid: "minecraft:barrel",
 		beid: "barrel",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "123",
+		tex: "TopBox"
 	}, {
 
 		id: "3100",
@@ -6489,9 +6489,9 @@ const data: Palette[] = [
 		en: "Stone Pressure Plate",
 		jeid: "minecraft:stone_pressure_plate",
 		beid: "stone_pressure_plate",
-		x: "",
-		y: "",
-		tex: ""
+		x: "2",
+		y: "19",
+		tex: "Pressure"
 	}, {
 
 		id: "72",
@@ -6499,9 +6499,9 @@ const data: Palette[] = [
 		en: "Oak Pressure Plate",
 		jeid: "minecraft:oak_pressure_plate",
 		beid: "wooden_pressure_plate",
-		x: "",
-		y: "",
-		tex: ""
+		x: "3",
+		y: "19",
+		tex: "Pressure"
 	}, {
 
 		id: "72:1",
@@ -6509,9 +6509,9 @@ const data: Palette[] = [
 		en: "Spruce Pressure Plate",
 		jeid: "minecraft:spruce_pressure_plate",
 		beid: "spruce_pressure_plate",
-		x: "",
-		y: "",
-		tex: ""
+		x: "4",
+		y: "19",
+		tex: "Pressure"
 	}, {
 
 		id: "72:2",
@@ -6519,9 +6519,9 @@ const data: Palette[] = [
 		en: "Birch Pressure Plate",
 		jeid: "minecraft:birch_pressure_plate",
 		beid: "birch_pressure_plate",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "19",
+		tex: "Pressure"
 	}, {
 
 		id: "72:3",
@@ -6529,9 +6529,9 @@ const data: Palette[] = [
 		en: "Jungle Pressure Plate",
 		jeid: "minecraft:jungle_pressure_plate",
 		beid: "jungle_pressure_plate",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "19",
+		tex: "Pressure"
 	}, {
 
 		id: "72:4",
@@ -6539,9 +6539,9 @@ const data: Palette[] = [
 		en: "Acacia Pressure Plate",
 		jeid: "minecraft:acacia_pressure_plate",
 		beid: "acacia_pressure_plate",
-		x: "",
-		y: "",
-		tex: ""
+		x: "7",
+		y: "19",
+		tex: "Pressure"
 	}, {
 
 		id: "72:5",
@@ -6549,9 +6549,9 @@ const data: Palette[] = [
 		en: "Dark Oak Pressure Plate",
 		jeid: "minecraft:dark_oak_pressure_plate",
 		beid: "dark_oak_pressure_plate",
-		x: "",
-		y: "",
-		tex: ""
+		x: "8",
+		y: "19",
+		tex: "Pressure"
 	}, {
 
 		id: "76",
@@ -6829,9 +6829,9 @@ const data: Palette[] = [
 		en: "Weighted Pressure Plate (light)",
 		jeid: "minecraft:light_weight_pressure_plate",
 		beid: "light_weight_pressure_plate",
-		x: "",
-		y: "",
-		tex: ""
+		x: "5",
+		y: "30",
+		tex: "Pressure"
 	}, {
 
 		id: "148",
@@ -6839,9 +6839,9 @@ const data: Palette[] = [
 		en: "Weighted Pressure Plate (heavy)",
 		jeid: "minecraft:heavy_weighted_pressure_plate",
 		beid: "heavy_weighted_pressure_plate",
-		x: "",
-		y: "",
-		tex: ""
+		x: "6",
+		y: "30",
+		tex: "Pressure"
 	}, {
 
 		id: "151",

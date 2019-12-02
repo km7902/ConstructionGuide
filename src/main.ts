@@ -157,12 +157,13 @@ export default class Main {
 
 		// 光源を作成
 		// new THREE.AmbientLight(色, 光の強さ)
-		const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+		const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
 		this._scene.add(ambientLight);
 
 		// new THREE.DirectionalLight(色, 光の強さ)
 		const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 		directionalLight.position.set(0, 1200, 400);
+		directionalLight.castShadow = true;
 		this._scene.add(directionalLight);
 
 		// ブロックのサイズと数

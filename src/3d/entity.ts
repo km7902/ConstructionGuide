@@ -130,9 +130,9 @@ export default class Entity {
 
 					// 2D 側イベントがない場合、対象をハイライト状態にする
 					const mesh: THREE.Mesh = <THREE.Mesh>cluster.children[i];
-					(<any>mesh.material).color.r = 1;
-					(<any>mesh.material).color.g = 1;
-					(<any>mesh.material).color.b = 1;
+					(<any>mesh.material).emissive.r = 0.15;
+					(<any>mesh.material).emissive.g = 0.15;
+					(<any>mesh.material).emissive.b = 0.15;
 				}
 
 				// エンティティクラスタ ID を取得
@@ -147,11 +147,11 @@ export default class Entity {
 
 					// その他は非ハイライト状態にする
 					const mesh: THREE.Mesh = <THREE.Mesh>cluster.children[i];
-					if ((<any>mesh.material).color.r == 1) {
+					if ((<any>mesh.material).emissive.r == 0.15) {
 
-						(<any>mesh.material).color.r = 0.7;
-						(<any>mesh.material).color.g = 0.7;
-						(<any>mesh.material).color.b = 0.7;
+						(<any>mesh.material).emissive.r = 0;
+						(<any>mesh.material).emissive.g = 0;
+						(<any>mesh.material).emissive.b = 0;
 					}
 				}
 			}
@@ -287,7 +287,7 @@ export default class Entity {
 		Object.keys(this._entitySpace[y][x]).map(e3 => {if (e3 == z) exist = true});
 		if (!exist) this._entitySpace[y][x][z] = '0';
 
-		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab')) {
+		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab') > 0) {
 
 			// ハーフブロックの場合
 			if (this._entitySpace[y][x][z].indexOf('/') > 0) {
@@ -338,7 +338,7 @@ export default class Entity {
 		Object.keys(this._entitySpace[y][x]).map(e3 => {if (e3 == z) exist = true});
 		if (!exist) this._entitySpace[y][x][z] = '0';
 		
-		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab')) {
+		if ((<any>(<THREE.Mesh>cluster.children[0]).material).map.name.indexOf('Slab') > 0) {
 
 			// ハーフブロックの場合
 			if (this._entitySpace[y][x][z].indexOf('/') > 0) {
@@ -487,6 +487,7 @@ export default class Entity {
 		if (entityTexture.length == 0) {
 
 			// エンティティジオメトリとテクスチャを作成
+			let itemName;
 			switch (item.tex) {
 
 				// 単調テクスチャ
@@ -540,6 +541,24 @@ export default class Entity {
 					));
 					break;
 
+				// 珊瑚系テクスチャ
+				case 'Coral':
+
+					// ジオメトリを4枚作成
+					for (let i = 0; i < 4; i++) {
+						entityGeometry.push(new THREE.PlaneGeometry(
+
+							this._blockSize,
+							this._blockSize
+						));
+					}
+
+					entityTexture.push(this._texturemap.Plant(
+
+						this._baseURL + 'texture/' + item.en.replace(/ /g, '_') + '.png'
+					));
+					break;
+
 				// ハーフブロック系
 				case 'Slab':
 
@@ -554,7 +573,7 @@ export default class Entity {
 					}
 
 					// ハーフブロック系は既存のテクスチャを流用する（Smooth Stone, Petrified Oak を除く）
-					const itemName = item.en != 'Smooth Stone Slab' && item.en != 'Petrified Oak Slab' ?
+					itemName = item.en != 'Smooth Stone Slab' && item.en != 'Petrified Oak Slab' ?
 						item.en.replace(' Wood', ' Wood Plank').replace(' Slab', ''):
 						item.en;
 
@@ -574,6 +593,52 @@ export default class Entity {
 						this._baseURL + 'texture/' + itemName.replace(/ /g, '_') + '.png',
 						palette.find((v) => v.en === itemName).tex,
 						false
+					));
+					break;
+
+				// カーペット
+				case 'Carpet':
+
+					entityGeometry.push(new THREE.BoxGeometry(
+
+						this._blockSize,
+						this._blockSize / 20,
+						this._blockSize
+					));
+
+					// カーペットは既存のテクスチャを流用する
+					itemName = item.en != 'Snow' ?
+						item.en.replace(' Carpet', ' Wool'):
+						item.en + ' Block';
+
+					entityTexture.push(this._texturemap.Carpet(
+
+						entityGeometry[0],
+						this._baseURL + 'texture/' + itemName.replace(/ /g, '_') + '.png'
+					));
+					break;
+
+				// 感圧板
+				case 'Pressure':
+
+					entityGeometry.push(new THREE.BoxGeometry(
+
+						this._blockSize - (this._blockSize / 8),
+						this._blockSize / 20,
+						this._blockSize - (this._blockSize / 8)
+					));
+
+					// 感圧板は既存のテクスチャを流用する
+					itemName = item.en
+						.replace(' Pressure Plate', ' Wood Plank')
+						.replace('Stone Wood Plank', 'Stone')
+						.replace('Weighted Wood Plank (light)', 'Gold Block')
+						.replace('Weighted Wood Plank (heavy)', 'Iron Block');
+
+					entityTexture.push(this._texturemap.Pressure(
+
+						entityGeometry[0],
+						this._baseURL + 'texture/' + itemName.replace(/ /g, '_') + '.png'
 					));
 					break;
 			}
@@ -637,8 +702,52 @@ export default class Entity {
 				for (let i = 0; i < entityGeometry.length; i++) {
 
 					entityMesh = new THREE.Mesh(entityGeometry[i], entityMaterial);
-					if (i == 0) entityMesh.rotation.set(0,  40, 0);
-					if (i == 1) entityMesh.rotation.set(0, -40, 0);
+					if (i == 0) entityMesh.rotation.set(0,  Math.PI/4, 0);
+					if (i == 1) entityMesh.rotation.set(0, -Math.PI/4, 0);
+					entityCluster.add(entityMesh);
+				}
+				break;
+
+			// 珊瑚系
+			case 'Coral':
+
+				entityMaterial = new THREE.MeshPhongMaterial({
+
+					color: 0xffffff,
+					depthWrite: false,
+					map: entityTexture[0],
+					side: THREE.DoubleSide,
+					transparent: true
+				});
+
+				// 4枚のジオメトリを交差させる
+				for (let i = 0; i < entityGeometry.length; i++) {
+
+					entityMesh = new THREE.Mesh(entityGeometry[i], entityMaterial);
+					if (i == 0) {
+
+						// カメラ初期位置から見て奥側
+						entityMesh.position.set(0, -24, 42);
+						entityMesh.rotation.set(Math.PI/3, 0, 0);
+					}
+					if (i == 1) {
+
+						// カメラ初期位置から見て右側
+						entityMesh.position.set(42, -24, 0);
+						entityMesh.rotation.set(Math.PI/2, Math.PI/6, -Math.PI/2);
+					}
+					if (i == 2) {
+
+						// カメラ初期位置から見て手前側
+						entityMesh.position.set(0, -24, -42);
+						entityMesh.rotation.set(-Math.PI/3, 0, 0);
+					}
+					if (i == 3) {
+
+						// カメラ初期位置から見て左側
+						entityMesh.position.set(-42, -24, 0);
+						entityMesh.rotation.set(-Math.PI/2, Math.PI/6, Math.PI/2);
+					}
 					entityCluster.add(entityMesh);
 				}
 				break;
@@ -655,6 +764,36 @@ export default class Entity {
 
 				entityMesh = new THREE.Mesh(ctrlKey ? entityGeometry[0] : entityGeometry[1], entityMaterial);
 				entityMesh.position.y = ctrlKey ? this._blockSize / 4 : -(this._blockSize / 4);
+				entityCluster.add(entityMesh);
+				break;
+
+			// カーペット
+			case 'Carpet':
+
+				entityMaterial = new THREE.MeshPhongMaterial({
+
+					color: 0xffffff,
+					map: entityTexture[0],
+					transparent: false
+				});
+
+				entityMesh = new THREE.Mesh(entityGeometry[0], entityMaterial);
+				entityMesh.position.y = -(this._blockSize / 2) + (this._blockSize / 36);
+				entityCluster.add(entityMesh);
+				break;
+
+			// 感圧板
+			case 'Pressure':
+
+				entityMaterial = new THREE.MeshPhongMaterial({
+
+					color: 0xcccccc,
+					map: entityTexture[0],
+					transparent: false
+				});
+
+				entityMesh = new THREE.Mesh(entityGeometry[0], entityMaterial);
+				entityMesh.position.y = -(this._blockSize / 2) + (this._blockSize / 36);
 				entityCluster.add(entityMesh);
 				break;
 		}
